@@ -354,6 +354,24 @@
       "quickSearch": 1,
       "filterable": 1
     },
+        {
+      "key": "河豚",
+      "name": "河豚 | 4K",
+      "type": 3,
+      "api": "https://raw.githubusercontent.com/WT123-Code/hz/main/河豚免扫4k.py",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1
+    },
+        {
+      "key": "下饭",
+      "name": "下饭| 4K",
+      "type": 3,
+      "api": "https://raw.githubusercontent.com/WT123-Code/hz/main/剧下饭免扫4k.py",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1
+    },
     {
       "key": "腾讯视频",
       "name": "📺️腾讯 | 官方",
