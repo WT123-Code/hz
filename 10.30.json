@@ -1,5 +1,5 @@
 {
-    "spider": "https://mpimg.cn/down.php/d2f26a82524419fc83ca5baf8e34e5f2.jar,__JAR_RAW_URL__",
+    "spider": "https://raw.githubusercontent.com/WT123-Code/newbox/main/10.30.jar",
     "wallpaper": "http://127.0.0.1:9978/proxy?do=wallpaper",
     "logo": "",
     "danmaku": "http://127.0.0.1:9978/proxy?do=danmaku&name={name}&episode={episode}",
