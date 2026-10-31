@@ -1,5 +1,5 @@
 {
-  "spider": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar",
+  "spider": "https://raw.githubusercontent.com/WT123-Code/hz/main/moyu.jar",
   "wallpaper": "http://127.0.0.1:9978/proxy?do=wallpaper",
   "logo": "",
   "danmaku": "http://127.0.0.1:9978/proxy?do=danmaku&name={name}&episode={episode}",
@@ -9,7 +9,8 @@
       "name": "豆瓣",
       "type": 3,
       "api": "csp_Douban",
-      "searchable": 0
+      "searchable": 0,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "peizhi",
@@ -22,20 +23,23 @@
       "style": {
         "type": "rect",
         "ratio": 1.618
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "本地",
       "name": "本地视频",
       "type": 3,
-      "api": "csp_LocalFile"
+      "api": "csp_LocalFile",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "预告",
       "name": "新片 | 预告",
       "type": 3,
       "api": "csp_YGP",
-      "searchable": 0
+      "searchable": 0,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "小霸王本地",
@@ -50,7 +54,8 @@
         "type": "rect",
         "ratio": 0.75
       },
-      "timeout": 60
+      "timeout": 60,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "玩偶",
@@ -69,7 +74,8 @@
           "https://woggpan.xxooo.cf"
         ]
       },
-      "timeout": 60
+      "timeout": 60,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "快映",
@@ -86,7 +92,8 @@
           "http://38.76.197.172:12521"
         ]
       },
-      "timeout": 60
+      "timeout": 60,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "木偶",
@@ -105,7 +112,8 @@
           "https://www.muou.asia"
         ]
       },
-      "timeout": 60
+      "timeout": 60,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "闪电",
@@ -121,7 +129,8 @@
           "http://shandian.blog"
         ]
       },
-      "timeout": 60
+      "timeout": 60,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "蜡笔",
@@ -140,7 +149,8 @@
           "http://www.tvpanpan.site"
         ]
       },
-      "timeout": 60
+      "timeout": 60,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "多多",
@@ -158,7 +168,8 @@
           "https://tv.214521.xyz"
         ]
       },
-      "timeout": 60
+      "timeout": 60,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "八零",
@@ -176,7 +187,8 @@
           "https://woog.430520.xyz"
         ]
       },
-      "timeout": 60
+      "timeout": 60,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "虎斑",
@@ -193,7 +205,8 @@
           "http://38.76.197.172:16969"
         ]
       },
-      "timeout": 60
+      "timeout": 60,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "花卷",
@@ -210,7 +223,8 @@
           "https://www.huanjuanwp.shop"
         ]
       },
-      "timeout": 60
+      "timeout": 60,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "种子",
@@ -227,7 +241,8 @@
           "http://104.243.25.80"
         ]
       },
-      "timeout": 60
+      "timeout": 60,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "搬运",
@@ -237,7 +252,8 @@
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
-      "timeout": 60
+      "timeout": 60,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "指南",
@@ -252,7 +268,8 @@
           "https://4kzn.cc"
         ]
       },
-      "timeout": 60
+      "timeout": 60,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "小丑",
@@ -267,7 +284,8 @@
           "https://4kxc.com"
         ]
       },
-      "timeout": 60
+      "timeout": 60,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "茉莉",
@@ -283,7 +301,8 @@
           "https://www.hdmoli.pro"
         ]
       },
-      "timeout": 60
+      "timeout": 60,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "爱盼",
@@ -293,7 +312,8 @@
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
-      "timeout": 60
+      "timeout": 60,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "移动",
@@ -303,7 +323,8 @@
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
-      "timeout": 60
+      "timeout": 60,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "即刻",
@@ -313,7 +334,8 @@
       "searchable": 1,
       "quickSearch": 0,
       "filterable": 0,
-      "timeout": 60
+      "timeout": 60,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "双星",
@@ -323,7 +345,8 @@
       "searchable": 1,
       "quickSearch": 0,
       "filterable": 0,
-      "timeout": 60
+      "timeout": 60,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "枫叶4K",
@@ -333,7 +356,8 @@
       "searchable": 1,
       "changeable": 1,
       "quickSearch": 1,
-      "filterable": 1
+      "filterable": 1,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "山楂4K",
@@ -343,7 +367,8 @@
       "searchable": 1,
       "changeable": 1,
       "quickSearch": 1,
-      "filterable": 1
+      "filterable": 1,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "山有木兮",
@@ -352,7 +377,8 @@
       "api": "https://raw.githubusercontent.com/WT123-Code/hz/main/山有木兮.py",
       "searchable": 1,
       "quickSearch": 1,
-      "filterable": 1
+      "filterable": 1,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "河豚",
@@ -361,7 +387,8 @@
       "api": "https://raw.githubusercontent.com/WT123-Code/hz/main/河豚免扫4K.py",
       "searchable": 1,
       "quickSearch": 1,
-      "filterable": 1
+      "filterable": 1,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "下饭",
@@ -370,7 +397,8 @@
       "api": "https://raw.githubusercontent.com/WT123-Code/hz/main/剧下饭免扫4K.py",
       "searchable": 1,
       "quickSearch": 1,
-      "filterable": 1
+      "filterable": 1,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "bl",
@@ -380,8 +408,7 @@
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
-      "ext": "Acf4n+FgSJlps29HFqyt+ECG19M+iLto9fxzwikME3YOnRFfaIWR3C9CZF+/o2jh4T6D4bOxYn8j775k1TLOsSHsG7tlKBqeENs8VhcKgZS5u7Gb8/LXYDutl7a21jsXLw==",
-      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/moyu.jar"
+      "ext": "Acf4n+FgSJlps29HFqyt+ECG19M+iLto9fxzwikME3YOnRFfaIWR3C9CZF+/o2jh4T6D4bOxYn8j775k1TLOsSHsG7tlKBqeENs8VhcKgZS5u7Gb8/LXYDutl7a21jsXLw=="
     },
     {
       "key": "jz",
@@ -391,8 +418,7 @@
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
-      "ext": "AUeoWDxT/Sza6llGoZlPCelc2ZgSZNx8QBoJAONichQm4mIf8nslnxOIU1wrq2vvzWouK156R9sXK/CRGs6G6fc=",
-      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/moyu.jar"
+      "ext": "AUeoWDxT/Sza6llGoZlPCelc2ZgSZNx8QBoJAONichQm4mIf8nslnxOIU1wrq2vvzWouK156R9sXK/CRGs6G6fc="
     },
     {
       "key": "hy",
@@ -402,8 +428,7 @@
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
-      "ext": "Ae8DpdkJGH5s9XIrvlLd8DvpiYdkSSaoIDmmvofda4Gpr9yX8k0a4w1wNmnu4CZ4Nnh03XkYIwooJ+psbf6P8ZY=",
-      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/moyu.jar"
+      "ext": "Ae8DpdkJGH5s9XIrvlLd8DvpiYdkSSaoIDmmvofda4Gpr9yX8k0a4w1wNmnu4CZ4Nnh03XkYIwooJ+psbf6P8ZY="
     },
     {
       "key": "KaiFan",
@@ -413,8 +438,7 @@
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
-      "ext": "AfLGR2SW/7tjQA3K8Qgg5u7AG1NNWsCVAVxfMv/V44kP5aqzon5weT9IvX2w2KtBeMpAxc+Y0yRLN0eXf6oiuLw=",
-      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/moyu.jar"
+      "ext": "AfLGR2SW/7tjQA3K8Qgg5u7AG1NNWsCVAVxfMv/V44kP5aqzon5weT9IvX2w2KtBeMpAxc+Y0yRLN0eXf6oiuLw="
     },
     {
       "key": "XieHui",
@@ -424,8 +448,7 @@
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
-      "ext": "AWevGJ+A/nEjquOh7v58lbo8oaOgHdJkEu7/lzGApb2ngqWSO16XNPqrmqkozIxiLHvjDaaxs61fWZUIYBZBGgQ=",
-      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/moyu.jar"
+      "ext": "AWevGJ+A/nEjquOh7v58lbo8oaOgHdJkEu7/lzGApb2ngqWSO16XNPqrmqkozIxiLHvjDaaxs61fWZUIYBZBGgQ="
     },
     {
       "key": "FaDai",
@@ -435,8 +458,7 @@
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
-      "ext": "AbjGNiFc0jaPCvOXj2edU7/DIRsvVxb1/2tyMFgaoT8L4eZNchAll5NXn7xBXvEwQvvJ55Odg+IugUeNvfYtPT0=",
-      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/moyu.jar"
+      "ext": "AbjGNiFc0jaPCvOXj2edU7/DIRsvVxb1/2tyMFgaoT8L4eZNchAll5NXn7xBXvEwQvvJ55Odg+IugUeNvfYtPT0="
     },
     {
       "key": "HuangYou",
@@ -446,8 +468,7 @@
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
-      "ext": "AVVlrRajtr+i42Q1MBwsMRSoNuckBLnPEocZVkZik+88465w0JZsKWJodTFxYL+RSsAVU8X8lJ4M8E2Xfw0GLYA=",
-      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/moyu.jar"
+      "ext": "AVVlrRajtr+i42Q1MBwsMRSoNuckBLnPEocZVkZik+88465w0JZsKWJodTFxYL+RSsAVU8X8lJ4M8E2Xfw0GLYA="
     },
     {
       "key": "SuiYuan",
@@ -457,8 +478,7 @@
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
-      "ext": "AVjYSEtEaHF+eS3NOrCubcE3f755psW6EFCg2THWgHt0uWkH1CXlE/UJ2zqohcEULrn/AlZOVuzN4V4Wt0EY3bY=",
-      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/moyu.jar"
+      "ext": "AVjYSEtEaHF+eS3NOrCubcE3f755psW6EFCg2THWgHt0uWkH1CXlE/UJ2zqohcEULrn/AlZOVuzN4V4Wt0EY3bY="
     },
     {
       "key": "TangPing",
@@ -468,8 +488,7 @@
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
-      "ext": "AUVdS2Q3l8yS7JhOkMXYE1ntTJ/61k8MzQmaQMqSZBbUKDBy/udxVLxvXhNDvifvbkVTEawL3m2p9hhwbTibxnA=",
-      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/moyu.jar"
+      "ext": "AUVdS2Q3l8yS7JhOkMXYE1ntTJ/61k8MzQmaQMqSZBbUKDBy/udxVLxvXhNDvifvbkVTEawL3m2p9hhwbTibxnA="
     },
     {
       "key": "LaiChuang",
@@ -479,8 +498,7 @@
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
-      "ext": "AVlJ4J+D/3DMzdKAQnig/9ckDSQU7H+PyPyOE/q+m7eGkaZ9YjDkVXgq17TjYCHuvJa0UinsvgwPiAVd51fKuA0=",
-      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/moyu.jar"
+      "ext": "AVlJ4J+D/3DMzdKAQnig/9ckDSQU7H+PyPyOE/q+m7eGkaZ9YjDkVXgq17TjYCHuvJa0UinsvgwPiAVd51fKuA0="
     },
     {
       "key": "bandeng",
@@ -490,8 +508,7 @@
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
-      "ext": "ASH3HkV5cxNhNR9+uQe0sWYxUWHzEywHT3rcYOx+wsK4Jx+sBd0qMO9kFic1Rc1osAMsAsTlMgabd1Ky2kmzQ/Y=",
-      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/moyu.jar"
+      "ext": "ASH3HkV5cxNhNR9+uQe0sWYxUWHzEywHT3rcYOx+wsK4Jx+sBd0qMO9kFic1Rc1osAMsAsTlMgabd1Ky2kmzQ/Y="
     },
     {
       "key": "mandian",
@@ -501,8 +518,7 @@
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
-      "ext": "AU08qHcswQQ9GUNUYMdLgyq8HzPCy1gUxku0nrQgOwfSJrT0LgwdrXoWPVK+x4n+QQ8KbuVPdzA5/U2YL7fQmH8=",
-      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/moyu.jar"
+      "ext": "AU08qHcswQQ9GUNUYMdLgyq8HzPCy1gUxku0nrQgOwfSJrT0LgwdrXoWPVK+x4n+QQ8KbuVPdzA5/U2YL7fQmH8="
     },
     {
       "key": "ZhiWo",
@@ -512,8 +528,7 @@
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
-      "ext": "AX1Vvf8Pdib7pGaiG52YtJfoH7J54wUt+/pfCo7QJrhIKMK6XXxVbbJG3pw3yHdOUVcBrTyo1EmM8M91pY30AUE=",
-      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/moyu.jar"
+      "ext": "AX1Vvf8Pdib7pGaiG52YtJfoH7J54wUt+/pfCo7QJrhIKMK6XXxVbbJG3pw3yHdOUVcBrTyo1EmM8M91pY30AUE="
     },
     {
       "key": "xiaozuo",
@@ -523,8 +538,7 @@
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
-      "ext": "ARRavWPOi7W2Usqhe54R+NW2sQ6CCBOYajU9bIz/WVyF75mrlP6UsAbts+o//eKOpDWbngYFUGIJGTa56hr3Hk0=",
-      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/moyu.jar"
+      "ext": "ARRavWPOi7W2Usqhe54R+NW2sQ6CCBOYajU9bIz/WVyF75mrlP6UsAbts+o//eKOpDWbngYFUGIJGTa56hr3Hk0="
     },
     {
       "key": "KanJu",
@@ -538,8 +552,7 @@
       "ext": {
         "site": "https://kanju.ai",
         "playname": "ly"
-      },
-      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/moyu.jar"
+      }
     },
     {
       "key": "凝光",
@@ -549,8 +562,7 @@
       "searchable": 1,
       "filterable": 1,
       "changeable": 0,
-      "ext": "AbHckdJkP3IQGfQAetQhutxB3VjOrW67VMoOo8mAdc9grkAgbVv7bUgWbHKHHabksz8nJklfQrFKo56OYXkhQ936PGDo/33ZU4cnkGGALgUlbfxoJoT/TJ/KZwRlYHiajg==",
-      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/moyu.jar"
+      "ext": "AbHckdJkP3IQGfQAetQhutxB3VjOrW67VMoOo8mAdc9grkAgbVv7bUgWbHKHHabksz8nJklfQrFKo56OYXkhQ936PGDo/33ZU4cnkGGALgUlbfxoJoT/TJ/KZwRlYHiajg=="
     },
     {
       "key": "素笺",
@@ -560,16 +572,14 @@
       "searchable": 1,
       "filterable": 1,
       "changeable": 0,
-      "ext": "Aaf7w5/rzYE9yZfGXQS8eAKVq3W9pLaxvlvi6ZGZLpR8O3YSm7sXFS22QD04sh5rKbTiwymnUVmJuU564xlueIWO8sp8Q1lhlLJThJy5Yert",
-      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/moyu.jar"
+      "ext": "Aaf7w5/rzYE9yZfGXQS8eAKVq3W9pLaxvlvi6ZGZLpR8O3YSm7sXFS22QD04sh5rKbTiwymnUVmJuU564xlueIWO8sp8Q1lhlLJThJy5Yert"
     },
     {
       "key": "长泽",
       "name": "😗┆长泽┆4K",
       "type": 3,
       "api": "csp_App88",
-      "ext": "AbUqYzi9KxmcqEBrph2PStNUDPxq/XlzxDHJ/Ho29gXr8NgMOEJGFKBsrdYb5xNb+w+Xaj3203DI9YWo5wBv6zGULMNZneW1yESyfC1/S1BM",
-      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/moyu.jar"
+      "ext": "AbUqYzi9KxmcqEBrph2PStNUDPxq/XlzxDHJ/Ho29gXr8NgMOEJGFKBsrdYb5xNb+w+Xaj3203DI9YWo5wBv6zGULMNZneW1yESyfC1/S1BM"
     },
     {
       "key": "云岫",
@@ -579,43 +589,47 @@
       "searchable": 1,
       "filterable": 1,
       "changeable": 0,
-      "ext": "Af9dBxsQCjGtIKQ47cJEAnzHtmsGI04C7DCRpNBZk7hshaMWsb76puB4aGapQk4JgYpBV2BKnAQ6GRcUI+/vzYduXc8ItUUvkHR/+LR3Y+NT",
-      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/moyu.jar"
+      "ext": "Af9dBxsQCjGtIKQ47cJEAnzHtmsGI04C7DCRpNBZk7hshaMWsb76puB4aGapQk4JgYpBV2BKnAQ6GRcUI+/vzYduXc8ItUUvkHR/+LR3Y+NT"
     },
     {
       "key": "腾讯视频",
       "name": "📺️腾讯 | 官方",
       "type": 3,
       "api": "https://easy888.dpdns.org/js/drpy2.min.js",
-      "ext": "https://easy888.dpdns.org/lib/腾讯.js"
+      "ext": "https://easy888.dpdns.org/lib/腾讯.js",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "爱奇艺视频",
       "name": "📺️爱奇艺 | 官方",
       "type": 3,
       "api": "https://easy888.dpdns.org/js/drpy2.min.js",
-      "ext": "https://easy888.dpdns.org/lib/爱奇艺.js"
+      "ext": "https://easy888.dpdns.org/lib/爱奇艺.js",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "优酷视频",
       "name": "📺️优酷 | 官方",
       "type": 3,
       "api": "https://easy888.dpdns.org/js/drpy2.min.js",
-      "ext": "https://easy888.dpdns.org/lib/优酷.js"
+      "ext": "https://easy888.dpdns.org/lib/优酷.js",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "芒果视频",
       "name": "📺️芒果 | 官方",
       "type": 3,
       "api": "https://easy888.dpdns.org/js/drpy2.min.js",
-      "ext": "https://easy888.dpdns.org/lib/芒果.js"
+      "ext": "https://easy888.dpdns.org/lib/芒果.js",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "哔哩哔哩",
       "name": "📺️B站 | 官方",
       "type": 3,
       "api": "https://easy888.dpdns.org/js/drpy2.min.js",
-      "ext": "https://easy888.dpdns.org/lib/B站.js"
+      "ext": "https://easy888.dpdns.org/lib/B站.js",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "八戒影视",
@@ -624,7 +638,8 @@
       "api": "csp_AppBJ",
       "searchable": 1,
       "quickSearch": 1,
-      "changeable": 1
+      "changeable": 1,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "热播影视",
@@ -636,7 +651,8 @@
       "filterable": 0,
       "ext": {
         "url": "http://v.rbotv.cn"
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "一起影视",
@@ -645,7 +661,8 @@
       "api": "csp_AppYQK",
       "searchable": 1,
       "quickSearch": 1,
-      "filterable": 0
+      "filterable": 0,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "咕噜",
@@ -654,7 +671,8 @@
       "api": "csp_Gulu",
       "searchable": 1,
       "quickSearch": 1,
-      "filterable": 1
+      "filterable": 1,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "布布",
@@ -671,7 +689,8 @@
         "sk": "WEB-50a8e9c84a1dc05669a692ded99a2dac46527229e607a7be15db88dbc59059d1",
         "client": "8f3d2a1c7b6e5d4c9a0b1f2e3d4c5b6a",
         "sign": "ddtvf65f3a83d6d9ad6f"
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "大马猴影视",
@@ -687,13 +706,15 @@
         "pkg": "com.damahou.tv",
         "sk": "SK-woniu-thanks",
         "ver": "1"
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "韩圈",
       "name": "韩圈 | 免扫4K",
       "type": 3,
-      "api": "csp_Hxq"
+      "api": "csp_Hxq",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "剧圈99",
@@ -707,7 +728,8 @@
         "package": "com.qingtangxiaozhuan.xyz",
         "buildNumber": "2002",
         "buildSignature": "054FA8DDA4319C6B6A9B954CA5777541C993F00B1B0BD4394F7EDE48184C4594"
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "半日99",
@@ -721,7 +743,8 @@
         "package": "com.yf.lelian",
         "buildNumber": "2001",
         "buildSignature": "A40DA80A59D170CAA950CF15C18C454D47A39B26989D8B640ECD745BA71BF5DC"
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "天堂",
@@ -741,7 +764,8 @@
         "site": "https://dyttandroid04-1372779881.cos.ap-shanghai.myqcloud.com/app_dyttandroid.txt",
         "version": "3.0.0.7",
         "decrypt": "0"
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "苹果",
@@ -762,7 +786,8 @@
         "site": "https://xpgandroid03-1372779881.cos.ap-beijing.myqcloud.com/app_xpg_android.txt",
         "version": "1.0.0.3",
         "decrypt": "0"
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "橘汁",
@@ -782,7 +807,8 @@
         "site": "https://123-1349250429.cos.ap-shanghai.myqcloud.com/app.txt",
         "version": "3.0.7.0",
         "decrypt": "1"
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "华谊",
@@ -802,7 +828,8 @@
         "site": "https://1851089669.cdn.123clouddisk.com/1851089669/44107727",
         "version": "6.0.0.1",
         "decrypt": "0"
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "苹果",
@@ -822,7 +849,8 @@
         "site": "https://xpgandroid03-1372779881.cos.ap-beijing.myqcloud.com/app_xpg_android.txt",
         "version": "1.0.0.3",
         "decrypt": "0"
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "蓝鹰",
@@ -837,7 +865,8 @@
         "dataIv": "hagYExMdMkeWfemK",
         "init": "initV122",
         "ua": "okhttp/3.10.0"
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "蓝鸟",
@@ -852,7 +881,8 @@
         "dataIv": "oW5UxZ5kWVr1DI69",
         "init": "initV122",
         "ua": "okhttp/3.10.0"
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "魔方",
@@ -865,7 +895,8 @@
         "url": "https://www.douy32mf.top",
         "dataKey": "1234567887654321",
         "dataIv": "1234567887654321"
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "王子",
@@ -878,7 +909,8 @@
         "url": "https://app.95112475.xyz",
         "dataKey": "5a9w6x58dsq6z3a6",
         "dataIv": "5a9w6x58dsq6z3a6"
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "茉莉",
@@ -891,7 +923,8 @@
         "site": "https://allinadmin.oss-cn-hangzhou.aliyuncs.com/bk/9.txt",
         "dataKey": "88689667dce61725",
         "dataIv": "88689667dce61725"
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "哔哩合集",
@@ -909,7 +942,8 @@
       "ext": {
         "n": "哔哩合集",
         "cookie": "http://127.0.0.1:9978/file/TVBox/bili_cookie.txt"
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "哔哩视频",
@@ -926,48 +960,55 @@
       },
       "ext": {
         "cookie": "http://127.0.0.1:9978/file/TVBox/bili_cookie.txt"
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "三六零",
       "name": "三六零 | 视频",
       "type": 3,
-      "api": "csp_SP360"
+      "api": "csp_SP360",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "七猫短剧",
       "name": "七猫 | 短剧",
       "type": 3,
       "api": "csp_ShortQimao",
-      "genre": "shortdrama"
+      "genre": "shortdrama",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "河马短剧",
       "name": "河马 | 短剧",
       "type": 3,
       "api": "csp_ShortHema",
-      "genre": "shortdrama"
+      "genre": "shortdrama",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "围观短剧",
       "name": "围观 | 短剧",
       "type": 3,
       "api": "csp_ShortWeiguan",
-      "genre": "shortdrama"
+      "genre": "shortdrama",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "好看短剧",
       "name": "好看 | 短剧",
       "type": 3,
       "api": "csp_ShortHaokan",
-      "genre": "shortdrama"
+      "genre": "shortdrama",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "星芽短剧",
       "name": "星芽 | 短剧",
       "type": 3,
       "api": "csp_ShortXingya",
-      "genre": "shortdrama"
+      "genre": "shortdrama",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "果果短剧",
@@ -980,32 +1021,37 @@
         "分类": "重生$1#穿越$2#爽剧$3#言情$4#都市$5#古装$6#悬疑$7#剧情$8",
         "分类url": "https://www.mochadj.com/i/{cateId}-{catePg}.html"
       },
-      "genre": "shortdrama"
+      "genre": "shortdrama",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "飞娱影视",
       "name": "飞娱 | 影视",
       "type": 3,
-      "api": "csp_Feiyu"
+      "api": "csp_Feiyu",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "旺旺影视",
       "name": "旺旺 | 影视",
       "type": 3,
       "api": "csp_Wwys",
-      "ext": "https://vip.wwgz.cn:5200"
+      "ext": "https://vip.wwgz.cn:5200",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "独播影视",
       "name": "独播 | 影视",
       "type": 3,
-      "api": "csp_Duboku"
+      "api": "csp_Duboku",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "瓜子影视",
       "name": "瓜子 | 影视",
       "type": 3,
-      "api": "csp_Gz360"
+      "api": "csp_Gz360",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "厂长影视",
@@ -1015,28 +1061,32 @@
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
-      "ext": "https://cz01.vip"
+      "ext": "https://cz01.vip",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "金牌影视",
       "name": "金牌 | 影视",
       "type": 3,
       "api": "csp_Jpys",
-      "ext": "https://y2s52n7.com,https://m.hkybqufgh.com,https://m.sizhengxt.com,https://m.9zhoukj.com,https://m.sizhengxt.com,https://m.jiabaide.cn"
+      "ext": "https://y2s52n7.com,https://m.hkybqufgh.com,https://m.sizhengxt.com,https://m.9zhoukj.com,https://m.sizhengxt.com,https://m.jiabaide.cn",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "骚火影视",
       "name": "骚火 | 影视",
       "type": 3,
       "api": "csp_SaoHuo",
-      "ext": "https://shdy5.us"
+      "ext": "https://shdy5.us",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "枫叶影视",
       "name": "枫叶 | 影视",
       "type": 3,
       "api": "csp_FengYe",
-      "ext": "https://www.vip1949.com/"
+      "ext": "https://www.vip1949.com/",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "爱看机器人",
@@ -1045,7 +1095,8 @@
       "api": "csp_Ikanbot",
       "searchable": 1,
       "quickSearch": 1,
-      "filterable": 1
+      "filterable": 1,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "面包影视",
@@ -1058,7 +1109,8 @@
         "分类url": "https://v.aiwule.com/vodshow/{cateId}-{area}-{by}-{class}-{lang}-{letter}---{catePg}---{year}.html",
         "分类": "电影$20#电视剧$21#动漫$23#综艺$22#短剧$47",
         "简介": "简介：&&"
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "1905",
@@ -1067,7 +1119,8 @@
       "api": "csp_Web1905",
       "searchable": 1,
       "quickSearch": 0,
-      "filterable": 0
+      "filterable": 0,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "番社动漫",
@@ -1094,7 +1147,8 @@
       },
       "style": {
         "type": "list"
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "双星99",
@@ -1109,21 +1163,24 @@
         "package": "com.yingfu.mobile.android.pgsp",
         "buildNumber": "2003",
         "buildSignature": "054FA8DDA4319C6B6A9B954CA5777541C993F00B1B0BD4394F7EDE48184C4594"
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "喵呜动漫",
       "name": "喵呜 | 动漫",
       "type": 3,
       "searchable": 1,
-      "api": "csp_MiaoWu"
+      "api": "csp_MiaoWu",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "魔都动漫",
       "name": "魔都 | 动漫",
       "type": 3,
       "searchable": 1,
-      "api": "csp_MoDu"
+      "api": "csp_MoDu",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "咕咕动漫",
@@ -1135,31 +1192,36 @@
         "url": "https://www.gugu3.com",
         "dataKey": "nKfZ8KX6JTNWRzTD",
         "dataIv": "nKfZ8KX6JTNWRzTD"
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "巴士动漫",
       "name": "巴士 | 动漫",
       "type": 3,
-      "api": "csp_AnimeBashi"
+      "api": "csp_AnimeBashi",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "吉里动漫",
       "name": "吉里 | 动漫",
       "type": 3,
-      "api": "csp_AnimeGiri"
+      "api": "csp_AnimeGiri",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "花子动漫",
       "name": "花子 | 动漫",
       "type": 3,
-      "api": "csp_AnimeHuazi"
+      "api": "csp_AnimeHuazi",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "荐片",
       "name": "荐片 | 磁力",
       "api": "csp_JianPian",
-      "type": 3
+      "type": 3,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "New6v",
@@ -1169,7 +1231,8 @@
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
-      "ext": "https://www.xb6v.com"
+      "ext": "https://www.xb6v.com",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "美剧迷",
@@ -1178,7 +1241,8 @@
       "api": "csp_MeijuMi",
       "searchable": 1,
       "quickSearch": 1,
-      "filterable": 1
+      "filterable": 1,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "迅雷吧",
@@ -1188,7 +1252,8 @@
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
-      "ext": "https://xunlei8.me"
+      "ext": "https://xunlei8.me",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "夸克网盘",
@@ -1201,7 +1266,8 @@
       "style": {
         "type": "list",
         "ratio": 1.433
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "UC网盘",
@@ -1214,7 +1280,8 @@
       "style": {
         "type": "list",
         "ratio": 1.433
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "百度网盘",
@@ -1227,7 +1294,8 @@
       "style": {
         "type": "list",
         "ratio": 1.433
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "迅雷云盘",
@@ -1240,7 +1308,8 @@
       "style": {
         "type": "list",
         "ratio": 1.433
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "阿里云盘",
@@ -1253,7 +1322,8 @@
       "style": {
         "type": "list",
         "ratio": 1.433
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "光鸭网盘",
@@ -1266,7 +1336,8 @@
       "style": {
         "type": "list",
         "ratio": 1.433
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "天翼云盘",
@@ -1279,7 +1350,8 @@
       "style": {
         "type": "list",
         "ratio": 1.433
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "123云盘",
@@ -1292,7 +1364,8 @@
       "style": {
         "type": "list",
         "ratio": 1.433
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "88看球",
@@ -1304,7 +1377,8 @@
       "changeable": 0,
       "style": {
         "type": "list"
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "飞球体育",
@@ -1316,7 +1390,8 @@
       "changeable": 0,
       "style": {
         "type": "list"
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "瓜子体育",
@@ -1328,7 +1403,8 @@
       "changeable": 0,
       "style": {
         "type": "list"
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "咖啡体育",
@@ -1340,7 +1416,8 @@
       "changeable": 0,
       "style": {
         "type": "list"
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "球通体育",
@@ -1352,7 +1429,8 @@
       "changeable": 0,
       "style": {
         "type": "list"
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "呦呦DJ",
@@ -1364,7 +1442,8 @@
       "changeable": 0,
       "style": {
         "type": "list"
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "蜻蜓FM",
@@ -1376,7 +1455,8 @@
       "changeable": 0,
       "style": {
         "type": "list"
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "听友听书",
@@ -1388,7 +1468,8 @@
       "changeable": 0,
       "style": {
         "type": "list"
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "堇夏听书",
@@ -1401,7 +1482,8 @@
       "ext": "https://m.ting15.com",
       "style": {
         "type": "list"
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "博看听书",
@@ -1413,7 +1495,8 @@
       "changeable": 0,
       "style": {
         "type": "list"
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "戏曲多多",
@@ -1425,7 +1508,8 @@
       "changeable": 0,
       "style": {
         "type": "list"
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "童趣",
@@ -1438,7 +1522,8 @@
       "style": {
         "type": "rect",
         "ratio": 1.618
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "兔小贝",
@@ -1451,7 +1536,8 @@
       "style": {
         "type": "rect",
         "ratio": 1.618
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "贝乐虎",
@@ -1464,7 +1550,8 @@
       "style": {
         "type": "rect",
         "ratio": 1.618
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "哔哩哔哩音乐",
@@ -1481,7 +1568,8 @@
       "style": {
         "type": "rect",
         "ratio": 1.618
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "哔哩哔哩听书",
@@ -1498,7 +1586,8 @@
       "style": {
         "type": "rect",
         "ratio": 1.618
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "哔哩哔哩相声",
@@ -1515,7 +1604,8 @@
       "style": {
         "type": "rect",
         "ratio": 1.618
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "哔哩哔哩小品",
@@ -1532,7 +1622,8 @@
       "style": {
         "type": "rect",
         "ratio": 1.618
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "哔哩哔哩戏曲",
@@ -1549,7 +1640,8 @@
       "style": {
         "type": "rect",
         "ratio": 1.618
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "少儿教育",
@@ -1566,7 +1658,8 @@
       "style": {
         "type": "rect",
         "ratio": 1.618
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "小学课堂",
@@ -1583,7 +1676,8 @@
       "style": {
         "type": "rect",
         "ratio": 1.618
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "初中课堂",
@@ -1600,7 +1694,8 @@
       "style": {
         "type": "rect",
         "ratio": 1.618
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "高中课堂",
@@ -1617,7 +1712,8 @@
       "style": {
         "type": "rect",
         "ratio": 1.618
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "急救教学",
@@ -1631,7 +1727,8 @@
         "type": "rect",
         "ratio": 3.8
       },
-      "gridview": "0-0-4.1"
+      "gridview": "0-0-4.1",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "养生堂",
@@ -1644,7 +1741,8 @@
       "style": {
         "type": "rect",
         "ratio": 1.618
-      }
+      },
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     }
   ],
   "lives": [
