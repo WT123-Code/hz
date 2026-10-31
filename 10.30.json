@@ -1,5 +1,5 @@
 {
-  "spider": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar",
+  "spider": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar,https://raw.githubusercontent.com/WT123-Code/hz/main/moyu.jar",
   "wallpaper": "http://127.0.0.1:9978/proxy?do=wallpaper",
   "logo": "",
   "danmaku": "http://127.0.0.1:9978/proxy?do=danmaku&name={name}&episode={episode}",
