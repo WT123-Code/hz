@@ -358,36 +358,36 @@
       "key": "腾讯视频",
       "name": "📺️腾讯 | 官方",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/WT123-Code/hz/main/drpy2.min.js",
-      "ext": "https://gh-proxy.com/https://raw.githubusercontent.com/WT123-Code/hz/main/tencent.js"
+      "api": "https://easy888.dpdns.org/js/drpy2.min.js",
+      "ext": "https://easy888.dpdns.org/lib/腾讯.js"
     },
     {
       "key": "爱奇艺视频",
       "name": "📺️爱奇艺 | 官方",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/WT123-Code/hz/main/drpy2.min.js",
-      "ext": "https://gh-proxy.com/https://raw.githubusercontent.com/WT123-Code/hz/main/iqiyi.js"
+      "api": "https://easy888.dpdns.org/js/drpy2.min.js",
+      "ext": "https://easy888.dpdns.org/lib/爱奇艺.js"
     },
     {
       "key": "优酷视频",
       "name": "📺️优酷 | 官方",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/WT123-Code/hz/main/drpy2.min.js",
-      "ext": "https://gh-proxy.com/https://raw.githubusercontent.com/WT123-Code/hz/main/youku.js"
+      "api": "https://easy888.dpdns.org/js/drpy2.min.js",
+      "ext": "https://easy888.dpdns.org/lib/优酷.js"
     },
     {
       "key": "芒果视频",
       "name": "📺️芒果 | 官方",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/WT123-Code/hz/main/drpy2.min.js",
-      "ext": "https://gh-proxy.com/https://raw.githubusercontent.com/WT123-Code/hz/main/mango.js"
+      "api": "https://easy888.dpdns.org/js/drpy2.min.js",
+      "ext": "https://easy888.dpdns.org/lib/芒果.js"
     },
     {
       "key": "哔哩哔哩",
       "name": "📺️B站 | 官方",
       "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/WT123-Code/hz/main/drpy2.min.js",
-      "ext": "https://gh-proxy.com/https://raw.githubusercontent.com/WT123-Code/hz/main/bilibili.js"
+      "api": "https://easy888.dpdns.org/js/drpy2.min.js",
+      "ext": "https://easy888.dpdns.org/lib/B站.js"
     },
     {
       "key": "八戒影视",
