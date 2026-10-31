@@ -401,6 +401,126 @@
       "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
+      "key": "TVB云播app",
+      "name": "TVB | 免扫4K",
+      "type": 3,
+      "api": "https://raw.githubusercontent.com/WT123-Code/hz/main/TVB免扫4K.py",
+      "searchable": 1,
+      "quickSearch": 1,
+      "changeable": 1,
+      "filterable": 1
+    },
+    {
+      "name": "嗷呜①线 | 秒播",
+      "key": "AppV7Fz",
+      "type": 3,
+      "api": "csp_AppV7Amns",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/AppV7.jar",
+      "searchable": 1,
+      "quickSearch": 1,
+      "changeable": 1,
+      "ext": "AppV7Fz"
+    },
+    {
+      "name": "嗷呜②线 | 秒播",
+      "key": "AppV7Xy",
+      "type": 3,
+      "api": "csp_AppV7Amns",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/AppV7.jar",
+      "searchable": 1,
+      "quickSearch": 1,
+      "changeable": 1,
+      "ext": "AppV7Xy"
+    },
+    {
+      "name": "嗷呜③线 | 秒播",
+      "key": "AppV7Zjdr",
+      "type": 3,
+      "api": "csp_AppV7Amns",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/AppV7.jar",
+      "searchable": 1,
+      "quickSearch": 1,
+      "changeable": 1,
+      "ext": "AppV7Zjdr"
+    },
+    {
+      "name": "嗷呜④线 | 秒播",
+      "key": "AppV7Xyz",
+      "type": 3,
+      "api": "csp_AppV7Amns",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/AppV7.jar",
+      "searchable": 1,
+      "quickSearch": 1,
+      "changeable": 1,
+      "ext": "AppV7Xyz"
+    },
+    {
+      "name": "嗷呜⑤线 | 秒播",
+      "key": "AppV7Xnm",
+      "type": 3,
+      "api": "csp_AppV7Amns",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/AppV7.jar",
+      "searchable": 1,
+      "quickSearch": 1,
+      "changeable": 1,
+      "ext": "AppV7Xnm"
+    },
+    {
+      "name": "嗷呜⑥线 | 秒播",
+      "key": "AppV7Mtq",
+      "type": 3,
+      "api": "csp_AppV7Amns",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/AppV7.jar",
+      "searchable": 1,
+      "quickSearch": 1,
+      "changeable": 1,
+      "ext": "AppV7Mtq"
+    },
+    {
+      "name": "嗷呜⑦线 | 秒播",
+      "key": "AppV7Llq",
+      "type": 3,
+      "api": "csp_AppV7Amns",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/AppV7.jar",
+      "searchable": 1,
+      "quickSearch": 1,
+      "changeable": 1,
+      "ext": "AppV7Llq"
+    },
+    {
+      "name": "嗷呜⑧线 | 秒播",
+      "key": "AppV7Xsz",
+      "type": 3,
+      "api": "csp_AppV7Amns",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/AppV7.jar",
+      "searchable": 1,
+      "quickSearch": 1,
+      "changeable": 1,
+      "ext": "AppV7Xsz"
+    },
+    {
+      "name": "嗷呜⑨线 | 秒播",
+      "key": "AppV7Xhr",
+      "type": 3,
+      "api": "csp_AppV7Amns",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/AppV7.jar",
+      "searchable": 1,
+      "quickSearch": 1,
+      "changeable": 1,
+      "ext": "AppV7Xhr"
+    },
+    {
+      "name": "嗷呜⑩线 | 秒播",
+      "key": "AppV7Dsx",
+      "type": 3,
+      "api": "csp_AppV7Amns",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/AppV7.jar",
+      "searchable": 1,
+      "quickSearch": 1,
+      "changeable": 1,
+      "ext": "AppV7Dsx"
+    },
+    {
       "key": "bl",
       "name": "🤪┆摆烂┆4K",
       "type": 3,
