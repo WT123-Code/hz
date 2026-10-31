@@ -1557,32 +1557,32 @@ class Spider(_BaseSpider):
     def _format_play_url(self, url, headers):
         """v2.3: 统一 URL 格式化、路由决策、解析页识别"""
         if not url:
-            return {"url": "", "parse": 0, "header": headers, "msg": "P1:空URL"}
+            return {"code": 0, "url": "", "parse": 0, "header": headers, "msg": "P1:空URL"}
         url = url.strip()
         if url.startswith("//"):
             url = "https:" + url
         if url.startswith("/") and not url.startswith("http"):
             u = self.host + (url if url.startswith("/api") else "/api" + url)
-            return {"url": u, "parse": 0, "header": headers}
+            return {"code": 1, "url": u, "parse": 0, "header": headers}
         if url.startswith(self.host):
-            return {"url": url, "parse": 0, "header": headers}
+            return {"code": 1, "url": url, "parse": 0, "header": headers}
         if "http" in url:
             ul = url.lower()
             if self._is_parse_page(url):
                 parse_headers = dict(headers)
                 parse_headers.setdefault("Referer", self.host)
-                return {"url": url, "parse": 1, "header": parse_headers}
+                return {"code": 1, "url": url, "parse": 1, "header": parse_headers}
             safe_exts = (".m3u8", ".mp4", ".mkv", ".flv", ".ts")
             if any(ul.endswith(ext) for ext in safe_exts):
-                return {"url": url, "parse": 0, "header": headers}
+                return {"code": 1, "url": url, "parse": 0, "header": headers}
             if any((ext + "?") in ul for ext in safe_exts):
-                return {"url": url, "parse": 0, "header": headers}
+                return {"code": 1, "url": url, "parse": 0, "header": headers}
             ok = self._probe(url, headers, timeout=4)
             if ok is True:
-                return {"url": url, "parse": 0, "header": headers}
+                return {"code": 1, "url": url, "parse": 0, "header": headers}
             # v2.3-fix: 探测超时/不确定时不再盲目走代理(代理接口可能不存在),
             # 直接交壳子尝试直链; 多数 CDN 不支持 HEAD/Range 会被误判, 但壳子能播
-            return {"url": url, "parse": 0, "header": headers}
+            return {"code": 1, "url": url, "parse": 0, "header": headers}
         return {"url": url, "parse": 0, "header": headers}
 
     def playerContent(self, flag, id, vipFlags=None):
@@ -1611,7 +1611,7 @@ class Spider(_BaseSpider):
             direct = self._resolve_play_url(lid)
 
         if not direct:
-            return {"url": "", "parse": 0, "header": headers, "msg": "P0:解析失败 " + self._diag_v}
+            return {"code": 0, "url": "", "parse": 0, "header": headers, "msg": "P0:解析失败 " + self._diag_v}
 
         # 3. 写入缓存
         self._play_cache[lid] = (time.time(), direct)

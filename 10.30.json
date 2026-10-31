@@ -355,6 +355,41 @@
       "filterable": 1
     },
     {
+      "key": "腾讯视频",
+      "name": "📺️腾讯 | 官方",
+      "type": 3,
+      "api": "https://raw.githubusercontent.com/WT123-Code/hz/main/drpy2.min.js",
+      "ext": "https://raw.githubusercontent.com/WT123-Code/hz/main/腾讯.js"
+    },
+    {
+      "key": "爱奇艺视频",
+      "name": "📺️爱奇艺 | 官方",
+      "type": 3,
+      "api": "https://raw.githubusercontent.com/WT123-Code/hz/main/drpy2.min.js",
+      "ext": "https://raw.githubusercontent.com/WT123-Code/hz/main/爱奇艺.js"
+    },
+    {
+      "key": "优酷视频",
+      "name": "📺️优酷 | 官方",
+      "type": 3,
+      "api": "https://raw.githubusercontent.com/WT123-Code/hz/main/drpy2.min.js",
+      "ext": "https://raw.githubusercontent.com/WT123-Code/hz/main/优酷.js"
+    },
+    {
+      "key": "芒果视频",
+      "name": "📺️芒果 | 官方",
+      "type": 3,
+      "api": "https://raw.githubusercontent.com/WT123-Code/hz/main/drpy2.min.js",
+      "ext": "https://raw.githubusercontent.com/WT123-Code/hz/main/芒果.js"
+    },
+    {
+      "key": "哔哩哔哩",
+      "name": "📺️B站 | 官方",
+      "type": 3,
+      "api": "https://raw.githubusercontent.com/WT123-Code/hz/main/drpy2.min.js",
+      "ext": "https://raw.githubusercontent.com/WT123-Code/hz/main/B站.js"
+    },
+    {
       "key": "八戒影视",
       "name": "八戒 | 免扫4K",
       "type": 3,
@@ -1472,6 +1507,16 @@
       "name": "夜幕",
       "type": 0,
       "url": "https://yemu.xyz/?url=",
+      "ext": {
+        "header": {
+          "user-agent": "Mozilla/5.0 (Linux; Android 13; V2049A Build/TP1A.220624.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/116.0.0.0 Mobile Safari/537.36"
+        }
+      }
+    },
+    {
+      "name": "小白",
+      "type": 1,
+      "url": "https://api.52xiaobai.cn/api/parse.php?token=7159cfce627af3a2189a1e1b3cb81995&url=",
       "ext": {
         "header": {
           "user-agent": "Mozilla/5.0 (Linux; Android 13; V2049A Build/TP1A.220624.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/116.0.0.0 Mobile Safari/537.36"
