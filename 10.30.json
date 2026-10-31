@@ -288,7 +288,7 @@
       "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
-      "key": "茉莉",
+      "key": "茉莉4K",
       "name": "茉莉 | 4K",
       "type": 3,
       "api": "csp_HDmoli",
@@ -956,27 +956,6 @@
         "host": "",
         "site": "https://1851089669.cdn.123clouddisk.com/1851089669/44107727",
         "version": "6.0.0.1",
-        "decrypt": "0"
-      },
-      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
-    },
-    {
-      "key": "苹果",
-      "name": "苹果 | 免扫4K",
-      "type": 3,
-      "api": "csp_AppDrama",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": {
-        "appName": "小苹果",
-        "publicKey": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCduNEnfxGaLuQRk5ABzXHhPV43zi00sCHjLo8BYc+Wi6xXm2b4v0i28Sq4WlNCKhseft9fz8kO/qLr6/022o1RcuOU7e4GFL3U9WnNODwRBYSYWd+K8nqpI/tAUDmZEBGRWqjrc7x6aMl3A+xpnWkLbPCLsuhbuuUE3tv09oeOpwIDAQAB",
-        "dataKey": "S0VNDTJHOFHHCNMRAW5IV2TOS2PBPQ==",
-        "dataIv": "OC1A06E197EF10CF3F6058CA7A803B5E",
-        "pkg": "com.juechufsh.android.xpg1",
-        "host": "",
-        "site": "https://xpgandroid03-1372779881.cos.ap-beijing.myqcloud.com/app_xpg_android.txt",
-        "version": "1.0.0.3",
         "decrypt": "0"
       },
       "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
