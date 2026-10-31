@@ -401,6 +401,15 @@
       "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
+      "key": "搜剧AI",
+      "name": "搜剧AI",
+      "type": 3,
+      "api": "https://raw.githubusercontent.com/WT123-Code/hz/main/搜剧AI.py",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1
+    },
+    {
       "key": "TVB云播app",
       "name": "TVB | 免扫4K",
       "type": 3,
