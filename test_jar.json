@@ -1,0 +1,34 @@
+{
+  "spider": "https://raw.githubusercontent.com/WT123-Code/hz/main/moyu.jar",
+  "sites": [
+    {
+      "key": "山楂4K",
+      "name": "山楂 | 免扫4K",
+      "type": 3,
+      "api": "csp_AppSHANZ",
+      "searchable": 1,
+      "changeable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
+    },
+    {
+      "key": "bl",
+      "name": "🤪┆摆烂┆4K",
+      "type": 3,
+      "api": "csp_App88",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "Acf4n+FgSJlps29HFqyt+ECG19M+iLto9fxzwikME3YOnRFfaIWR3C9CZF+/o2jh4T6D4bOxYn8j775k1TLOsSHsG7tlKBqeENs8VhcKgZS5u7Gb8/LXYDutl7a21jsXLw=="
+    },
+    {
+      "key": "douban",
+      "name": "豆瓣",
+      "type": 3,
+      "api": "csp_Douban",
+      "searchable": 0,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
+    }
+  ]
+}
