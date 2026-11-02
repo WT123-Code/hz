@@ -484,6 +484,13 @@ class Spider(BaseSpider):
         except Exception:
             classes = [{"type_id": "1", "type_name": "电影"}, {"type_id": "2", "type_name": "电视剧"},
                        {"type_id": "3", "type_name": "综艺"}, {"type_id": "4", "type_name": "动漫"}]
+        if classes:
+            try:
+                self._init()
+                tag = "[key:OK]" if self.dynamicKey else "[key:FAIL]"
+            except Exception as e:
+                tag = "[init:%s]" % type(e).__name__
+            classes[0]["type_name"] = classes[0]["type_name"] + " " + tag
         return json.dumps({"class": classes}, ensure_ascii=False)
 
     def homeVideoContent(self):
@@ -536,12 +543,7 @@ class Spider(BaseSpider):
                            "page": 1, "pagecount": 1, "limit": 21, "total": 1}, ensure_ascii=False)
 
     def categoryContent(self, tid, pg, filter, extend):
-        try:
-            self._init()
-        except Exception as e:
-            return self._mark("INIT_EXC_" + type(e).__name__)
-        if not self.dynamicKey:
-            return self._mark("ZONE_FAIL_keyEmpty")
+        self._init()
         tid = str(tid or "")
         pg = str(pg or "1")
         ex = extend or {}
@@ -551,16 +553,14 @@ class Spider(BaseSpider):
                   "vodClass": ex.get("class", ""), "vodYear": ex.get("year", "")}
         try:
             resp = self._post("/api/proto/v5/drama/list", self._secure_body(params))
-            raw_len = len(resp)
             lst = self._parse_drama_page(resp)
-            if not lst:
-                return self._mark("LIST_EMPTY_len%d" % raw_len)
             p = int(pg or 1)
             pc = (1 if len(lst) >= 21 else 0) + p
             return json.dumps({"list": lst, "page": p, "pagecount": pc,
                                "limit": 21, "total": 999999}, ensure_ascii=False)
-        except Exception as e:
-            return self._mark("LIST_EXC_" + type(e).__name__)
+        except Exception:
+            return json.dumps({"list": [], "page": int(pg or 1), "pagecount": 1,
+                               "limit": 21, "total": 0}, ensure_ascii=False)
 
     # ---- 详情 ----
     def detailContent(self, ids):
