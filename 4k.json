@@ -352,11 +352,12 @@
       "key": "枫叶4K",
       "name": "枫叶 | 免扫4K",
       "type": 3,
-      "api": "https://raw.githubusercontent.com/WT123-Code/hz/main/枫叶免扫4K.py",
+      "api": "csp_AppFENGYE",
       "searchable": 1,
       "changeable": 1,
       "quickSearch": 1,
-      "filterable": 1
+      "filterable": 1,
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/10.30.jar"
     },
     {
       "key": "山楂4K",
