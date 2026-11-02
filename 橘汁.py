@@ -468,7 +468,6 @@ class Spider(BaseSpider):
 
     # ---- 首页 ----
     def homeContent(self, filter=False):
-        self._init()
         classes = []
         try:
             d = self._get_json("/api/v3/drama/getCategory?orderBy=type_id").get("data") or []
