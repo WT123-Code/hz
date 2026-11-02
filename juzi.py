@@ -382,6 +382,22 @@ class Spider(BaseSpider):
         self.dynamicKey = ""
         self._inited = False
 
+    def getName(self):
+        return APPNAME
+
+    def init(self, extend=""):
+        # TVBox/Newbox 引擎加载源的初始化入口：做动态 key 协商
+        try:
+            self._init()
+        except Exception:
+            pass
+
+    def isVideoFormat(self, url):
+        return True
+
+    def isTextFormat(self, url):
+        return False
+
     # ---- 设备信息 ----
     def _device(self):
         uuid = "".join("0123456789ABCDEF"[_pseudo(16)] for _ in range(32)).upper()
