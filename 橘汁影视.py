@@ -2,11 +2,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-橘汁影视 免扫4K - 自托管 py 源
+橘汁影视 免扫4K - 自托管 py 源（无第三方加密库版本）
 逆向自 EasyTV 新版 jar 的 AppJZ，把 App 内部接口与加密链路完整搬到 py。
+加密(AES/RSA/protobuf/动态key)全部用内嵌纯 Python 实现，零 pycryptodome 依赖，
+任何带 requests 的 py 环境(Newbox/TVBox)都能直接跑。
 接口域名写死在 App 里（主 202.189.6.51:18004 / 备用 103.36.167.27:18004），
 旧 COS app.txt(451 封禁) 已不再使用。
-加密: RSA 签名 + AES-CBC 加密设备头 + AES-ECB 加密 body + protobuf 封装 + 动态 key。
 """
 
 import re
@@ -17,22 +18,251 @@ import random
 
 import requests
 
-# 加密库（drpy/TVBox py 环境预装 pycryptodome）
-try:
-    from Crypto.Cipher import AES, PKCS1_v1_5
-    from Crypto.PublicKey import RSA
-    from Crypto.Util.Padding import pad, unpad
-    _HAS_CRYPTO = True
-except Exception:
-    _HAS_CRYPTO = False
-
 try:
     from base.spider import Spider as BaseSpider
 except ImportError:
     BaseSpider = object
 
 
-# ---------- App 内置常量 ----------
+# ============================================================
+# 内嵌纯 Python 加密（AES/Rijndael + RSA/PKCS1_v1_5 + DER），零第三方依赖
+# ============================================================
+_SBOX = [
+0x63,0x7c,0x77,0x7b,0xf2,0x6b,0x6f,0xc5,0x30,0x01,0x67,0x2b,0xfe,0xd7,0xab,0x76,
+0xca,0x82,0xc9,0x7d,0xfa,0x59,0x47,0xf0,0xad,0xd4,0xa2,0xaf,0x9c,0xa4,0x72,0xc0,
+0xb7,0xfd,0x93,0x26,0x36,0x3f,0xf7,0xcc,0x34,0xa5,0xe5,0xf1,0x71,0xd8,0x31,0x15,
+0x04,0xc7,0x23,0xc3,0x18,0x96,0x05,0x9a,0x07,0x12,0x80,0xe2,0xeb,0x27,0xb2,0x75,
+0x09,0x83,0x2c,0x1a,0x1b,0x6e,0x5a,0xa0,0x52,0x3b,0xd6,0xb3,0x29,0xe3,0x2f,0x84,
+0x53,0xd1,0x00,0xed,0x20,0xfc,0xb1,0x5b,0x6a,0xcb,0xbe,0x39,0x4a,0x4c,0x58,0xcf,
+0xd0,0xef,0xaa,0xfb,0x43,0x4d,0x33,0x85,0x45,0xf9,0x02,0x7f,0x50,0x3c,0x9f,0xa8,
+0x51,0xa3,0x40,0x8f,0x92,0x9d,0x38,0xf5,0xbc,0xb6,0xda,0x21,0x10,0xff,0xf3,0xd2,
+0xcd,0x0c,0x13,0xec,0x5f,0x97,0x44,0x17,0xc4,0xa7,0x7e,0x3d,0x64,0x5d,0x19,0x73,
+0x60,0x81,0x4f,0xdc,0x22,0x2a,0x90,0x88,0x46,0xee,0xb8,0x14,0xde,0x5e,0x0b,0xdb,
+0xe0,0x32,0x3a,0x0a,0x49,0x06,0x24,0x5c,0xc2,0xd3,0xac,0x62,0x91,0x95,0xe4,0x79,
+0xe7,0xc8,0x37,0x6d,0x8d,0xd5,0x4e,0xa9,0x6c,0x56,0xf4,0xea,0x65,0x7a,0xae,0x08,
+0xba,0x78,0x25,0x2e,0x1c,0xa6,0xb4,0xc6,0xe8,0xdd,0x74,0x1f,0x4b,0xbd,0x8b,0x8a,
+0x70,0x3e,0xb5,0x66,0x48,0x03,0xf6,0x0e,0x61,0x35,0x57,0xb9,0x86,0xc1,0x1d,0x9e,
+0xe1,0xf8,0x98,0x11,0x69,0xd9,0x8e,0x94,0x9b,0x1e,0x87,0xe9,0xce,0x55,0x28,0xdf,
+0x8c,0xa1,0x89,0x0d,0xbf,0xe6,0x42,0x68,0x41,0x99,0x2d,0x0f,0xb0,0x54,0xbb,0x16,
+]
+_ISBOX = [
+0x52,0x09,0x6a,0xd5,0x30,0x36,0xa5,0x38,0xbf,0x40,0xa3,0x9e,0x81,0xf3,0xd7,0xfb,
+0x7c,0xe3,0x39,0x82,0x9b,0x2f,0xff,0x87,0x34,0x8e,0x43,0x44,0xc4,0xde,0xe9,0xcb,
+0x54,0x7b,0x94,0x32,0xa6,0xc2,0x23,0x3d,0xee,0x4c,0x95,0x0b,0x42,0xfa,0xc3,0x4e,
+0x08,0x2e,0xa1,0x66,0x28,0xd9,0x24,0xb2,0x76,0x5b,0xa2,0x49,0x6d,0x8b,0xd1,0x25,
+0x72,0xf8,0xf6,0x64,0x86,0x68,0x98,0x16,0xd4,0xa4,0x5c,0xcc,0x5d,0x65,0xb6,0x92,
+0x6c,0x70,0x48,0x50,0xfd,0xed,0xb9,0xda,0x5e,0x15,0x46,0x57,0xa7,0x8d,0x9d,0x84,
+0x90,0xd8,0xab,0x00,0x8c,0xbc,0xd3,0x0a,0xf7,0xe4,0x58,0x05,0xb8,0xb3,0x45,0x06,
+0xd0,0x2c,0x1e,0x8f,0xca,0x3f,0x0f,0x02,0xc1,0xaf,0xbd,0x03,0x01,0x13,0x8a,0x6b,
+0x3a,0x91,0x11,0x41,0x4f,0x67,0xdc,0xea,0x97,0xf2,0xcf,0xce,0xf0,0xb4,0xe6,0x73,
+0x96,0xac,0x74,0x22,0xe7,0xad,0x35,0x85,0xe2,0xf9,0x37,0xe8,0x1c,0x75,0xdf,0x6e,
+0x47,0xf1,0x1a,0x71,0x1d,0x29,0xc5,0x89,0x6f,0xb7,0x62,0x0e,0xaa,0x18,0xbe,0x1b,
+0xfc,0x56,0x3e,0x4b,0xc6,0xd2,0x79,0x20,0x9a,0xdb,0xc0,0xfe,0x78,0xcd,0x5a,0xf4,
+0x1f,0xdd,0xa8,0x33,0x88,0x07,0xc7,0x31,0xb1,0x12,0x10,0x59,0x27,0x80,0xec,0x5f,
+0x60,0x51,0x7f,0xa9,0x19,0xb5,0x4a,0x0d,0x2d,0xe5,0x7a,0x9f,0x93,0xc9,0x9c,0xef,
+0xa0,0xe0,0x3b,0x4d,0xae,0x2a,0xf5,0xb0,0xc8,0xeb,0xbb,0x3c,0x83,0x53,0x99,0x61,
+0x17,0x2b,0x04,0x7e,0xba,0x77,0xd6,0x26,0xe1,0x69,0x14,0x63,0x55,0x21,0x0c,0x7d,
+]
+_RCON = [0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1b, 0x36]
+
+
+def _gmul(a, b):
+    r = 0
+    for _ in range(8):
+        if b & 1:
+            r ^= a
+        h = a & 0x80
+        a = (a << 1) & 0xff
+        if h:
+            a ^= 0x1b
+        b >>= 1
+    return r
+
+
+def _sword(w):
+    return [_SBOX[b] for b in w]
+
+
+def _xkey(key):
+    nk = len(key) // 4
+    nr = {4: 10, 6: 12, 8: 14}[nk]
+    w = [list(key[i*4:i*4+4]) for i in range(nk)]
+    for i in range(nk, 4*(nr+1)):
+        t = w[i-1][:]
+        if i % nk == 0:
+            t = _sword(t[1:]+t[:1])
+            t[0] ^= _RCON[i//nk - 1]
+        elif nk > 6 and i % nk == 4:
+            t = _sword(t)
+        w.append([w[i-nk][j] ^ t[j] for j in range(4)])
+    rk = []
+    for r in range(nr+1):
+        flat = b''
+        for i in range(4):
+            flat += bytes(w[4*r+i])
+        rk.append(flat)
+    return rk
+
+
+def _enc_block(block, rk):
+    state = bytearray(block)
+    def add(r):
+        for i in range(16):
+            state[i] ^= rk[r][i]
+    def sub():
+        for i in range(16):
+            state[i] = _SBOX[state[i]]
+    def shift():
+        out = bytearray(16)
+        for c in range(4):
+            for r in range(4):
+                out[4*c+r] = state[4*((c+r) % 4)+r]
+        state[:] = out
+    def mix():
+        out = bytearray(16)
+        for c in range(4):
+            a = state[4*c:4*c+4]
+            out[4*c]   = _gmul(a[0],2) ^ _gmul(a[1],3) ^ a[2] ^ a[3]
+            out[4*c+1] = a[0] ^ _gmul(a[1],2) ^ _gmul(a[2],3) ^ a[3]
+            out[4*c+2] = a[0] ^ a[1] ^ _gmul(a[2],2) ^ _gmul(a[3],3)
+            out[4*c+3] = _gmul(a[0],3) ^ a[1] ^ a[2] ^ _gmul(a[3],2)
+        state[:] = out
+    add(0)
+    for r in range(1, len(rk)-1):
+        sub(); shift(); mix(); add(r)
+    sub(); shift(); add(len(rk)-1)
+    return bytes(state)
+
+
+def _dec_block(block, rk):
+    state = bytearray(block)
+    def add(r):
+        for i in range(16):
+            state[i] ^= rk[r][i]
+    def isub():
+        for i in range(16):
+            state[i] = _ISBOX[state[i]]
+    def ishift():
+        out = bytearray(16)
+        for c in range(4):
+            for r in range(4):
+                out[4*c+r] = state[4*((c-r) % 4)+r]
+        state[:] = out
+    def imix():
+        out = bytearray(16)
+        for c in range(4):
+            a = state[4*c:4*c+4]
+            out[4*c]   = _gmul(a[0],0x0e) ^ _gmul(a[1],0x0b) ^ _gmul(a[2],0x0d) ^ _gmul(a[3],0x09)
+            out[4*c+1] = _gmul(a[0],0x09) ^ _gmul(a[1],0x0e) ^ _gmul(a[2],0x0b) ^ _gmul(a[3],0x0d)
+            out[4*c+2] = _gmul(a[0],0x0d) ^ _gmul(a[1],0x09) ^ _gmul(a[2],0x0e) ^ _gmul(a[3],0x0b)
+            out[4*c+3] = _gmul(a[0],0x0b) ^ _gmul(a[1],0x0d) ^ _gmul(a[2],0x09) ^ _gmul(a[3],0x0e)
+        state[:] = out
+    add(len(rk)-1)
+    for r in range(len(rk)-2, 0, -1):
+        ishift(); isub(); add(r); imix()
+    ishift(); isub(); add(0)
+    return bytes(state)
+
+
+def _pad7(data):
+    n = 16 - (len(data) % 16)
+    return data + bytes([n])*n
+
+
+def _unpad7(data):
+    return data[:-data[-1]]
+
+
+def _aes_ecb(data, key):
+    rk = _xkey(key)
+    data = _pad7(data)
+    out = b''
+    for i in range(0, len(data), 16):
+        out += _enc_block(data[i:i+16], rk)
+    return out
+
+
+def _aes_ecb_dec(data, key):
+    rk = _xkey(key)
+    out = b''
+    for i in range(0, len(data), 16):
+        out += _dec_block(data[i:i+16], rk)
+    return _unpad7(out)
+
+
+def _aes_cbc(data, key, iv):
+    rk = _xkey(key)
+    data = _pad7(data)
+    prev = iv
+    out = b''
+    for i in range(0, len(data), 16):
+        blk = bytes(a ^ b for a, b in zip(data[i:i+16], prev))
+        prev = _enc_block(blk, rk)
+        out += prev
+    return out
+
+
+def _der_len(b, i):
+    l = b[i]; i += 1
+    if l < 0x80:
+        return l, i
+    n = l & 0x7f
+    v = 0
+    for _ in range(n):
+        v = (v << 8) | b[i]; i += 1
+    return v, i
+
+
+def _der_read(b, i):
+    tag = b[i]; i += 1
+    ln, i = _der_len(b, i)
+    return tag, b[i:i+ln], i+ln
+
+
+def _rsa_pub(der):
+    tag, inner, _ = _der_read(der, 0)
+    tag, alg, i1 = _der_read(inner, 0)
+    tag, bitstr, _ = _der_read(inner, i1)
+    body = bitstr[1:]
+    tag, seq, _ = _der_read(body, 0)
+    tag, nb, i2 = _der_read(seq, 0)
+    tag, eb, _ = _der_read(seq, i2)
+    return int.from_bytes(nb, 'big'), int.from_bytes(eb, 'big')
+
+
+def _rsa_enc(data, pub_b64):
+    der = base64.b64decode(pub_b64)
+    n, e = _rsa_pub(der)
+    k = (n.bit_length() + 7) // 8
+    if len(data) > k - 11:
+        raise ValueError("message too long")
+    ps = b''
+    while len(ps) < k - 3 - len(data):
+        ps += bytes([random.randrange(1, 256)])
+    em = b'\x00\x02' + ps + b'\x00' + data
+    return pow(int.from_bytes(em, 'big'), e, n).to_bytes(k, 'big')
+
+
+# ---- 上层接口（与 pycryptodome 版一致）----
+def aes_ecb_b64(data, key):
+    return base64.b64encode(_aes_ecb(data.encode("utf-8"), key.encode("utf-8"))).decode("utf-8")
+
+
+def aes_ecb_dec_b64(data, key):
+    return _aes_ecb_dec(base64.b64decode(data), key.encode("utf-8")).decode("utf-8")
+
+
+def aes_cbc_hex(data, key):
+    return _aes_cbc(data.encode("utf-8"), key.encode("utf-8"), key.encode("utf-8")).hex()
+
+
+def rsa_encrypt(data, key_b64):
+    return base64.b64encode(_rsa_enc(data.encode("utf-8"), key_b64)).decode("utf-8")
+
+
+# ============================================================
+# App 内置常量
+# ============================================================
 HOST = "http://202.189.6.51:18004"
 FALLBACK = "http://103.36.167.27:18004"
 COMMON_KEY = "ed5fdsgucxumegqa"                     # 16B -> AES-128 (device 加密)
@@ -54,35 +284,9 @@ def random_str(n):
     return "".join(random.choice(CHARS) for _ in range(n - 1)) + "="
 
 
-# ---------- AES ----------
-def _aes_ecb(data, key):
-    c = AES.new(key.encode("utf-8"), AES.MODE_ECB)
-    return c.encrypt(pad(data.encode("utf-8"), 16))
-
-
-def aes_ecb_b64(data, key):
-    return base64.b64encode(_aes_ecb(data, key)).decode("utf-8")
-
-
-def aes_ecb_dec_b64(data, key):
-    c = AES.new(key.encode("utf-8"), AES.MODE_ECB)
-    return unpad(c.decrypt(base64.b64decode(data)), 16).decode("utf-8")
-
-
-def aes_cbc_hex(data, key):
-    kb = key.encode("utf-8")
-    c = AES.new(kb, AES.MODE_CBC, iv=kb)
-    return c.encrypt(pad(data.encode("utf-8"), 16)).hex()
-
-
-# ---------- RSA ----------
-def rsa_encrypt(data, key_b64):
-    pub = RSA.import_key(base64.b64decode(key_b64))
-    c = PKCS1_v1_5.new(pub)
-    return base64.b64encode(c.encrypt(data.encode("utf-8"))).decode("utf-8")
-
-
-# ---------- protobuf ----------
+# ============================================================
+# protobuf 工具
+# ============================================================
 def _varint(n):
     out = bytearray()
     while n > 127:
@@ -148,7 +352,9 @@ def all_(m, f):
     return m.get(f, [])
 
 
-# ---------- Spider ----------
+# ============================================================
+# Spider
+# ============================================================
 class Spider(BaseSpider):
     def __init__(self):
         super().__init__()
@@ -233,7 +439,6 @@ class Spider(BaseSpider):
                     return
             except Exception:
                 self.dynamicKey = ""
-        # 兜底用第一个 host
         self.host = candidates[0]
         self._inited = True
 
@@ -340,7 +545,6 @@ class Spider(BaseSpider):
         try:
             resp = self._post("/api/proto/v5/drama/getDetail", self._secure_body({"id": vid}))
             d = pb_parse(first(pb_parse(resp), 3))
-            # 详情主体直接就是 drama 结构
             cover = pb_parse(first(d, 2))
             pic = cover.get("path", [b""])[0].decode() or cover.get("thumb", [b""])[0].decode()
             groups = {}
@@ -389,7 +593,6 @@ class Spider(BaseSpider):
         if VIDEO_RE.search(url):
             return json.dumps({"parse": 0, "url": url, "header": {}, "playUrl": ""})
         try:
-            # 播放地址是 base64 封装的 {vodPlayFrom, playUrl}
             info = json.loads(base64.b64decode(url))
             resp = self._post("/api/proto/v5/videoUsableUrl", self._secure_body(info))
             d = pb_parse(first(pb_parse(resp), 3))
