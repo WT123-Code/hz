@@ -14,8 +14,8 @@ import re
 import json
 import time
 import base64
-
-import requests
+import ssl
+import urllib.request
 
 try:
     from Crypto.Cipher import AES as _C_AES, PKCS1_v1_5 as _C_PKCS1
@@ -426,16 +426,19 @@ class Spider(BaseSpider):
         return (pb_bytes(1, s[:20]) + pb_bytes(2, s[20:]) + pb_bytes(3, random_str(20))
                 + pb_int(4, ts) + pb_bytes(5, s[:8]))
 
-    # ---- 请求 ----
+    # ---- 请求（urllib，参考 py 同款，Newbox 验证可行）----
+    def _open(self, url, body=None, hdrs=None, timeout=18):
+        req = urllib.request.Request(url, data=body, headers=hdrs or {})
+        ctx = None
+        if url.startswith("https"):
+            ctx = ssl._create_unverified_context()
+        return urllib.request.urlopen(req, timeout=timeout, context=ctx).read()
+
     def _post(self, path, body):
-        url = self.host + path
-        r = requests.post(url, headers=self._public_headers(True), data=body, timeout=18)
-        return r.content
+        return self._open(self.host + path, body=body, hdrs=self._public_headers(True))
 
     def _get_json(self, path):
-        url = self.host + path
-        r = requests.get(url, headers=self._public_headers(False), timeout=18)
-        return r.json()
+        return json.loads(self._open(self.host + path, hdrs=self._public_headers(False)))
 
     # ---- 初始化：选可用 host + 拿动态 key ----
     def _init(self):
