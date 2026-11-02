@@ -426,7 +426,7 @@ class Spider(BaseSpider):
         return (pb_bytes(1, s[:20]) + pb_bytes(2, s[20:]) + pb_bytes(3, random_str(20))
                 + pb_int(4, ts) + pb_bytes(5, s[:8]))
 
-    # ---- 请求（urllib，参考 py 同款，Newbox 验证可行）----
+    # ---- 请求（urllib，默认代理方式）----
     def _open(self, url, body=None, hdrs=None, timeout=18):
         req = urllib.request.Request(url, data=body, headers=hdrs or {})
         ctx = None
@@ -484,13 +484,6 @@ class Spider(BaseSpider):
         except Exception:
             classes = [{"type_id": "1", "type_name": "电影"}, {"type_id": "2", "type_name": "电视剧"},
                        {"type_id": "3", "type_name": "综艺"}, {"type_id": "4", "type_name": "动漫"}]
-        if classes:
-            try:
-                self._init()
-                tag = "[key:OK]" if self.dynamicKey else "[key:FAIL]"
-            except Exception as e:
-                tag = "[init:%s]" % type(e).__name__
-            classes[0]["type_name"] = classes[0]["type_name"] + " " + tag
         return json.dumps({"class": classes}, ensure_ascii=False)
 
     def homeVideoContent(self):
