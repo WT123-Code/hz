@@ -531,9 +531,9 @@ class Spider(BaseSpider):
 
     # ---- 分类 ----
     def _mark(self, tag):
-        return json.dumps({"list": [{"vod_id": "0", "vod_name": "[诊断] " + tag,
-                                     "vod_pic": "", "vod_remarks": "", "vod_year": "", "vod_area": ""}],
-                           "page": 1, "pagecount": 1, "limit": 21, "total": 0}, ensure_ascii=False)
+        return json.dumps({"list": [{"vod_id": "1001", "vod_name": "[诊断] " + tag,
+                                     "vod_pic": "", "vod_remarks": "D", "vod_year": "2026", "vod_area": ""}],
+                           "page": 1, "pagecount": 1, "limit": 21, "total": 1}, ensure_ascii=False)
 
     def categoryContent(self, tid, pg, filter, extend):
         try:
