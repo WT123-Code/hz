@@ -530,8 +530,18 @@ class Spider(BaseSpider):
                 "vod_remarks": str(remark)}
 
     # ---- 分类 ----
+    def _mark(self, tag):
+        return json.dumps({"list": [{"vod_id": "0", "vod_name": "[诊断] " + tag,
+                                     "vod_pic": "", "vod_remarks": "", "vod_year": "", "vod_area": ""}],
+                           "page": 1, "pagecount": 1, "limit": 21, "total": 0}, ensure_ascii=False)
+
     def categoryContent(self, tid, pg, filter, extend):
-        self._init()
+        try:
+            self._init()
+        except Exception as e:
+            return self._mark("INIT_EXC_" + type(e).__name__)
+        if not self.dynamicKey:
+            return self._mark("ZONE_FAIL_keyEmpty")
         tid = str(tid or "")
         pg = str(pg or "1")
         ex = extend or {}
@@ -541,14 +551,16 @@ class Spider(BaseSpider):
                   "vodClass": ex.get("class", ""), "vodYear": ex.get("year", "")}
         try:
             resp = self._post("/api/proto/v5/drama/list", self._secure_body(params))
+            raw_len = len(resp)
             lst = self._parse_drama_page(resp)
+            if not lst:
+                return self._mark("LIST_EMPTY_len%d" % raw_len)
             p = int(pg or 1)
             pc = (1 if len(lst) >= 21 else 0) + p
             return json.dumps({"list": lst, "page": p, "pagecount": pc,
                                "limit": 21, "total": 999999}, ensure_ascii=False)
-        except Exception:
-            return json.dumps({"list": [], "page": int(pg or 1), "pagecount": 1,
-                               "limit": 21, "total": 0}, ensure_ascii=False)
+        except Exception as e:
+            return self._mark("LIST_EXC_" + type(e).__name__)
 
     # ---- 详情 ----
     def detailContent(self, ids):
