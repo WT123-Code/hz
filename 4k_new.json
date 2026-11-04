@@ -1,5 +1,5 @@
 {
-  "spider": "https://qiniu.gongxueyun.com/upload/1642674/2026-11-03/leave/862321224_2_1793729323718.jar;https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar",
+  "spider": "https://qiniu.gongxueyun.com/upload/1642674/2026-11-03/leave/862321224_2_1793729323718.jar",
   "wallpaper": "http://127.0.0.1:9978/proxy?do=wallpaper",
   "logo": "",
   "danmaku": "http://127.0.0.1:9978/proxy?do=danmaku&name={name}&episode={episode}",
@@ -10,7 +10,7 @@
       "type": 3,
       "api": "csp_Douban",
       "searchable": 0,
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "peizhi",
@@ -24,14 +24,14 @@
         "type": "rect",
         "ratio": 1.618
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "本地",
       "name": "本地视频",
       "type": 3,
       "api": "csp_LocalFile",
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "预告",
@@ -39,7 +39,7 @@
       "type": 3,
       "api": "csp_YGP",
       "searchable": 0,
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "小霸王本地",
@@ -55,7 +55,7 @@
         "ratio": 0.75
       },
       "timeout": 60,
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "玩偶",
@@ -75,7 +75,7 @@
         ]
       },
       "timeout": 60,
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "快映",
@@ -93,7 +93,7 @@
         ]
       },
       "timeout": 60,
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "木偶",
@@ -113,7 +113,7 @@
         ]
       },
       "timeout": 60,
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "闪电",
@@ -130,7 +130,7 @@
         ]
       },
       "timeout": 60,
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "蜡笔",
@@ -150,7 +150,7 @@
         ]
       },
       "timeout": 60,
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "多多",
@@ -169,7 +169,7 @@
         ]
       },
       "timeout": 60,
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "八零",
@@ -188,7 +188,7 @@
         ]
       },
       "timeout": 60,
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "虎斑",
@@ -206,7 +206,7 @@
         ]
       },
       "timeout": 60,
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "花卷",
@@ -224,7 +224,7 @@
         ]
       },
       "timeout": 60,
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "种子",
@@ -242,7 +242,7 @@
         ]
       },
       "timeout": 60,
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "搬运",
@@ -253,7 +253,7 @@
       "quickSearch": 1,
       "filterable": 1,
       "timeout": 60,
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "指南",
@@ -269,7 +269,7 @@
         ]
       },
       "timeout": 60,
-      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/ys.jar"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "小丑",
@@ -285,7 +285,7 @@
         ]
       },
       "timeout": 60,
-      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/ys.jar"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "茉莉4K",
@@ -302,7 +302,7 @@
         ]
       },
       "timeout": 60,
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "爱盼",
@@ -313,7 +313,7 @@
       "quickSearch": 1,
       "filterable": 1,
       "timeout": 60,
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "移动",
@@ -324,7 +324,7 @@
       "quickSearch": 1,
       "filterable": 1,
       "timeout": 60,
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "即刻",
@@ -335,7 +335,7 @@
       "quickSearch": 0,
       "filterable": 0,
       "timeout": 60,
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "双星",
@@ -346,7 +346,7 @@
       "quickSearch": 0,
       "filterable": 0,
       "timeout": 60,
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "枫叶4K",
@@ -357,7 +357,7 @@
       "changeable": 1,
       "quickSearch": 1,
       "filterable": 1,
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "山楂4K",
@@ -368,7 +368,7 @@
       "changeable": 1,
       "quickSearch": 1,
       "filterable": 1,
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "山有木兮",
@@ -378,7 +378,7 @@
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
-      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/ys.jar"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "河豚",
@@ -388,7 +388,7 @@
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
-      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/ys.jar"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "影探",
@@ -398,7 +398,7 @@
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
-      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/ys.jar"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "下饭",
@@ -408,7 +408,7 @@
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
-      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/ys.jar"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "搜剧AI",
@@ -736,7 +736,7 @@
       "type": 3,
       "api": "https://easy888.dpdns.org/js/drpy2.min.js",
       "ext": "https://easy888.dpdns.org/lib/腾讯.js",
-      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/ys.jar"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "爱奇艺视频",
@@ -744,7 +744,7 @@
       "type": 3,
       "api": "https://easy888.dpdns.org/js/drpy2.min.js",
       "ext": "https://easy888.dpdns.org/lib/爱奇艺.js",
-      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/ys.jar"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "优酷视频",
@@ -752,7 +752,7 @@
       "type": 3,
       "api": "https://easy888.dpdns.org/js/drpy2.min.js",
       "ext": "https://easy888.dpdns.org/lib/优酷.js",
-      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/ys.jar"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "芒果视频",
@@ -760,7 +760,7 @@
       "type": 3,
       "api": "https://easy888.dpdns.org/js/drpy2.min.js",
       "ext": "https://easy888.dpdns.org/lib/芒果.js",
-      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/ys.jar"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "哔哩哔哩",
@@ -768,7 +768,7 @@
       "type": 3,
       "api": "https://easy888.dpdns.org/js/drpy2.min.js",
       "ext": "https://easy888.dpdns.org/lib/B站.js",
-      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/ys.jar"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "八戒影视",
@@ -778,7 +778,7 @@
       "searchable": 1,
       "quickSearch": 1,
       "changeable": 1,
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "热播影视",
@@ -791,7 +791,7 @@
       "ext": {
         "url": "http://v.rbotv.cn"
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "一起影视",
@@ -801,7 +801,7 @@
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0,
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "咕噜",
@@ -811,7 +811,7 @@
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "布布",
@@ -829,7 +829,7 @@
         "client": "8f3d2a1c7b6e5d4c9a0b1f2e3d4c5b6a",
         "sign": "ddtvf65f3a83d6d9ad6f"
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "大马猴影视",
@@ -846,14 +846,14 @@
         "sk": "SK-woniu-thanks",
         "ver": "1"
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "韩圈",
       "name": "韩圈 | 免扫4K",
       "type": 3,
       "api": "csp_Hxq",
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "剧圈99",
@@ -868,7 +868,7 @@
         "buildNumber": "2002",
         "buildSignature": "054FA8DDA4319C6B6A9B954CA5777541C993F00B1B0BD4394F7EDE48184C4594"
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "半日99",
@@ -883,7 +883,7 @@
         "buildNumber": "2001",
         "buildSignature": "A40DA80A59D170CAA950CF15C18C454D47A39B26989D8B640ECD745BA71BF5DC"
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "天堂",
@@ -904,7 +904,7 @@
         "version": "3.0.0.7",
         "decrypt": "0"
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "苹果",
@@ -926,7 +926,7 @@
         "version": "1.0.0.3",
         "decrypt": "0"
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "橘汁",
@@ -936,7 +936,7 @@
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png",
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar",
       "ext": {
         "appName": "橘汁",
         "publicKey": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCr8SzZhjYy+rsya1K09t8d2K50pWFoBkgUqMpKOiW+3IEVKd4eTdvg9RSOjQ82kypL6R9BnsmrS1V8s4PVDwjQbUtYhTPPC9Hz16qY7rpD6m0d2vr09/UpWQ5uOy9PR0QTrsioveZ+DIe9jc3C+zBCu/kZSY/R8stwJoiitki3gwIDAQAB",
@@ -968,7 +968,7 @@
         "version": "6.0.0.1",
         "decrypt": "0"
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "蓝鹰",
@@ -984,7 +984,7 @@
         "init": "initV122",
         "ua": "okhttp/3.10.0"
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "蓝鸟",
@@ -1000,7 +1000,7 @@
         "init": "initV122",
         "ua": "okhttp/3.10.0"
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "魔方",
@@ -1014,7 +1014,7 @@
         "dataKey": "1234567887654321",
         "dataIv": "1234567887654321"
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "王子",
@@ -1028,7 +1028,7 @@
         "dataKey": "5a9w6x58dsq6z3a6",
         "dataIv": "5a9w6x58dsq6z3a6"
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "茉莉",
@@ -1042,7 +1042,7 @@
         "dataKey": "88689667dce61725",
         "dataIv": "88689667dce61725"
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "哔哩合集",
@@ -1061,7 +1061,7 @@
         "n": "哔哩合集",
         "cookie": "http://127.0.0.1:9978/file/TVBox/bili_cookie.txt"
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "哔哩视频",
@@ -1079,14 +1079,14 @@
       "ext": {
         "cookie": "http://127.0.0.1:9978/file/TVBox/bili_cookie.txt"
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "三六零",
       "name": "三六零 | 视频",
       "type": 3,
       "api": "csp_SP360",
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "七猫短剧",
@@ -1094,7 +1094,7 @@
       "type": 3,
       "api": "csp_ShortQimao",
       "genre": "shortdrama",
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "河马短剧",
@@ -1102,7 +1102,7 @@
       "type": 3,
       "api": "csp_ShortHema",
       "genre": "shortdrama",
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "围观短剧",
@@ -1110,7 +1110,7 @@
       "type": 3,
       "api": "csp_ShortWeiguan",
       "genre": "shortdrama",
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "好看短剧",
@@ -1118,7 +1118,7 @@
       "type": 3,
       "api": "csp_ShortHaokan",
       "genre": "shortdrama",
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "星芽短剧",
@@ -1126,7 +1126,7 @@
       "type": 3,
       "api": "csp_ShortXingya",
       "genre": "shortdrama",
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "果果短剧",
@@ -1140,14 +1140,14 @@
         "分类url": "https://www.mochadj.com/i/{cateId}-{catePg}.html"
       },
       "genre": "shortdrama",
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "飞娱影视",
       "name": "飞娱 | 影视",
       "type": 3,
       "api": "csp_Feiyu",
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "旺旺影视",
@@ -1155,21 +1155,21 @@
       "type": 3,
       "api": "csp_Wwys",
       "ext": "https://vip.wwgz.cn:5200",
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "独播影视",
       "name": "独播 | 影视",
       "type": 3,
       "api": "csp_Duboku",
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "瓜子影视",
       "name": "瓜子 | 影视",
       "type": 3,
       "api": "csp_Gz360",
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "厂长影视",
@@ -1180,7 +1180,7 @@
       "quickSearch": 1,
       "filterable": 1,
       "ext": "https://cz01.vip",
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "金牌影视",
@@ -1188,7 +1188,7 @@
       "type": 3,
       "api": "csp_Jpys",
       "ext": "https://y2s52n7.com,https://m.hkybqufgh.com,https://m.sizhengxt.com,https://m.9zhoukj.com,https://m.sizhengxt.com,https://m.jiabaide.cn",
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "骚火影视",
@@ -1196,7 +1196,7 @@
       "type": 3,
       "api": "csp_SaoHuo",
       "ext": "https://shdy5.us",
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "枫叶影视",
@@ -1204,7 +1204,7 @@
       "type": 3,
       "api": "csp_FengYe",
       "ext": "https://www.vip1949.com/",
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "爱看机器人",
@@ -1214,7 +1214,7 @@
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "面包影视",
@@ -1228,7 +1228,7 @@
         "分类": "电影$20#电视剧$21#动漫$23#综艺$22#短剧$47",
         "简介": "简介：&&"
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "1905",
@@ -1238,7 +1238,7 @@
       "searchable": 1,
       "quickSearch": 0,
       "filterable": 0,
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "番社动漫",
@@ -1266,7 +1266,7 @@
       "style": {
         "type": "list"
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "双星99",
@@ -1282,7 +1282,7 @@
         "buildNumber": "2003",
         "buildSignature": "054FA8DDA4319C6B6A9B954CA5777541C993F00B1B0BD4394F7EDE48184C4594"
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "咕咕动漫",
@@ -1295,35 +1295,35 @@
         "dataKey": "nKfZ8KX6JTNWRzTD",
         "dataIv": "nKfZ8KX6JTNWRzTD"
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "巴士动漫",
       "name": "巴士 | 动漫",
       "type": 3,
       "api": "csp_AnimeBashi",
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "吉里动漫",
       "name": "吉里 | 动漫",
       "type": 3,
       "api": "csp_AnimeGiri",
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "花子动漫",
       "name": "花子 | 动漫",
       "type": 3,
       "api": "csp_AnimeHuazi",
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "荐片",
       "name": "荐片 | 磁力",
       "api": "csp_JianPian",
       "type": 3,
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "New6v",
@@ -1334,7 +1334,7 @@
       "quickSearch": 1,
       "filterable": 1,
       "ext": "https://www.xb6v.com",
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "美剧迷",
@@ -1344,7 +1344,7 @@
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "迅雷吧",
@@ -1355,7 +1355,7 @@
       "quickSearch": 1,
       "filterable": 1,
       "ext": "https://xunlei8.me",
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "夸克网盘",
@@ -1369,7 +1369,7 @@
         "type": "list",
         "ratio": 1.433
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "UC网盘",
@@ -1383,7 +1383,7 @@
         "type": "list",
         "ratio": 1.433
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "百度网盘",
@@ -1397,7 +1397,7 @@
         "type": "list",
         "ratio": 1.433
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "迅雷云盘",
@@ -1411,7 +1411,7 @@
         "type": "list",
         "ratio": 1.433
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "阿里云盘",
@@ -1425,7 +1425,7 @@
         "type": "list",
         "ratio": 1.433
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "光鸭网盘",
@@ -1439,7 +1439,7 @@
         "type": "list",
         "ratio": 1.433
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "天翼云盘",
@@ -1453,7 +1453,7 @@
         "type": "list",
         "ratio": 1.433
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "123云盘",
@@ -1467,7 +1467,7 @@
         "type": "list",
         "ratio": 1.433
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "88看球",
@@ -1480,7 +1480,7 @@
       "style": {
         "type": "list"
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "飞球体育",
@@ -1493,7 +1493,7 @@
       "style": {
         "type": "list"
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "瓜子体育",
@@ -1506,7 +1506,7 @@
       "style": {
         "type": "list"
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "咖啡体育",
@@ -1519,7 +1519,7 @@
       "style": {
         "type": "list"
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "球通体育",
@@ -1532,7 +1532,7 @@
       "style": {
         "type": "list"
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "呦呦DJ",
@@ -1545,7 +1545,7 @@
       "style": {
         "type": "list"
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "蜻蜓FM",
@@ -1558,7 +1558,7 @@
       "style": {
         "type": "list"
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "听友听书",
@@ -1571,7 +1571,7 @@
       "style": {
         "type": "list"
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "堇夏听书",
@@ -1585,7 +1585,7 @@
       "style": {
         "type": "list"
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "博看听书",
@@ -1598,7 +1598,7 @@
       "style": {
         "type": "list"
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "戏曲多多",
@@ -1611,7 +1611,7 @@
       "style": {
         "type": "list"
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "童趣",
@@ -1625,7 +1625,7 @@
         "type": "rect",
         "ratio": 1.618
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "兔小贝",
@@ -1639,7 +1639,7 @@
         "type": "rect",
         "ratio": 1.618
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "贝乐虎",
@@ -1653,7 +1653,7 @@
         "type": "rect",
         "ratio": 1.618
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "哔哩哔哩音乐",
@@ -1671,7 +1671,7 @@
         "type": "rect",
         "ratio": 1.618
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "哔哩哔哩听书",
@@ -1689,7 +1689,7 @@
         "type": "rect",
         "ratio": 1.618
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "哔哩哔哩相声",
@@ -1707,7 +1707,7 @@
         "type": "rect",
         "ratio": 1.618
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "哔哩哔哩小品",
@@ -1725,7 +1725,7 @@
         "type": "rect",
         "ratio": 1.618
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "哔哩哔哩戏曲",
@@ -1743,7 +1743,7 @@
         "type": "rect",
         "ratio": 1.618
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "少儿教育",
@@ -1761,7 +1761,7 @@
         "type": "rect",
         "ratio": 1.618
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "小学课堂",
@@ -1779,7 +1779,7 @@
         "type": "rect",
         "ratio": 1.618
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "初中课堂",
@@ -1797,7 +1797,7 @@
         "type": "rect",
         "ratio": 1.618
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "高中课堂",
@@ -1815,7 +1815,7 @@
         "type": "rect",
         "ratio": 1.618
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "急救教学",
@@ -1830,7 +1830,7 @@
         "ratio": 3.8
       },
       "gridview": "0-0-4.1",
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "养生堂",
@@ -1844,7 +1844,7 @@
         "type": "rect",
         "ratio": 1.618
       },
-      "jar": "https://gitee.com/easy999/test1/raw/main/easy11.02.png"
+      "jar": "https://raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
       "key": "测试",
