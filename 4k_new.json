@@ -1856,6 +1856,13 @@
       "filterable": 1,
       "changeable": 1,
       "playable": 1
+    },
+    {
+      "key": "红果短剧",
+      "name": "红果 | 短剧",
+      "type": 3,
+      "api": "https://easy888.dpdns.org/py/红果短剧.py",
+      "genre": "shortdrama"
     }
   ],
   "lives": [
