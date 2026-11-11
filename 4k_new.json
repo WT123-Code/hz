@@ -1970,16 +1970,11 @@
       "key": "红果短剧",
       "name": "红果 | 短剧",
       "type": 3,
-      "api": "csp_HongGuo",
-      "lang": "ds",
-      "genre": "短剧",
+      "api": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/hongguo.py",
+      "genre": "shortdrama",
       "searchable": 1,
       "quickSearch": 0,
-      "filterable": 1,
-      "ext": {
-        "danmu": true
-      },
-      "jar": "https://yc.wya6.cn/pz/wyjk.php;md5;94e89335169603a013281a0e1ba77433"
+      "filterable": 0
     }
   ],
   "lives": [
