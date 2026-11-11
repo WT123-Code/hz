@@ -1066,7 +1066,7 @@
     },
     {
       "key": "FourK",
-      "name": "望舒 | 4K",
+      "name": "🌔┆望舒┆4K",
       "type": 3,
       "api": "csp_App88",
       "searchable": 1,
@@ -1076,7 +1076,7 @@
     },
     {
       "key": "SanJiaoZhou",
-      "name": "云归 | 4K",
+      "name": "🌥️┆云归┆4K",
       "type": 3,
       "api": "csp_App88",
       "searchable": 1,
@@ -1086,7 +1086,7 @@
     },
     {
       "key": "Luck",
-      "name": "青禾 | 4K",
+      "name": "🍀┆青禾┆4K",
       "type": 3,
       "api": "csp_Luck",
       "searchable": 1,
@@ -1096,7 +1096,7 @@
     },
     {
       "key": "shangtou",
-      "name": "上头 | 4K",
+      "name": "🫠┆上头┆4K",
       "type": 3,
       "api": "csp_ShangTou",
       "searchable": 1,
@@ -1106,7 +1106,7 @@
     },
     {
       "key": "余温",
-      "name": "余温 | 4K",
+      "name": "🧣┆余温┆4K",
       "type": 3,
       "api": "csp_App88",
       "searchable": 1,
@@ -1117,7 +1117,7 @@
     },
     {
       "key": "夜猫",
-      "name": "夜猫 | 4K",
+      "name": "🦉┆夜猫┆4K",
       "type": 3,
       "api": "csp_App88",
       "searchable": 1,
@@ -1128,7 +1128,7 @@
     },
     {
       "key": "拼图",
-      "name": "拼图 | 4K",
+      "name": "🧩┆拼图┆4K",
       "type": 3,
       "api": "csp_NiuLai",
       "searchable": 1,
@@ -1139,7 +1139,7 @@
     },
     {
       "key": "嗑剧",
-      "name": "嗑剧 | 4K",
+      "name": "🍿┆嗑剧┆4K",
       "type": 3,
       "api": "csp_NiuLai",
       "searchable": 1,
