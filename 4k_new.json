@@ -1970,11 +1970,8 @@
       "key": "红果短剧",
       "name": "红果 | 短剧",
       "type": 3,
-      "api": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/hongguo2.py",
-      "genre": "shortdrama",
-      "searchable": 1,
-      "quickSearch": 0,
-      "filterable": 0
+      "api": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/hongguo3.py",
+      "genre": "shortdrama"
     }
   ],
   "lives": [
