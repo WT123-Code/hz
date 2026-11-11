@@ -398,6 +398,13 @@
       "genre": "film"
     },
     {
+      "key": "探影",
+      "name": "探影 | 4K",
+      "type": 3,
+      "api": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/探影.py",
+      "genre": "film"
+    },
+    {
       "key": "下饭",
       "name": "下饭| 4K",
       "type": 3,
