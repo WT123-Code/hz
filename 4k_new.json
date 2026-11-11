@@ -1,5 +1,5 @@
 {
-  "spider": "https://qiniu.gongxueyun.com/upload/8927661/2026-11-10/training_record/721461376_4_1794323426144.jar;md5;8b09e92274a61404af204b4e0cc82583",
+  "spider": "https://qiniu.gongxueyun.com/upload/1642674/2026-11-03/leave/862321224_2_1793729323718.jar;md5;c78599dab489dae65c893e121df0de2f",
   "wallpaper": "http://127.0.0.1:9978/proxy?do=wallpaper",
   "logo": "",
   "danmaku": "http://127.0.0.1:9978/proxy?do=danmaku&name={name}&episode={episode}",
@@ -1092,7 +1092,8 @@
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
-      "ext": "http:///AU/L2JHZ0SsU94LbxPA3emscXG7f5FFdKYn8MSdt/5Uktri/nmW4Z3nNYavRogzuAlOkPfPVG27z4OAdO+fyFhc="
+      "ext": "http:///AU/L2JHZ0SsU94LbxPA3emscXG7f5FFdKYn8MSdt/5Uktri/nmW4Z3nNYavRogzuAlOkPfPVG27z4OAdO+fyFhc=",
+      "jar": "https://qiniu.gongxueyun.com/upload/8927661/2026-11-10/training_record/721461376_4_1794323426144.jar;md5;8b09e92274a61404af204b4e0cc82583"
     },
     {
       "key": "shangtou",
