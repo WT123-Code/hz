@@ -6271,18 +6271,21 @@ class Spider(_BaseSpider):
     def homeVideoContent(self):
         """部分壳（Newbox 等）首页只调 homeVideoContent，不读 homeContent 里的 list。
         缺这个方法时表现为「站点没数据但搜索有数据」，这里补齐并带搜索兜底。"""
+        # 先走搜索接口：单次 JSON 请求，比抓首页 HTML 快且稳（首页 HTML 在部分网络
+        # 下会被壳的首屏超时判死，表现就是「首页没数据、搜索却正常」）。
         vlist = []
         try:
-            vlist = _hg_home_sections()
+            vlist = self.searchContent("短剧", False, "1").get("list") or []
+            print("[红果] homeVideoContent 搜索取数 %d 条" % len(vlist))
         except Exception as _err:
-            print("[红果] homeVideoContent 首页取失败: %s" % str(_err)[:80])
+            print("[红果] homeVideoContent 搜索失败: %s" % str(_err)[:80])
             vlist = []
         if not vlist:
             try:
-                vlist = self.searchContent("短剧", False, "1").get("list") or []
-                print("[红果] homeVideoContent 用搜索兜底 %d 条" % len(vlist))
+                vlist = _hg_home_sections()
+                print("[红果] homeVideoContent 改用首页板块 %d 条" % len(vlist))
             except Exception as _err2:
-                print("[红果] homeVideoContent 兜底失败: %s" % str(_err2)[:80])
+                print("[红果] homeVideoContent 首页板块也失败: %s" % str(_err2)[:80])
                 vlist = []
         return {"list": vlist}
 
