@@ -18,7 +18,178 @@ from collections.abc import Mapping
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from typing import Any
 from urllib.parse import parse_qs, quote, urlencode, urlparse
-import requests
+try:
+    import requests  # type: ignore  # noqa: F401
+except Exception:
+    # ---- 极简 requests 兼容层（纯标准库实现，壳内缺 requests 时兜底）----
+    import gzip as _gz
+    import socket as _sock
+    import ssl as _ssl
+    import types as _types
+    import urllib.error as _uerr
+    import urllib.parse as _uparse
+    import urllib.request as _ureq
+    import zlib as _zlib
+
+    class _ShimRequestException(Exception):
+        pass
+
+    class _ShimConnectionError(_ShimRequestException):
+        pass
+
+    class _ShimTimeout(_ShimRequestException):
+        pass
+
+    class _ShimHTTPError(_ShimRequestException):
+        def __init__(self, *args, response=None):
+            self.response = response
+            super().__init__(*args)
+
+    class _ShimHeaders(dict):
+        def __init__(self, raw=None):
+            super().__init__()
+            for k, v in (raw or []):
+                self[k] = v
+
+        def _real_key(self, key):
+            lk = str(key).lower()
+            for kk in self.keys():
+                if str(kk).lower() == lk:
+                    return kk
+            return None
+
+        def get(self, key, default=None):
+            rk = self._real_key(key)
+            return dict.get(self, rk) if rk is not None else default
+
+        def __contains__(self, key):
+            return self._real_key(key) is not None
+
+    class _ShimResponse:
+        def __init__(self, url, status, headers, raw):
+            self.url = url
+            self.status_code = int(status or 0)
+            self.headers = _ShimHeaders(headers)
+            enc = str(self.headers.get("Content-Encoding") or "").lower()
+            body = raw or b""
+            try:
+                if enc == "gzip":
+                    body = _gz.decompress(body)
+                elif enc == "deflate":
+                    try:
+                        body = _zlib.decompress(body)
+                    except Exception:
+                        body = _zlib.decompress(body, -_zlib.MAX_WBITS)
+            except Exception:
+                pass
+            self.content = body
+            self.encoding = "utf-8"
+
+        @property
+        def text(self):
+            return self.content.decode(self.encoding, "replace")
+
+        def json(self):
+            return json.loads(self.text)
+
+        def raise_for_status(self):
+            if self.status_code >= 400:
+                raise _ShimHTTPError("HTTP %s Error for url: %s" % (self.status_code, self.url),
+                                     response=self)
+
+        def iter_content(self, chunk_size=1024, **_kw):
+            n = max(1, int(chunk_size or 1024))
+            data = self.content
+            for i in range(0, len(data), n):
+                yield data[i:i + n]
+
+        def close(self):
+            pass
+
+    class _ShimNoRedirect(_ureq.HTTPRedirectHandler):
+        def redirect_request(self, *_a, **_k):
+            return None
+
+    def _shim_opener(allow_redirects=True):
+        ctx = _ssl.create_default_context()
+        ctx.check_hostname = False
+        ctx.verify_mode = _ssl.CERT_NONE
+        handlers = [_ureq.HTTPSHandler(context=ctx)]
+        if not allow_redirects:
+            handlers.append(_ShimNoRedirect())
+        return _ureq.build_opener(*handlers)
+
+    class _ShimSession:
+        def __init__(self):
+            self.headers = {}
+            self.trust_env = True
+            self.verify = False
+            self.proxies = {}
+
+        def _do(self, method, url, params=None, data=None, headers=None, timeout=30,
+                allow_redirects=True, stream=False, **_ignored):
+            if params:
+                if isinstance(params, dict):
+                    qs = _uparse.urlencode(params, doseq=True)
+                else:
+                    qs = str(params)
+                url = url + ("&" if "?" in url else "?") + qs
+            h = dict(self.headers or {})
+            h.update(headers or {})
+            body = data
+            if isinstance(body, (dict, list)):
+                body = _uparse.urlencode(body, doseq=True).encode("utf-8")
+                h.setdefault("Content-Type", "application/x-www-form-urlencoded")
+            elif isinstance(body, str):
+                body = body.encode("utf-8")
+            req = _ureq.Request(url, data=body, headers=h, method=str(method).upper())
+            opener = _shim_opener(allow_redirects)
+            try:
+                resp = opener.open(req, timeout=timeout)
+                raw = resp.read()
+                return _ShimResponse(url, resp.status, resp.getheaders(), raw)
+            except _uerr.HTTPError as he:
+                try:
+                    raw = he.read()
+                except Exception:
+                    raw = b""
+                hdrs = list(he.headers.items()) if getattr(he, "headers", None) else []
+                return _ShimResponse(url, he.code, hdrs, raw)
+            except (_uerr.URLError,) as ue:
+                reason = getattr(ue, "reason", ue)
+                text = str(reason).lower()
+                if "timed out" in text or "timeout" in text:
+                    raise _ShimTimeout(str(reason))
+                raise _ShimConnectionError(str(reason))
+            except _sock.timeout as se:
+                raise _ShimTimeout(str(se))
+            except Exception as exc:
+                raise _ShimConnectionError(str(exc))
+
+        def get(self, url, **kw):
+            return self._do("GET", url, **kw)
+
+        def head(self, url, **kw):
+            return self._do("HEAD", url, **kw)
+
+        def post(self, url, **kw):
+            return self._do("POST", url, **kw)
+
+        def close(self):
+            pass
+
+    requests = _types.SimpleNamespace(
+        Session=_ShimSession,
+        Response=_ShimResponse,
+        RequestException=_ShimRequestException,
+        ConnectionError=_ShimConnectionError,
+        Timeout=_ShimTimeout,
+        HTTPError=_ShimHTTPError,
+        get=lambda url, **kw: _ShimSession().get(url, **kw),
+        head=lambda url, **kw: _ShimSession().head(url, **kw),
+        post=lambda url, **kw: _ShimSession().post(url, **kw),
+    )
+    print("[红果] 宿主无 requests 模块，已启用内置 urllib 兼容层")
 try:
     from cryptography.hazmat.primitives import hashes
     from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
