@@ -6282,8 +6282,19 @@ class Spider(_BaseSpider):
         vlist = []
         try:
             vlist = _hg_home_sections()
-        except Exception:
+        except Exception as _err:
+            print("[红果] 首页推荐获取失败: %s" % str(_err)[:80])
             vlist = []
+        if not vlist:
+            # 兜底：部分壳/网络下官方首页 HTML 取不到，改用搜索接口补一批，
+            # 避免首页整页空白而搜索却正常（用户看到的就是这种“没数据”）
+            try:
+                _fb = self.searchContent("短剧", False, "1")
+                vlist = _fb.get("list") or []
+                print("[红果] 首页推荐为空，已用搜索兜底 %d 条" % len(vlist))
+            except Exception as _err2:
+                print("[红果] 首页搜索兜底失败: %s" % str(_err2)[:80])
+                vlist = []
         try:
             _hg_prefetch([x.get("vod_id") for x in vlist], 6)
         except Exception:
