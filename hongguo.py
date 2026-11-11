@@ -6268,6 +6268,24 @@ class Spider(_BaseSpider):
         except Exception:
             pass
 
+    def homeVideoContent(self):
+        """部分壳（Newbox 等）首页只调 homeVideoContent，不读 homeContent 里的 list。
+        缺这个方法时表现为「站点没数据但搜索有数据」，这里补齐并带搜索兜底。"""
+        vlist = []
+        try:
+            vlist = _hg_home_sections()
+        except Exception as _err:
+            print("[红果] homeVideoContent 首页取失败: %s" % str(_err)[:80])
+            vlist = []
+        if not vlist:
+            try:
+                vlist = self.searchContent("短剧", False, "1").get("list") or []
+                print("[红果] homeVideoContent 用搜索兜底 %d 条" % len(vlist))
+            except Exception as _err2:
+                print("[红果] homeVideoContent 兜底失败: %s" % str(_err2)[:80])
+                vlist = []
+        return {"list": vlist}
+
     def homeContent(self, filter):
         """分类=官方内容类型（真人剧/漫剧/漫画），二级分类取官方分类路由。"""
         class_list = [{"type_id": k, "type_name": n} for k, n, _ in _HG_CONTENT_TYPES]
