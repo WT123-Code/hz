@@ -266,6 +266,15 @@ class Spider(BaseSpider):
         self._lines = []     # 上次详情的线路（含未选中线路，用于降级）
         self._dcache = {}    # vid -> (时间戳, 结果, marks, lines)
         self._home_cache = None   # (时间戳, homeContent 结果)
+        self._cat_cache = {}      # "tid|pg|year" -> (时间戳, 结果)
+        # ---- 防封禁闸门 ----
+        # 站点会按请求频率封 IP（443 超时 / 备用端口 444 掐断）。
+        # 这里做三件事：全局最小请求间隔、连续失败熔断、熔断期内不再发请求。
+        self._gate_lock = threading.Lock()
+        self._last_req = 0.0      # 上次请求时间
+        self._cool_until = 0.0    # 熔断截止时间
+        self._fail_cnt = 0        # 连续失败计数
+        self._min_gap = 0.8       # 相邻两次请求的最小间隔（秒）
 
     def getName(self):
         return "秒看4K"
@@ -380,12 +389,20 @@ class Spider(BaseSpider):
     def _post(self, path, data):
         url = self.base + path
         body = data.encode("utf-8") if isinstance(data, str) else data
+        # 所有出站请求都过闸门：熔断期内直接返回，不碰服务器
+        if not self._gate_wait():
+            return {"code": 0, "msg": "站点限流中，请稍后再试"}
         req = urllib.request.Request(url, data=body, headers=self._headers(), method="POST")
         try:
             resp = urllib.request.urlopen(req, timeout=int(self.cfg.get("timeout") or 25))
             txt = resp.read().decode("utf-8", "replace")
-            return json.loads(txt)
+            r = json.loads(txt)
+            # 业务层正常（code 1）才清零失败计数；返回"无权请求"不算 IP 封禁
+            self._gate_ok()
+            return r
         except Exception as e:
+            hard = any(k in str(e) for k in ("444", "ConnectionReset", "RemoteDisconnected", "timed out"))
+            self._gate_fail(hard=hard)
             return {"code": 0, "msg": "请求失败: %s" % e}
 
     def _decode(self, b64):
@@ -538,13 +555,42 @@ class Spider(BaseSpider):
         self._home_cache = (time.time(), res)
         return res
 
-    def _mac_get(self, query, timeout=15):
-        """maccms 列表接口：主站与备用后端并发请求，谁先返回用谁。
-        这样任何一边偶发卡顿都不会拖慢页面。"""
-        hit = {}
-        lock = threading.Lock()
+    # ------------------------------------------------------- 防封禁 请求闸门
+    def _gate_wait(self):
+        """所有出站请求都先过这道闸：
+        1) 熔断期内直接拒绝发送（返回 False），不发请求就不加深封禁
+        2) 保证相邻两次请求至少间隔 _min_gap 秒，避免像爬虫一样连发
+        """
+        with self._gate_lock:
+            if self._cool_until and time.time() < self._cool_until:
+                return False
+            gap = time.time() - self._last_req
+            if gap < self._min_gap:
+                time.sleep(self._min_gap - gap)
+            self._last_req = time.time()
+            return True
 
-        def worker(base):
+    def _gate_ok(self):
+        """一次成功，清零失败计数"""
+        with self._gate_lock:
+            self._fail_cnt = 0
+
+    def _gate_fail(self, hard=False):
+        """一次失败：累计计数，连续失败就熔断一段时间，期间不再请求。
+        hard=True 表示收到 444 / 连接被掐断这类明确的封禁信号，立即熔断。"""
+        with self._gate_lock:
+            self._fail_cnt += 1
+            if hard or self._fail_cnt >= 3:
+                # 首次 90 秒，之后翻倍，封顶 15 分钟
+                back = min(90 * (2 ** (self._fail_cnt - 1)), 900)
+                self._cool_until = time.time() + back
+
+    def _mac_get(self, query, timeout=15):
+        """maccms 列表接口。改为单路请求，避免同一台服务器被打两次导致封 IP。
+        主站失败才走备用，且备用同样过闸门。"""
+        for base in self.MAC_BASES:
+            if not self._gate_wait():
+                return {}
             try:
                 url = base + self.MAC_LIST + query
                 req = urllib.request.Request(
@@ -552,21 +598,16 @@ class Spider(BaseSpider):
                 resp = urllib.request.urlopen(req, timeout=timeout)
                 data = json.loads(resp.read().decode("utf-8", "replace"))
                 if isinstance(data, dict) and (data.get("list") or data.get("total")):
-                    with lock:
-                        if not hit:
-                            hit["d"] = data
-            except Exception:
-                pass
-
-        threads = [threading.Thread(target=worker, args=(b,)) for b in self.MAC_BASES]
-        for t in threads:
-            t.daemon = True
-            t.start()
-        for t in threads:
-            t.join(timeout)
-
-        with lock:
-            return hit.get("d") or {}
+                    self._gate_ok()
+                    return data
+                self._gate_fail()
+            except Exception as e:
+                # 444 / ConnectionReset / RemoteDisconnected 都是封禁信号
+                hard = any(k in str(e) for k in ("444", "ConnectionReset", "RemoteDisconnected", "timed out"))
+                self._gate_fail(hard=hard)
+                if hard:
+                    break
+        return {}
 
     def categoryContent(self, tid, pg, filter, extend):
         try:
@@ -584,6 +625,12 @@ class Spider(BaseSpider):
                 q += "&year=%s" % y
         q += "&pg=%d" % page
 
+        # 分类页缓存 12 分钟：来回翻同一页不再重复打服务器，降低被封概率
+        ck = "%s|%d|%s" % (t, page, str((extend or {}).get("year") or "") if isinstance(extend, dict) else "")
+        ch = self._cat_cache.get(ck)
+        if ch and time.time() - ch[0] < 720:
+            return ch[1]
+
         r = self._mac_get(q)
         lst = []
         for it in (r.get("list") or []):
@@ -591,12 +638,19 @@ class Spider(BaseSpider):
             if o:
                 lst.append(o)
         pc = r.get("pagecount")
-        return {
+        res = {
             "list": lst,
             "page": page,
             "pagecount": int(pc) if str(pc).isdigit() else 9999,
             "total": int(r.get("total") or len(lst)),
         }
+        # 只有真拿到数据才缓存，空结果不缓存（避免一次失败被记住 12 分钟）
+        if lst:
+            if len(self._cat_cache) > 120:
+                for k in list(self._cat_cache)[:60]:
+                    self._cat_cache.pop(k, None)
+            self._cat_cache[ck] = (time.time(), res)
+        return res
 
     @staticmethod
     def _pack(items):
