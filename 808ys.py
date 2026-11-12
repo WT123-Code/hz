@@ -592,8 +592,8 @@ class Spider(BaseSpider):
                 content = desc_tag.get_text(strip=True)
                 content = re.sub(r'详情\s*$', '', content).strip()
 
-            # 播放源和集数（正序）
-            play_from_list, play_url_list = self._parse_play_sources(html, vod_id)
+            # 播放源和集数（正序）—— 复用已建好的 soup，避免对同一段 HTML 二次解析
+            play_from_list, play_url_list = self._parse_play_sources(html, vod_id, soup=soup)
 
             vod_item = {
                 "vod_id": vod_id,
@@ -614,15 +614,17 @@ class Spider(BaseSpider):
             logger.error(f"获取详情失败: {e}")
             return {"list": []}
 
-    def _parse_play_sources(self, html, vod_id):
+    def _parse_play_sources(self, html, vod_id, soup=None):
         """解析播放源和集数 - 正序排列
         结构: ul.nav-tabs > li > a[href="#playlist{sid}"] (源名)
               div.tab-pane#playlist{sid} > ul > a[href="/vodplay/{vid}-{sid}-{nid}.html"] (集数)
+        传入 soup 时直接复用，避免重复解析整页 HTML（大页面可省近半耗时）
         """
         play_from_list = []
         play_url_list = []
 
-        soup = BeautifulSoup(html, 'html.parser')
+        if soup is None:
+            soup = BeautifulSoup(html, 'html.parser')
 
         # 源名映射: {sid: 源名}
         source_names = {}
