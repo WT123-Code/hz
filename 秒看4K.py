@@ -196,6 +196,23 @@ def aes_decrypt(b64, key, iv):
     return raw.decode("utf-8", "replace")
 
 
+# ---------- 播放标识：短标识 vid|集序|线路名 ----------
+# 内存里的 _marks 提供即用信息；进程重启/历史直播时用 vid 重新拉详情恢复。
+def _mk_pid(vid, idx, name):
+    n = str(name or "").replace("|", "/").replace("$", "").replace("#", "")
+    return "%s|%d|%s" % (vid, idx, n)
+
+
+def _split_pid(pid):
+    parts = str(pid or "").split("|", 2)
+    if len(parts) < 3:
+        return None
+    try:
+        return {"vid": parts[0], "i": int(parts[1]), "name": parts[2]}
+    except Exception:
+        return None
+
+
 # ============================================================== Spider
 
 class Spider(BaseSpider):
@@ -217,9 +234,13 @@ class Spider(BaseSpider):
     def __init__(self):
         super().__init__()
         self.cfg = dict(self.CONFIG)
-        self.base = self.CONFIG["base"]
+        self.base = str(self.CONFIG["base"]).rstrip("/")
+        self._key = bytes(self.CONFIG.get("aes_key") or "c60d88b2eep53za8", "utf-8")
+        self._iv = self._key
         self._marks = {}     # 播放标识 -> {"parse","url"}
         self._lines = []     # 上次详情的线路（含未选中线路，用于降级）
+        self._dcache = {}    # vid -> (时间戳, 结果, marks, lines)
+        self._home_cache = None   # (时间戳, homeContent 结果)
 
     def getName(self):
         return "秒看4K"
@@ -343,25 +364,134 @@ class Spider(BaseSpider):
         return True
 
     # ---------------------------------------------------------------- 列表
+    # 分类表（已实测 type_id -> 总量）：
+    #   1 电影 99182 / 2 电视剧 64576 / 3 综艺 29544 / 4 动漫 74096
+    #   5 纪录片 4862 / 6 短剧 167906 / 7 少儿 7878 / 0 全部 448660
+    CATS = [
+        ("1", "电影"), ("2", "电视剧"), ("3", "综艺"), ("4", "动漫"),
+        ("6", "短剧"), ("7", "少儿"), ("5", "纪录片"),
+    ]
+    # 分类列表走 maccms 的 ac=list（不带斜杠，带斜杠会被 WAF 444 断连）。
+    # ac=detail 被拦，所以列表只给摘要字段，没有封面。
+    MAC_LIST = "api.php/provide/vod?ac=list"
+    MAC_BASES = ("https://mk1080.top/", "http://154.201.81.41:1688/")
+
+    # 实测只有 year 参数生效（class/area/lang 后端直接忽略）
+    YEARS = ["2026", "2025", "2024", "2023", "2022", "2021", "2020", "2019", "2018"]
+
+    @staticmethod
+    def _pack_one(it):
+        """单条 -> TVBox 视频对象（首页/分类通用）"""
+        if not isinstance(it, dict):
+            return None
+        vid = it.get("vod_id")
+        if vid in (None, "", 0):
+            return None
+        return {
+            "vod_id": str(vid),
+            "vod_name": str(it.get("vod_name") or ""),
+            "vod_pic": str(it.get("vod_pic") or it.get("vod_pic_slide") or ""),
+            "vod_remarks": str(it.get("vod_remarks") or ""),
+            "vod_year": str(it.get("vod_year") or ""),
+            "vod_area": str(it.get("vod_area") or ""),
+            "vod_lang": str(it.get("vod_lang") or ""),
+        }
+
     def homeContent(self, filter):
-        cats = [
-            {"type_id": "1", "type_name": "电影"},
-            {"type_id": "2", "type_name": "连续剧"},
-            {"type_id": "4", "type_name": "动漫"},
-            {"type_id": "3", "type_name": "综艺"},
-            {"type_id": "20", "type_name": "短剧"},
-            {"type_id": "23", "type_name": "纪录片"},
-        ]
-        return {"class": cats, "filters": {}}
+        """按 APP 首页接口 initV119 还原：分类表 + 轮播 + 推荐"""
+        # initV119 返回 85KB 密文，解密约 2-3s；内容变动慢，缓存 30 分钟
+        if self._home_cache and time.time() - self._home_cache[0] < 1800:
+            return self._home_cache[1]
+
+        cats, videos, seen = [], [], set()
+        try:
+            r = self._api("index/initV119", "")
+        except Exception:
+            r = {}
+
+        types = r.get("type_list") or []
+        for t in types:
+            if not isinstance(t, dict):
+                continue
+            tid = str(t.get("type_id") if t.get("type_id") is not None else "")
+            name = str(t.get("type_name") or "").strip()
+            if not tid or not name:
+                continue
+            cats.append({"type_id": tid, "type_name": name})
+
+        # 首页推荐：轮播 -> 热门推荐 -> 各分类推荐（每类取 8 条）
+        for key in ("banner_list", "recommend_list"):
+            for it in (r.get(key) or []):
+                o = self._pack_one(it)
+                if o and o["vod_id"] not in seen:
+                    seen.add(o["vod_id"])
+                    videos.append(o)
+        for t in types:
+            if not isinstance(t, dict):
+                continue
+            for it in (t.get("recommend_list") or [])[:8]:
+                o = self._pack_one(it)
+                if o and o["vod_id"] not in seen:
+                    seen.add(o["vod_id"])
+                    videos.append(o)
+        for it in (r.get("update") or []):
+            o = self._pack_one(it)
+            if o and o["vod_id"] not in seen:
+                seen.add(o["vod_id"])
+                videos.append(o)
+
+        # 筛选：只开实测有效的年份
+        yv = [{"n": y, "v": y} for y in self.YEARS]
+        filters = {c["type_id"]: [{"key": "year", "name": "年份", "value": yv}]
+                   for c in cats if c["type_id"] != "0"}
+
+        res = {"class": cats, "list": videos, "filters": filters}
+        self._home_cache = (time.time(), res)
+        return res
+
+    def _mac_get(self, query, timeout=12):
+        """maccms 列表接口，主站失败自动走备用后端。
+        主站给 8s、备用给 12s，避免某一页卡到五六秒。"""
+        for i, base in enumerate(self.MAC_BASES):
+            url = base + self.MAC_LIST + query
+            try:
+                req = urllib.request.Request(
+                    url, headers={"User-Agent": str(self.cfg.get("user_agent") or "okhttp/3.14.9")})
+                resp = urllib.request.urlopen(req, timeout=(8 if i == 0 else timeout))
+                return json.loads(resp.read().decode("utf-8", "replace"))
+            except Exception:
+                continue
+        return {}
 
     def categoryContent(self, tid, pg, filter, extend):
-        # 站内分类列表接口被 WAF 拦截，分类页统一走关键词搜索的兜底：
-        # 用热门词占位，保证分类页不空。实际使用建议以搜索为主。
-        r = self._api("index/searchList",
-                      "keywords=%s&type_id=%s&page=%s"
-                      % (urllib.parse.quote("热门"), tid, pg))
-        lst = self._pack(r.get("search_list") or r.get("list") or [])
-        return {"list": lst, "page": int(pg), "pagecount": 9999, "total": len(lst)}
+        try:
+            page = max(1, int(pg))
+        except Exception:
+            page = 1
+
+        q = ""
+        t = str(tid or "").strip()
+        if t and t != "0":
+            q += "&t=%s" % urllib.parse.quote(t)
+        if isinstance(extend, dict):
+            y = str(extend.get("year") or "").strip()
+            if y.isdigit():
+                q += "&year=%s" % y
+        q += "&pg=%d" % page
+
+        r = self._mac_get(q)
+        lst = []
+        for it in (r.get("list") or []):
+            o = self._pack_one(it)
+            if o:
+                lst.append(o)
+        pc = r.get("pagecount")
+        return {
+            "list": lst,
+            "page": page,
+            "pagecount": int(pc) if str(pc).isdigit() else 9999,
+            "total": int(r.get("total") or len(lst)),
+        }
 
     @staticmethod
     def _pack(items):
@@ -384,10 +514,13 @@ class Spider(BaseSpider):
         return out
 
     def searchContent(self, key, quick, pg="1"):
+        p = str(pg).strip()
+        if not p.isdigit():
+            p = "1"
         r = self._api("index/searchList",
-                      "keywords=%s&type_id=0&page=%s" % (urllib.parse.quote(str(key)), pg))
+                      "keywords=%s&type_id=0&page=%s" % (urllib.parse.quote(str(key)), p))
         lst = self._pack(r.get("search_list") or r.get("list") or [])
-        return {"list": lst, "page": int(pg), "pagecount": 9999, "total": len(lst)}
+        return {"list": lst, "page": int(p), "pagecount": 9999, "total": len(lst)}
 
     def searchContentPage(self, key, quick, pg):
         return self.searchContent(key, quick, pg)
@@ -397,6 +530,11 @@ class Spider(BaseSpider):
         if not ids:
             return {"list": []}
         vid = str(ids[0]).split(",")[0]
+        # 详情缓存 180s：vodDetail 返回 180KB+，重复进入同一片子不必重拉
+        h = self._dcache.get(vid)
+        if h and time.time() - h[0] < 180:
+            self._marks, self._lines = dict(h[2]), list(h[3])
+            return h[1]
         r = self._api("index/vodDetail", "vod_id=%s" % vid)
         if r.get("code") != 200 and not isinstance(r.get("vod"), dict):
             return {"list": []}
@@ -427,11 +565,12 @@ class Spider(BaseSpider):
             for ep in urls:
                 if not isinstance(ep, dict):
                     continue
-                ep_name = str(ep.get("name") or "").strip()
+                # TVBox 用 $ 分隔集名与标识、# 分隔集数，这两个字符必须清掉
+                ep_name = str(ep.get("name") or "").strip().replace("$", "").replace("#", "")
                 furl = str(ep.get("url") or "")
                 if not ep_name or not furl:
                     continue
-                mk = "%s|%d" % (name, len(eps))
+                mk = _mk_pid(vid, len(eps), name)
                 self._marks[mk] = {"parse": parse_api, "url": furl, "name": name}
                 eps.append("%s$%s" % (ep_name, mk))
             if not eps:
@@ -441,7 +580,7 @@ class Spider(BaseSpider):
             play_from.append(name)
             play_url.append("#".join(eps))
 
-        return {"list": [{
+        res = {"list": [{
             "vod_id": vid,
             "vod_name": str(v.get("vod_name") or ""),
             "vod_pic": str(v.get("vod_pic") or ""),
@@ -459,6 +598,11 @@ class Spider(BaseSpider):
             "vod_play_from": "$$$".join(play_from),
             "vod_play_url": "$$$".join(play_url),
         }]}
+        self._dcache[vid] = (time.time(), res, dict(self._marks), list(self._lines))
+        if len(self._dcache) > 60:
+            for k in list(self._dcache)[:30]:
+                self._dcache.pop(k, None)
+        return res
 
     # ---------------------------------------------------------------- 播放
     def _parse_ep(self, parse_api, fake_url):
@@ -472,13 +616,14 @@ class Spider(BaseSpider):
         if r.get("code") != 200:
             return None, {}, str(r.get("msg") or "解析失败")
         system = str(r.get("system") or "")
-        # from 是网盘长期直链，永远优先
-        frm = str(r.get("from") or "")
-        if self._is_valid(frm) and not self._is_ad(frm, system):
-            return frm, {}, ""
+        # 优先用 url（华为云 EOS 直链，实测 20+ MB/s，秒开 4K）
+        # from 是网盘长期直链，但要多跳一次 302 且常被限速，仅作兜底。
         u = str(r.get("url") or "")
         if self._is_valid(u) and not self._is_ad(u, system):
             return u, (r.get("headers") if isinstance(r.get("headers"), dict) else {}), ""
+        frm = str(r.get("from") or "")
+        if self._is_valid(frm) and not self._is_ad(frm, system):
+            return frm, {}, ""
         if self._is_ad(u or frm, system):
             return None, {}, "广告源，已跳过"
         return None, {}, "该线路未返回有效地址"
@@ -488,22 +633,34 @@ class Spider(BaseSpider):
             return {"parse": 0, "url": "", "header": {}}
         cur = self._marks.get(pid)
         if not cur:
-            return {"parse": 0, "url": "", "header": {}, "msg": "标识失效，请重新进入详情"}
+            # 冷启动 / 从历史记录直接播：用 pid 里的 vid 回拉详情重建映射
+            info = _split_pid(pid)
+            if not info:
+                return {"parse": 0, "url": "", "header": {}, "msg": "标识失效，请重新进入详情"}
+            try:
+                _d = self.detailContent([info["vid"]])
+                cur = self._marks.get(pid)
+            except Exception:
+                cur = None
+            if not cur:
+                return {"parse": 0, "url": "", "header": {}, "msg": "标识失效，请重新进入详情"}
+        idx = int(cur.get("i") or 0)
 
         url, hdr, err = self._parse_ep(cur.get("parse"), cur.get("url"))
 
-        # 当前线路失败/是广告 -> 逐条试其它线路的同一集（4K 线路排在前面）
+        # 当前线路失败/是广告 -> 按序试其它线路的同一集（4K 线路排在前面）
+        # 限制最多试 4 条，避免解析接口逐个超时把播放等待拉到几十秒
         if not url:
-            try:
-                idx = int(pid.split("|")[-1])
-            except Exception:
-                idx = 0
+            tried = 0
             for ln in self._lines:
+                if tried >= 4:
+                    break
                 if ln.get("name") == cur.get("name"):
                     continue
                 urls = ln.get("urls") or []
                 if idx >= len(urls) or not urls[idx]:
                     continue
+                tried += 1
                 u2, h2, _e2 = self._parse_ep(ln.get("parse"), urls[idx])
                 if u2:
                     url, hdr, err = u2, h2, ""
