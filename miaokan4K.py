@@ -33,6 +33,27 @@
   本源保留全部线路（不砍），仅把含 4K 的线路排到前面。
 ================================================================================
 """
+# ==============================================================================
+#  ↓↓↓↓↓↓↓↓↓↓        只需改下面这两行，改成你自己的             ↓↓↓↓↓↓↓↓↓↓
+# ==============================================================================
+
+MY_TOKEN = "539b135460fcddc3da243fbcb385a8b97e16a7ea880572f536fa84abe09ea18c"       # 秒看 APP 的 app-user-token（64 位十六进制）
+MY_DEVICE_ID = "db2b620a47886c4813faf979a65cd480"   # 同一台设备的 app-user-device-id
+
+# 更省事的办法：直接填秒看 APP 的账号密码，程序自己登录换 token。
+# 填了账号密码，上面两行就不用管了。token 会过期，这边每次自动拿最新的。
+MY_ACCOUNT = ""     # 秒看 APP 登录账号
+MY_PASSWORD = ""    # 秒看 APP 登录密码
+
+# 三种方式任选一种：
+#   ① 填 MY_ACCOUNT + MY_PASSWORD  → 自动登录，最省心，token 永不过期
+#   ② 填 MY_TOKEN + MY_DEVICE_ID   → 用现成 token，过期了要手动换
+#   ③ 都不填                        → 能浏览、分类、搜索、看详情，点播放会提示
+#
+# 注意：每次登录都会换发新 token，旧的立即作废。
+#       所以同一个账号别在多台设备上同时用静态 token，会互相顶掉。
+# ==============================================================================
+
 import json
 import time
 import base64
@@ -199,6 +220,12 @@ def aes_decrypt(b64, key, iv):
 
 # ---------- 播放标识：短标识 vid|集序|线路名 ----------
 # 内存里的 _marks 提供即用信息；进程重启/历史直播时用 vid 重新拉详情恢复。
+def _rand_device_id():
+    """没填 device_id 时随机生成一个，格式和 APP 一致：32 位十六进制"""
+    import random
+    return "".join(random.choice("0123456789abcdef") for _ in range(32))
+
+
 def _mk_pid(vid, idx, name):
     n = str(name or "").replace("|", "/").replace("$", "").replace("#", "")
     return "%s|%d|%s" % (vid, idx, n)
@@ -219,11 +246,11 @@ def _split_pid(pid):
 class Spider(BaseSpider):
     CONFIG = {
         "base": "https://mk1080.top/api.php/getappapi.",
-        # APP 账号 token（秒看 APP 的 app-user-token）。toke 会有有效期，
-        # 失效时 vodParse 会返回「无权请求，请登录账号!」，
-        # 重新在模拟器/手机上登录 APP 后用 frida 或抓包取新 token 填这里即可。
-        "token": "57be66cef461133ae5ef444707dc1b35e7bf0a1ad5766ed52a2c0703d759160d",
-        "device_id": "28705c733239034ad98a1600005928b57",
+        # 默认取文件顶部那几个常量的值，配置里给 ext 也能覆盖。
+        "token": MY_TOKEN,
+        "device_id": MY_DEVICE_ID,
+        "account": MY_ACCOUNT,
+        "password": MY_PASSWORD,
         "aes_key": "c60d88b2eep53za8",
         "version_code": "135",
         "user_agent": "okhttp/3.14.9",
@@ -247,17 +274,29 @@ class Spider(BaseSpider):
         return "秒看4K"
 
     def init(self, extend=""):
+        """extend 支持三种写法，随便选一种：
+        1) JSON： {"token":"xxx","device_id":"yyy"}
+        2) 键值： token=xxx&device_id=yyy   或  token=xxx,device_id=yyy
+        3) 光填一串 token，device_id 留空也行
+        """
         self.cfg = dict(self.CONFIG)
         if isinstance(extend, dict):
             self.cfg.update(extend)
         elif isinstance(extend, str) and extend.strip():
+            t = extend.strip()
             try:
-                self.cfg.update(json.loads(extend))
+                self.cfg.update(json.loads(t))
             except Exception:
-                for kv in str(extend).split(","):
-                    if "=" in kv:
-                        k, v = kv.split("=", 1)
-                        self.cfg[k.strip()] = v.strip()
+                if "=" in t:
+                    for sep in ("&", ","):
+                        t = t.replace(sep, "\n")
+                    for ln in t.split("\n"):
+                        if "=" in ln:
+                            k, v = ln.split("=", 1)
+                            self.cfg[k.strip().strip('"')] = v.strip().strip('"')
+                elif len(t) >= 32:
+                    # 没有键名、又足够长，直接当成 token
+                    self.cfg["token"] = t
         self.base = str(self.cfg["base"]).rstrip("/")
         try:
             self._key = bytes(self.cfg["aes_key"], "utf-8")
@@ -277,6 +316,58 @@ class Spider(BaseSpider):
 
     def localProxy(self, param):
         return [404, "text/plain", "", None]
+
+    # ---------------------------------------------------------------- 自动登录
+    def _login(self):
+        """用账号密码换 token。成功返回 token 字符串，失败返回 None。
+        appLogin 不校验 app-api-verify-sign，裸调就能过。"""
+        acct = str(self.cfg.get("account") or "").strip()
+        pwd = str(self.cfg.get("password") or "").strip()
+        if not acct or not pwd:
+            return None
+        dev = str(self.cfg.get("device_id") or "").strip() or _rand_device_id()
+        body = urllib.parse.urlencode({
+            "password": pwd,
+            "code": "",
+            "device_id": dev,
+            "user_name": acct,
+            "invite_code": "",
+            "is_emulator": "1",
+        })
+        # 登录接口不用带 token，单独发一次请求
+        url = self.base + "index/appLogin"
+        req = urllib.request.Request(url, data=body.encode("utf-8"),
+                                     headers={
+            "content-type": "application/x-www-form-urlencoded",
+            "user-agent": str(self.cfg.get("user_agent") or "okhttp/3.14.9"),
+            "app-version-code": str(self.cfg.get("version_code") or "135"),
+            "app-ui-mode": "light",
+            "app-user-device-id": dev,
+        }, method="POST")
+        try:
+            resp = urllib.request.urlopen(req, timeout=int(self.cfg.get("timeout") or 25))
+            outer = json.loads(resp.read().decode("utf-8", "replace"))
+            if outer.get("code") != 1 or not outer.get("data"):
+                return None
+            d = self._decode(outer["data"])
+            tok = str(((d.get("user") or {}).get("auth_token")) or "")
+            if tok:
+                # 登录会换发新 token，旧的作废：立刻用新的，并记住 device_id
+                self.cfg["token"] = tok
+                self.cfg["device_id"] = dev
+            return tok or None
+        except Exception:
+            return None
+
+    def _ensure_token(self, force=False):
+        """保证手里有个可用的 token。
+        已有 token 且不强制刷新时直接沿用；没有就尝试用账号密码登录。"""
+        cur = str(self.cfg.get("token") or "").strip()
+        if cur and not force:
+            return cur
+        if str(self.cfg.get("account") or "").strip():
+            return self._login()
+        return cur or None
 
     # ---------------------------------------------------------------- HTTP
     def _headers(self):
@@ -622,14 +713,28 @@ class Spider(BaseSpider):
         return res
 
     # ---------------------------------------------------------------- 播放
-    def _parse_ep(self, parse_api, fake_url):
-        """伪链 -> 播放地址，返回 (url, headers, err)。命中广告一律判失败。"""
+    def _parse_once(self, parse_api, fake_url):
+        """发一次 vodParse，返回解密后的字典"""
         body = urllib.parse.urlencode({
             "parse_api": parse_api,
             "url": aes_encrypt(fake_url, self._key, self._iv),
             "token": "",
         })
-        r = self._api("index/vodParse", body)
+        return self._api("index/vodParse", body)
+
+    def _parse_ep(self, parse_api, fake_url):
+        """伪链 -> 播放地址，返回 (url, headers, err)。命中广告一律判失败。"""
+        tok = self._ensure_token()
+        if not tok:
+            return None, {}, ("没账号也没 token，播不了 4K。"
+                              "打开这个 py 文件，把顶部的 MY_ACCOUNT / MY_PASSWORD "
+                              "填成你的秒看账号密码即可（会自动登录）。")
+        r = self._parse_once(parse_api, fake_url)
+        # token 过期（被别处登录顶掉 / 服务端过期）时自动重新登录再试一次
+        if r.get("code") != 200 and "登录" in str(r.get("msg") or ""):
+            if str(self.cfg.get("account") or "").strip():
+                if self._login():
+                    r = self._parse_once(parse_api, fake_url)
         if r.get("code") != 200:
             return None, {}, str(r.get("msg") or "解析失败")
         system = str(r.get("system") or "")
