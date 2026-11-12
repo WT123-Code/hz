@@ -1,0 +1,521 @@
+# -*- coding: utf-8 -*-
+"""
+================================================================================
+ 秒看视频 4K · CatVod / TVBox / Newbox  Python Spider
+================================================================================
+ 站点   : https://mk1080.top   (秒看视频 APP 同源接口)
+ 版本   : v1.0
+ 依赖   : 仅标准库（自带纯 Python AES-128-CBC，无需 pycryptodome / requests）
+
+ 链路说明（已实测跑通）
+ ----------------------------------------------------------------------------
+  1. 搜索   POST /api.php/getappapi.index/searchList     body: keywords=&type_id=&page=
+  2. 详情   POST /api.php/getappapi.index/vodDetail      body: vod_id=<id>
+            —— 无需任何鉴权，裸调即可
+  3. 解析   POST /api.php/getappapi.index/vodParse       body: parse_api=&url=&token=
+            —— 必须携带 app-user-token（APP 账号 token），否则返回
+               {"msg":"无权请求，请登录账号!","code":0}
+  4. 响应外层 {"data":"<base64 AES 密文>","msg":"...","code":1}
+            AES-128-CBC / PKCS7 / key = iv = c60d88b2eep53za8
+            解密得 {"json":"<内层 JSON 字符串>"}
+  5. 内层 JSON 关键字段
+            url    : 华为云 EOS 签名直链（X-Amz-Expires=900 或 86400）
+            from   : 网盘长期直链 http://lie.yuyun4kmaopan.qijiyun.vip/d/hcy/<ID>/<文件名>
+                     —— 每次访问自动 302 到新的 EOS 签名链接，永不过期，优先使用
+            type   : mp4 / hls
+            system : 解析线路标识（RB4K/MiNO、秒看解析 …）
+
+ 关于 4K
+ ----------------------------------------------------------------------------
+  站内线路极多（单个片子可达 20+ 条），带 "4K" 字样的线路才有真 4K：
+    · 4K·X / 4K·壹 / 4K·叁 / 4K·肆 / 热播4K …   → 实测 1.6~2.5 GB / 单集，ftyp isom
+    · 部分 "蓝光" 线路实为广告流或快手图床伪流，播放时自动跳过
+  本源保留全部线路（不砍），仅把含 4K 的线路排到前面。
+================================================================================
+"""
+import json
+import time
+import base64
+import urllib.parse
+import urllib.request
+
+try:
+    from base.spider import Spider as BaseSpider
+except Exception:
+    class BaseSpider(object):
+        def init(self, extend=""):
+            pass
+
+        def getName(self):
+            return ""
+
+        def isVideoFormat(self, url):
+            return False
+
+        def manualVideoCheck(self):
+            return False
+
+        def destroy(self):
+            pass
+
+        def localProxy(self, param):
+            return None
+
+
+# ============================================================== 纯 Python AES-128
+
+SBOX = [
+0x63,0x7c,0x77,0x7b,0xf2,0x6b,0x6f,0xc5,0x30,0x01,0x67,0x2b,0xfe,0xd7,0xab,0x76,
+0xca,0x82,0xc9,0x7d,0xfa,0x59,0x47,0xf0,0xad,0xd4,0xa2,0xaf,0x9c,0xa4,0x72,0xc0,
+0xb7,0xfd,0x93,0x26,0x36,0x3f,0xf7,0xcc,0x34,0xa5,0xe5,0xf1,0x71,0xd8,0x31,0x15,
+0x04,0xc7,0x23,0xc3,0x18,0x96,0x05,0x9a,0x07,0x12,0x80,0xe2,0xeb,0x27,0xb2,0x75,
+0x09,0x83,0x2c,0x1a,0x1b,0x6e,0x5a,0xa0,0x52,0x3b,0xd6,0xb3,0x29,0xe3,0x2f,0x84,
+0x53,0xd1,0x00,0xed,0x20,0xfc,0xb1,0x5b,0x6a,0xcb,0xbe,0x39,0x4a,0x4c,0x58,0xcf,
+0xd0,0xef,0xaa,0xfb,0x43,0x4d,0x33,0x85,0x45,0xf9,0x02,0x7f,0x50,0x3c,0x9f,0xa8,
+0x51,0xa3,0x40,0x8f,0x92,0x9d,0x38,0xf5,0xbc,0xb6,0xda,0x21,0x10,0xff,0xf3,0xd2,
+0xcd,0x0c,0x13,0xec,0x5f,0x97,0x44,0x17,0xc4,0xa7,0x7e,0x3d,0x64,0x5d,0x19,0x73,
+0x60,0x81,0x4f,0xdc,0x22,0x2a,0x90,0x88,0x46,0xee,0xb8,0x14,0xde,0x5e,0x0b,0xdb,
+0xe0,0x32,0x3a,0x0a,0x49,0x06,0x24,0x5c,0xc2,0xd3,0xac,0x62,0x91,0x95,0xe4,0x79,
+0xe7,0xc8,0x37,0x6d,0x8d,0xd5,0x4e,0xa9,0x6c,0x56,0xf4,0xea,0x65,0x7a,0xae,0x08,
+0xba,0x78,0x25,0x2e,0x1c,0xa6,0xb4,0xc6,0xe8,0xdd,0x74,0x1f,0x4b,0xbd,0x8b,0x8a,
+0x70,0x3e,0xb5,0x66,0x48,0x03,0xf6,0x0e,0x61,0x35,0x57,0xb9,0x86,0xc1,0x1d,0x9e,
+0xe1,0xf8,0x98,0x11,0x69,0xd9,0x8e,0x94,0x9b,0x1e,0x87,0xe9,0xce,0x55,0x28,0xdf,
+0x8c,0xa1,0x89,0x0d,0xbf,0xe6,0x42,0x68,0x41,0x99,0x2d,0x0f,0xb0,0x54,0xbb,0x16]
+
+INV_SBOX = [0] * 256
+for _i, _v in enumerate(SBOX):
+    INV_SBOX[_v] = _i
+
+RCON = [0x01,0x02,0x04,0x08,0x10,0x20,0x40,0x80,0x1b,0x36]
+
+
+def _xtime(a):
+    a <<= 1
+    if a & 0x100:
+        a ^= 0x11b
+    return a & 0xff
+
+
+def _gmul(a, b):
+    r = 0
+    for _ in range(8):
+        if b & 1:
+            r ^= a
+        b >>= 1
+        a = _xtime(a)
+    return r & 0xff
+
+
+def _expand_key(key):
+    w = [list(key[i:i + 4]) for i in range(0, 16, 4)]
+    for i in range(4, 44):
+        t = list(w[i - 1])
+        if i % 4 == 0:
+            t = t[1:] + t[:1]
+            t = [SBOX[b] for b in t]
+            t[0] ^= RCON[i // 4 - 1]
+        w.append([w[i - 4][j] ^ t[j] for j in range(4)])
+    return [sum(w[4 * r:4 * r + 4], []) for r in range(11)]
+
+
+def _enc_block(block, rk):
+    s = [block[i] ^ rk[0][i] for i in range(16)]
+    for rnd in range(1, 11):
+        s = [SBOX[b] for b in s]
+        s = [s[0], s[5], s[10], s[15],
+             s[4], s[9], s[14], s[3],
+             s[8], s[13], s[2], s[7],
+             s[12], s[1], s[6], s[11]]
+        if rnd != 10:
+            out = []
+            for c in range(4):
+                a0, a1, a2, a3 = s[4 * c], s[4 * c + 1], s[4 * c + 2], s[4 * c + 3]
+                out += [_gmul(a0, 2) ^ _gmul(a1, 3) ^ a2 ^ a3,
+                        a0 ^ _gmul(a1, 2) ^ _gmul(a2, 3) ^ a3,
+                        a0 ^ a1 ^ _gmul(a2, 2) ^ _gmul(a3, 3),
+                        _gmul(a0, 3) ^ a1 ^ a2 ^ _gmul(a3, 2)]
+            s = out
+        s = [s[i] ^ rk[rnd][i] for i in range(16)]
+    return s
+
+
+def _dec_block(block, rk):
+    s = [block[i] ^ rk[10][i] for i in range(16)]
+    for rnd in range(9, -1, -1):
+        s = [s[0], s[13], s[10], s[7],
+             s[4], s[1], s[14], s[11],
+             s[8], s[5], s[2], s[15],
+             s[12], s[9], s[6], s[3]]
+        s = [INV_SBOX[b] for b in s]
+        s = [s[i] ^ rk[rnd][i] for i in range(16)]
+        if rnd != 0:
+            out = []
+            for c in range(4):
+                a0, a1, a2, a3 = s[4 * c], s[4 * c + 1], s[4 * c + 2], s[4 * c + 3]
+                out += [_gmul(a0, 14) ^ _gmul(a1, 11) ^ _gmul(a2, 13) ^ _gmul(a3, 9),
+                        _gmul(a0, 9) ^ _gmul(a1, 14) ^ _gmul(a2, 11) ^ _gmul(a3, 13),
+                        _gmul(a0, 13) ^ _gmul(a1, 9) ^ _gmul(a2, 14) ^ _gmul(a3, 11),
+                        _gmul(a0, 11) ^ _gmul(a1, 13) ^ _gmul(a2, 9) ^ _gmul(a3, 14)]
+            s = out
+    return s
+
+
+def _cbc_encrypt(plain, key, iv):
+    rk = _expand_key(key)
+    out, prev = [], list(iv)
+    for i in range(0, len(plain), 16):
+        blk = [plain[i + j] ^ prev[j] for j in range(16)]
+        enc = _enc_block(blk, rk)
+        out += enc
+        prev = enc
+    return bytes(out)
+
+
+def _cbc_decrypt(cipher, key, iv):
+    rk = _expand_key(key)
+    out, prev = [], list(iv)
+    for i in range(0, len(cipher), 16):
+        blk = list(cipher[i:i + 16])
+        dec = _dec_block(blk, rk)
+        out += [dec[j] ^ prev[j] for j in range(16)]
+        prev = blk
+    return bytes(out)
+
+
+def aes_encrypt(text, key, iv):
+    n = 16 - len(text) % 16
+    data = text.encode("utf-8") + bytes([n]) * n
+    return base64.b64encode(_cbc_encrypt(data, key, iv)).decode()
+
+
+def aes_decrypt(b64, key, iv):
+    raw = _cbc_decrypt(base64.b64decode(b64), key, iv)
+    pad = raw[-1]
+    if 1 <= pad <= 16:
+        raw = raw[:-pad]
+    return raw.decode("utf-8", "replace")
+
+
+# ============================================================== Spider
+
+class Spider(BaseSpider):
+    CONFIG = {
+        "base": "https://mk1080.top/api.php/getappapi.",
+        # APP 账号 token（秒看 APP 的 app-user-token）。toke 会有有效期，
+        # 失效时 vodParse 会返回「无权请求，请登录账号!」，
+        # 重新在模拟器/手机上登录 APP 后用 frida 或抓包取新 token 填这里即可。
+        "token": "57be66cef461133ae5ef444707dc1b35e7bf0a1ad5766ed52a2c0703d759160d",
+        "device_id": "28705c733239034ad98a1600005928b57",
+        "aes_key": "c60d88b2eep53za8",
+        "version_code": "135",
+        "user_agent": "okhttp/3.14.9",
+        "timeout": 25,
+        # 4K 线路优先：含这些词的线路排在最前
+        "prefer_words": ["4K", "4k", "蓝光4K", "高码"],
+    }
+
+    def __init__(self):
+        super().__init__()
+        self.cfg = dict(self.CONFIG)
+        self.base = self.CONFIG["base"]
+        self._marks = {}     # 播放标识 -> {"parse","url"}
+        self._lines = []     # 上次详情的线路（含未选中线路，用于降级）
+
+    def getName(self):
+        return "秒看4K"
+
+    def init(self, extend=""):
+        self.cfg = dict(self.CONFIG)
+        if isinstance(extend, dict):
+            self.cfg.update(extend)
+        elif isinstance(extend, str) and extend.strip():
+            try:
+                self.cfg.update(json.loads(extend))
+            except Exception:
+                for kv in str(extend).split(","):
+                    if "=" in kv:
+                        k, v = kv.split("=", 1)
+                        self.cfg[k.strip()] = v.strip()
+        self.base = str(self.cfg["base"]).rstrip("/")
+        try:
+            self._key = bytes(self.cfg["aes_key"], "utf-8")
+        except Exception:
+            self._key = bytes("c60d88b2eep53za8", "utf-8")
+        self._iv = self._key
+
+    def isVideoFormat(self, url):
+        u = str(url or "").lower()
+        return any(x in u for x in (".m3u8", ".mp4", ".mkv", "cmecloud", "qijiyun"))
+
+    def manualVideoCheck(self):
+        return False
+
+    def destroy(self):
+        pass
+
+    def localProxy(self, param):
+        return [404, "text/plain", "", None]
+
+    # ---------------------------------------------------------------- HTTP
+    def _headers(self):
+        return {
+            "content-type": "application/x-www-form-urlencoded",
+            "user-agent": str(self.cfg.get("user_agent") or "okhttp/3.14.9"),
+            "app-version-code": str(self.cfg.get("version_code") or "135"),
+            "app-ui-mode": "light",
+            "app-user-device-id": str(self.cfg.get("device_id") or ""),
+            "app-user-token": str(self.cfg.get("token") or ""),
+        }
+
+    def _post(self, path, data):
+        url = self.base + path
+        body = data.encode("utf-8") if isinstance(data, str) else data
+        req = urllib.request.Request(url, data=body, headers=self._headers(), method="POST")
+        try:
+            resp = urllib.request.urlopen(req, timeout=int(self.cfg.get("timeout") or 25))
+            txt = resp.read().decode("utf-8", "replace")
+            return json.loads(txt)
+        except Exception as e:
+            return {"code": 0, "msg": "请求失败: %s" % e}
+
+    def _decode(self, b64):
+        """响应 data -> 内层 dict"""
+        try:
+            outer = json.loads(aes_decrypt(b64, self._key, self._iv))
+            inner = outer.get("json")
+            if isinstance(inner, str) and inner.strip():
+                return json.loads(inner)
+            return outer
+        except Exception as e:
+            return {"code": 0, "msg": "解密失败: %s" % e}
+
+    def _api(self, path, data):
+        r = self._post(path, data)
+        if r.get("code") != 1:
+            return {"code": 0, "msg": r.get("msg") or "接口异常"}
+        d = r.get("data")
+        if isinstance(d, str) and d:
+            return self._decode(d)
+        return {"code": 0, "msg": "无数据"}
+
+    # ------------------------------------------------------------- 广告识别
+    # 站内大量线路挂着"蓝光"名头，实际返回的是快手广告流或图床伪流，
+    # 下面这些特征命中即判为广告，直接换线路，绝不交给播放器。
+    AD_HOSTS = (
+        "yximgs.com", "kwimgs.com", "kuaishou.com",
+        "v1-ad", "adVideoLp", "ad.video",
+        "imageGameZone", "static.yximgs",
+    )
+    AD_SYSTEM = ("酷云解析",)
+    # 已知的伪流容器：内容其实是 png 序列，但后缀写成 m3u8
+    FAKE_HLS_HOSTS = ("mk1080p.top/cache_ghg",)
+
+    def _is_ad(self, url, system=""):
+        u = str(url or "").lower()
+        if not u:
+            return True
+        for h in self.AD_HOSTS:
+            if h in u:
+                return True
+        for s in self.AD_SYSTEM:
+            if s and s in str(system or ""):
+                return True
+        for h in self.FAKE_HLS_HOSTS:
+            if h in u:
+                return True
+        return False
+
+    # 伪链前缀：返回里若还带着这些，说明解析接口其实没解开（多见于
+    # gzjx / kxjx / omo / jp 这类"直连解析地址"，服务器原样回吐伪链）
+    FAKE_PREFIX = ("qf_vdo-", "qf_mp4-", "seven-", "mksp", "rb4k-", "xin4k-",
+                   "aclg-", "gztv-", "co4k_", "mk ") 
+
+    def _is_valid(self, url):
+        """必须是 http(s) 开头的真实地址，且不是伪链残留"""
+        u = str(url or "").strip()
+        if not u.startswith("http"):
+            return False
+        low = u.lower()
+        tail = low.split("://", 1)[-1]
+        for p in self.FAKE_PREFIX:
+            if tail.startswith(p):
+                return False
+        return True
+
+    # ---------------------------------------------------------------- 列表
+    def homeContent(self, filter):
+        cats = [
+            {"type_id": "1", "type_name": "电影"},
+            {"type_id": "2", "type_name": "连续剧"},
+            {"type_id": "4", "type_name": "动漫"},
+            {"type_id": "3", "type_name": "综艺"},
+            {"type_id": "20", "type_name": "短剧"},
+            {"type_id": "23", "type_name": "纪录片"},
+        ]
+        return {"class": cats, "filters": {}}
+
+    def categoryContent(self, tid, pg, filter, extend):
+        # 站内分类列表接口被 WAF 拦截，分类页统一走关键词搜索的兜底：
+        # 用热门词占位，保证分类页不空。实际使用建议以搜索为主。
+        r = self._api("index/searchList",
+                      "keywords=%s&type_id=%s&page=%s"
+                      % (urllib.parse.quote("热门"), tid, pg))
+        lst = self._pack(r.get("search_list") or r.get("list") or [])
+        return {"list": lst, "page": int(pg), "pagecount": 9999, "total": len(lst)}
+
+    @staticmethod
+    def _pack(items):
+        out = []
+        for it in items:
+            if not isinstance(it, dict):
+                continue
+            out.append({
+                "vod_id": str(it.get("vod_id") or ""),
+                "vod_name": str(it.get("vod_name") or ""),
+                "vod_pic": str(it.get("vod_pic") or it.get("vod_pic_slide") or ""),
+                "vod_remarks": str(it.get("vod_remarks") or ""),
+                "vod_year": str(it.get("vod_year") or ""),
+                "vod_area": str(it.get("vod_area") or ""),
+                "vod_lang": str(it.get("vod_lang") or ""),
+                "vod_class": str(it.get("vod_class") or ""),
+                "vod_actor": str(it.get("vod_actor") or ""),
+                "vod_content": str(it.get("vod_blurb") or ""),
+            })
+        return out
+
+    def searchContent(self, key, quick, pg="1"):
+        r = self._api("index/searchList",
+                      "keywords=%s&type_id=0&page=%s" % (urllib.parse.quote(str(key)), pg))
+        lst = self._pack(r.get("search_list") or r.get("list") or [])
+        return {"list": lst, "page": int(pg), "pagecount": 9999, "total": len(lst)}
+
+    def searchContentPage(self, key, quick, pg):
+        return self.searchContent(key, quick, pg)
+
+    # ---------------------------------------------------------------- 详情
+    def detailContent(self, ids):
+        if not ids:
+            return {"list": []}
+        vid = str(ids[0]).split(",")[0]
+        r = self._api("index/vodDetail", "vod_id=%s" % vid)
+        if r.get("code") != 200 and not isinstance(r.get("vod"), dict):
+            return {"list": []}
+        v = r.get("vod") or {}
+        play_from, play_url = [], []
+        self._marks = {}
+        self._lines = []
+
+        prefer = [str(w) for w in (self.cfg.get("prefer_words") or [])]
+        lines = list(r.get("vod_play_list") or [])
+        # 含 4K 的线路排前面（不删除任何线路）
+        def rank(ln):
+            nm = str((ln.get("player_info") or {}).get("show") or "")
+            for i, w in enumerate(prefer):
+                if w in nm:
+                    return i
+            return len(prefer)
+        lines.sort(key=rank)
+
+        for li, ln in enumerate(lines):
+            pi = ln.get("player_info") or {}
+            name = str(pi.get("show") or "线路%d" % (li + 1))
+            parse_api = str(pi.get("parse") or "")
+            urls = ln.get("urls") or []
+            if not urls:
+                continue
+            eps = []
+            for ep in urls:
+                if not isinstance(ep, dict):
+                    continue
+                ep_name = str(ep.get("name") or "").strip()
+                furl = str(ep.get("url") or "")
+                if not ep_name or not furl:
+                    continue
+                mk = "%s|%d" % (name, len(eps))
+                self._marks[mk] = {"parse": parse_api, "url": furl, "name": name}
+                eps.append("%s$%s" % (ep_name, mk))
+            if not eps:
+                continue
+            self._lines.append({"name": name, "parse": parse_api,
+                                "urls": [e.get("url") for e in urls if isinstance(e, dict)]})
+            play_from.append(name)
+            play_url.append("#".join(eps))
+
+        return {"list": [{
+            "vod_id": vid,
+            "vod_name": str(v.get("vod_name") or ""),
+            "vod_pic": str(v.get("vod_pic") or ""),
+            "vod_actor": str(v.get("vod_actor") or ""),
+            "vod_director": str(v.get("vod_director") or ""),
+            "vod_year": str(v.get("vod_year") or ""),
+            "vod_area": str(v.get("vod_area") or ""),
+            "vod_lang": str(v.get("vod_lang") or ""),
+            "vod_class": str(v.get("vod_class") or ""),
+            "vod_state": str(v.get("vod_state") or ""),
+            "vod_total": str(v.get("vod_total") or ""),
+            "vod_serial": str(v.get("vod_serial") or ""),
+            "vod_remarks": str(v.get("vod_remarks") or ""),
+            "vod_content": str(v.get("vod_content") or v.get("vod_blurb") or ""),
+            "vod_play_from": "$$$".join(play_from),
+            "vod_play_url": "$$$".join(play_url),
+        }]}
+
+    # ---------------------------------------------------------------- 播放
+    def _parse_ep(self, parse_api, fake_url):
+        """伪链 -> 播放地址，返回 (url, headers, err)。命中广告一律判失败。"""
+        body = urllib.parse.urlencode({
+            "parse_api": parse_api,
+            "url": aes_encrypt(fake_url, self._key, self._iv),
+            "token": "",
+        })
+        r = self._api("index/vodParse", body)
+        if r.get("code") != 200:
+            return None, {}, str(r.get("msg") or "解析失败")
+        system = str(r.get("system") or "")
+        # from 是网盘长期直链，永远优先
+        frm = str(r.get("from") or "")
+        if self._is_valid(frm) and not self._is_ad(frm, system):
+            return frm, {}, ""
+        u = str(r.get("url") or "")
+        if self._is_valid(u) and not self._is_ad(u, system):
+            return u, (r.get("headers") if isinstance(r.get("headers"), dict) else {}), ""
+        if self._is_ad(u or frm, system):
+            return None, {}, "广告源，已跳过"
+        return None, {}, "该线路未返回有效地址"
+
+    def playerContent(self, flag, pid, vipFlags=None):
+        if not pid:
+            return {"parse": 0, "url": "", "header": {}}
+        cur = self._marks.get(pid)
+        if not cur:
+            return {"parse": 0, "url": "", "header": {}, "msg": "标识失效，请重新进入详情"}
+
+        url, hdr, err = self._parse_ep(cur.get("parse"), cur.get("url"))
+
+        # 当前线路失败/是广告 -> 逐条试其它线路的同一集（4K 线路排在前面）
+        if not url:
+            try:
+                idx = int(pid.split("|")[-1])
+            except Exception:
+                idx = 0
+            for ln in self._lines:
+                if ln.get("name") == cur.get("name"):
+                    continue
+                urls = ln.get("urls") or []
+                if idx >= len(urls) or not urls[idx]:
+                    continue
+                u2, h2, _e2 = self._parse_ep(ln.get("parse"), urls[idx])
+                if u2:
+                    url, hdr, err = u2, h2, ""
+                    break
+
+        if not url:
+            return {"parse": 0, "url": "", "header": {}, "msg": err or "播放失败"}
+
+        header = {
+            "User-Agent": "okhttp/4.12.0",
+            "Accept-Encoding": "identity",
+        }
+        if hdr:
+            header.update(hdr)
+        return {"parse": 0, "url": url, "header": header}

@@ -360,6 +360,17 @@
       "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
+      "key": "秒看4K",
+      "name": "秒看 | 真4K",
+      "type": 3,
+      "api": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/秒看4K.py",
+      "searchable": 1,
+      "quickSearch": 1,
+      "changeable": 1,
+      "filterable": 1,
+      "ext": "{\"token\":\"57be66cef461133ae5ef444707dc1b35e7bf0a1ad5766ed52a2c0703d759160d\",\"device_id\":\"28705c733239034ad98a1600005928b57\"}"
+    },
+    {
       "key": "山楂4K",
       "name": "山楂 | 免扫4K",
       "type": 3,
