@@ -1024,6 +1024,15 @@
    "filterable": 0
   },
   {
+   "key": "808ys4K",
+   "name": "808影院 | 4K",
+   "type": 3,
+   "api": "https://pan.29o.cn/down.php/50044f29473ab3d13de5d21fdf224154.py",
+   "searchable": 1,
+   "quickSearch": 1,
+   "filterable": 1
+  },
+  {
    "name": "嗷呜①线 | 秒播",
    "key": "AppV7Fz",
    "type": 3,
