@@ -5872,6 +5872,20 @@ class KishiSingle:
     def homeContent(self, filter=False):
         if not self._ensure():
             return {'class': [], 'filters': {}, 'list': []}
+        # 内嵌模块的 homeContent 固定只取 yt 的首页（HOME_SOURCE='yt'），
+        # 导致 9 个源分类完全相同。这里改用 _home_one，各源拿自己的真实分类。
+        try:
+            one = getattr(self.sp, '_home_one', None)
+            if callable(one):
+                d = one(self.tag, filter)
+                if isinstance(d, str):
+                    d = json.loads(d)
+                # 该源本身没有首页数据就返回空，绝不回退成影探那一套
+                if not d:
+                    return {'class': [], 'filters': {}, 'list': []}
+                return d
+        except Exception:
+            pass
         return self.sp.homeContent(filter) or {'class': [], 'filters': {}, 'list': []}
 
     def categoryContent(self, tid, pg, filter, extend):
@@ -5887,7 +5901,11 @@ class KishiSingle:
     def detailContent(self, ids):
         if not self._ensure():
             return {'list': []}
-        return self.sp.detailContent(ids)
+        try:
+            return self.sp.detailContent(ids)
+        except Exception:
+            # 内嵌模块在部分设备上会抛异常，兜住，避免上层只能拿到空列表
+            return {'list': []}
 
     def playerContent(self, flag, pid, vipFlags=None):
         if not self._ensure():
@@ -5951,6 +5969,29 @@ def _split_vid(vid):
     if len(parts) < 3:
         return None
     return parts[0], parts[1], parts[2]
+
+
+def _dec_yt_vid(raw):
+    """影探内嵌模块的 id 是 k1eXQf+base64(明文id)，且会被反复套娃。
+    循环剥离直到得到纯数字 id，返回 None 表示解不出。"""
+    cur = str(raw or '')
+    for _ in range(8):
+        if cur.isdigit():
+            return cur
+        if cur.startswith('k1eXQf'):
+            t = cur[6:]
+            try:
+                cur = base64.b64decode(t + '=' * (-len(t) % 4)).decode('utf-8')
+                continue
+            except Exception:
+                return None
+        if cur.startswith(K):
+            parts = cur[len(K):].split(':', 2)
+            if len(parts) == 3:
+                cur = parts[2]
+                continue
+        return None
+    return cur if cur.isdigit() else None
 
 
 def _msg(text):
@@ -6025,33 +6066,145 @@ class Spider:
             except Exception:
                 return None
 
+    def _home_one(self, key, filter):
+        sp = self._src(key)
+        if not sp:
+            return None
+        try:
+            d = sp.homeContent(filter)
+            if isinstance(d, str):
+                d = json.loads(d)
+            return d
+        except Exception:
+            return None
+
+    def _peek_cate(self, key, cate):
+        """实际点一次分类，返回首条片名+条数；0 条返回 ''，异常返回 None"""
+        sp = self._src(key)
+        if not sp:
+            return None
+        try:
+            d = sp.categoryContent(cate, '1', False, {})
+            if isinstance(d, str):
+                d = json.loads(d)
+            lst = (d or {}).get('list') or []
+            if not lst:
+                return ''
+            return str(lst[0].get('vod_name') or '') + '|' + str(len(lst))
+        except Exception:
+            return None
+
+    _cate_cache = {}
+    _CATE_TTL = 3600
+
+    def _cate_plan(self, key, name, data, yt_refs=()):
+        """只列真能点出数据的分类；源本身没数据就不列，不硬凑"""
+        cls = (data.get('class') or [])
+        if not cls:
+            return []
+        first = str((cls[0] or {}).get('type_id') or '')
+        if not self._peek_cate(key, first):
+            return []
+        out = []
+        for c in cls:
+            tn = str(c.get('type_name') or '')
+            label = tn if tn.startswith(name) else (name + '·' + tn)
+            out.append({
+                'type_id': K + key + ':' + str(c.get('type_id')),
+                'type_name': label,
+            })
+        return out
+
     def homeContent(self, filter=False):
         classes = []
         hot = []
+        seen = set()
+        # 各源首页并行拉取，避免首页被最慢的源拖住
+        data_map = {}
+        with ThreadPoolExecutor(max_workers=len(SRC)) as pool:
+            futs = {pool.submit(self._home_one, k, filter): k for k, _ in SRC}
+            for f, k in futs.items():
+                try:
+                    data_map[k] = f.result(timeout=12)
+                except Exception:
+                    data_map[k] = None
+
+        yt_data = data_map.get('yt') or {}
+        yt_cls = yt_data.get('class') or []
+        # 影探前几个分类的首条片名，用来识别内嵌模块「回落到影探」的冒充数据
+        yt_refs = set()
+        for c in yt_cls[:3]:
+            p = self._peek_cate('yt', str((c or {}).get('type_id') or ''))
+            if p:
+                yt_refs.add(p.split('|')[0])
+
+        # 分类核实结果缓存 10 分钟，避免每次进首页都重新点一遍
+        import time as _t
+        now = _t.time()
+        plans = {}
+        todo = []
         for key, name in SRC:
-            # 内嵌模块的 9 个源共用同一套首页分类，只取第一个，避免 108 个重复项
-            if key in KishiSingle._ORDER_ALL and key != KishiSingle._ORDER_ALL[0]:
+            d = data_map.get(key)
+            if not d:
                 continue
-            sp = self._src(key)
-            if not sp:
-                continue
-            try:
-                data = sp.homeContent(filter)
-                if isinstance(data, str):
-                    data = json.loads(data)
-                for c in (data.get('class') or []):
-                    classes.append({
-                        'type_id': K + key + ':' + str(c.get('type_id')),
-                        'type_name': name + '·' + str(c.get('type_name')),
-                    })
-                if not hot:
-                    for it in (data.get('list') or [])[:24]:
-                        hot.append(it)
-            except Exception:
-                continue
+            ck = self._cate_cache.get(key)
+            if ck and now - ck[1] < self._CATE_TTL:
+                plans[key] = ck[0]
+            else:
+                todo.append((key, name, d))
+
+        if todo:
+            with ThreadPoolExecutor(max_workers=max(1, len(todo))) as pool:
+                futs = {pool.submit(self._cate_plan, k, n, d, yt_refs): k for k, n, d in todo}
+                for f, key in futs.items():
+                    try:
+                        plans[key] = f.result(timeout=20) or []
+                    except Exception:
+                        plans[key] = []
+                    self._cate_cache[key] = (plans[key], now)
+
+        for key, name in SRC:
+            classes.extend(plans.get(key) or [])
         if not classes:
             classes = [{'type_id': K + k + ':1', 'type_name': n} for k, n in SRC]
-        return {'class': classes, 'filters': {}, 'list': hot}
+
+        # 热门位：每个源各取几条，轮转混排，让首页真的来自多个源
+        per = 3
+        buckets = []
+        for key, name in SRC:
+            data = data_map.get(key)
+            if not data:
+                continue
+            items = data.get('list') or []
+            if not items:
+                continue
+            cls = data.get('class') or []
+            cate = str((cls[0] or {}).get('type_id')) if cls else '1'
+            batch = []
+            for it in items:
+                nm = str(it.get('vod_name') or '').strip()
+                if not nm or nm in seen:
+                    continue
+                vid = it.get('vod_id')
+                if key == 'yt':
+                    plain = _dec_yt_vid(vid)
+                    if plain:
+                        vid = plain
+                if not str(vid or '').strip():
+                    continue
+                it['vod_id'] = K + key + ':' + cate + ':' + str(vid)
+                seen.add(nm)
+                batch.append(it)
+                if len(batch) >= per:
+                    break
+            if batch:
+                buckets.append(batch)
+
+        for i in range(per):
+            for b in buckets:
+                if i < len(b):
+                    hot.append(b[i])
+        return {'class': classes, 'filters': {}, 'list': hot[:40]}
 
     def categoryContent(self, tid, pg, filter, extend):
         pair = _split_tid(tid)
@@ -6068,6 +6221,12 @@ class Spider:
                     data = json.loads(data)
                 items = data.get('list') or []
                 for it in items:
+                    # 影探内嵌模块会把上一次的完整 vid 又返回回来，
+                    # 直接拼会无限套娃，先解回纯数字
+                    if key == 'yt':
+                        plain = _dec_yt_vid(it.get('vod_id'))
+                        if plain:
+                            it['vod_id'] = plain
                     it['vod_id'] = K + key + ':' + cate + ':' + str(it.get('vod_id', ''))
                     out.append(it)
                 page = data.get('page', page)
@@ -6153,13 +6312,42 @@ class Spider:
         sp = self._src(skey)
         if not sp:
             return {'list': []}
+        # 影探：内嵌模块返回的 id 可能已被编码（还会反复套娃），
+        # 先统一解回纯数字再交给它，否则每次调用都会再套一层导致查不到
+        if skey == 'yt':
+            plain = _dec_yt_vid(raw)
+            if plain:
+                raw = plain
         try:
             data = sp.detailContent([raw])
             if isinstance(data, str):
                 data = json.loads(data)
             items = data.get('list') or []
             if not items:
-                return {'list': []}
+                # 兜底：内嵌模块在某些设备上取不到详情（返回空），
+                # 影探改成用明文 id 直连接口再取一次
+                if skey == 'yt':
+                    plain = _dec_yt_vid(raw)
+                    if plain:
+                        try:
+                            alt = Yingtan()
+                            alt.init('')
+                            d2 = alt.detailContent([plain])
+                            items = (d2 or {}).get('list') or []
+                        except Exception:
+                            items = []
+                    if not items:
+                        # 已经是明文 id（未被内嵌模块封装）时直接再试一次
+                        if str(raw).isdigit():
+                            try:
+                                alt = Yingtan()
+                                alt.init('')
+                                d2 = alt.detailContent([str(raw)])
+                                items = (d2 or {}).get('list') or []
+                            except Exception:
+                                items = []
+                if not items:
+                    return {'list': []}
             vod = items[0]
             vod['vod_id'] = vid
             # 播放地址加前缀，便于回源
@@ -6210,6 +6398,17 @@ class Spider:
                     return json.loads(resp) if isinstance(resp, str) else resp
             except Exception:
                 resp = ''
+        # 影探兜底：内嵌模块播放失败时，pid 直接交给直连实现解
+        if skey == 'yt':
+            try:
+                alt = Yingtan()
+                alt.init('')
+                r2 = alt.playerContent(flag, raw, vipFlags or [])
+                s2 = json.dumps(r2, ensure_ascii=False) if isinstance(r2, dict) else r2
+                if _ok(s2):
+                    return json.loads(s2) if isinstance(s2, str) else r2
+            except Exception:
+                pass
         # 换源：用标题去别的源找
         for k2, n2 in SRC:
             if k2 == skey:
