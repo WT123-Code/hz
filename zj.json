@@ -5,6 +5,13 @@
  "danmaku": "http://127.0.0.1:9978/proxy?do=danmaku&name={name}&episode={episode}",
  "sites": [
   {
+   "key": "片库4K",
+   "name": "片库 | 4K",
+   "type": 3,
+   "api": "https://clun.top/py/pianku4k.py",
+   "genre": "film"
+  },
+  {
    "key": "douban",
    "name": "豆瓣",
    "type": 3,
