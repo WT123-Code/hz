@@ -40,8 +40,8 @@
 MY_TOKEN = "56eab7f1712d15ece23b841baffbaeed519b97f914284e9b3bca398f553d2556"       # 秒看 APP 的 app-user-token
 MY_DEVICE_ID = "db2b620a47886c4813faf979a65cd480"   # 同一台设备的 app-user-device-id
 
-MY_ACCOUNT = ""     # 秒看 APP 登录账号
-MY_PASSWORD = ""    # 秒看 APP 登录密码
+MY_ACCOUNT = "wt888666"    # 秒看 APP 登录账号
+MY_PASSWORD = "wt@123456"  # 秒看 APP 登录密码
 
 # 填好上面两行就能用了，点播放时会自动登录拿 token，不用抓包、不用填 token。
 # 不填也能浏览、分类、搜索、看详情，只是点播放会提示让你填。
@@ -51,6 +51,7 @@ MY_PASSWORD = ""    # 秒看 APP 登录密码
 # ==============================================================================
 
 import json
+import re
 import time
 import base64
 import threading
@@ -136,6 +137,14 @@ def _expand_key(key):
     return [sum(w[4 * r:4 * r + 4], []) for r in range(11)]
 
 
+# 预计算乘法表：GF(2^8) 下 a*b 直接查表，省掉逐位循环。
+# initV119 返回 85KB 密文，约 5300 个块 × 10 轮 × 16 次乘法，
+# 逐位算要 6-7 秒，查表后 0.2 秒以内。
+_MUL = {}
+for _m in (2, 3, 9, 11, 13, 14):
+    _MUL[_m] = [_gmul(x, _m) for x in range(256)]
+
+
 def _enc_block(block, rk):
     s = [block[i] ^ rk[0][i] for i in range(16)]
     for rnd in range(1, 11):
@@ -145,13 +154,14 @@ def _enc_block(block, rk):
              s[8], s[13], s[2], s[7],
              s[12], s[1], s[6], s[11]]
         if rnd != 10:
+            m2, m3 = _MUL[2], _MUL[3]
             out = []
             for c in range(4):
                 a0, a1, a2, a3 = s[4 * c], s[4 * c + 1], s[4 * c + 2], s[4 * c + 3]
-                out += [_gmul(a0, 2) ^ _gmul(a1, 3) ^ a2 ^ a3,
-                        a0 ^ _gmul(a1, 2) ^ _gmul(a2, 3) ^ a3,
-                        a0 ^ a1 ^ _gmul(a2, 2) ^ _gmul(a3, 3),
-                        _gmul(a0, 3) ^ a1 ^ a2 ^ _gmul(a3, 2)]
+                out += [m2[a0] ^ m3[a1] ^ a2 ^ a3,
+                        a0 ^ m2[a1] ^ m3[a2] ^ a3,
+                        a0 ^ a1 ^ m2[a2] ^ m3[a3],
+                        m3[a0] ^ a1 ^ a2 ^ m2[a3]]
             s = out
         s = [s[i] ^ rk[rnd][i] for i in range(16)]
     return s
@@ -159,6 +169,7 @@ def _enc_block(block, rk):
 
 def _dec_block(block, rk):
     s = [block[i] ^ rk[10][i] for i in range(16)]
+    m9, m11, m13, m14 = _MUL[9], _MUL[11], _MUL[13], _MUL[14]
     for rnd in range(9, -1, -1):
         s = [s[0], s[13], s[10], s[7],
              s[4], s[1], s[14], s[11],
@@ -170,10 +181,10 @@ def _dec_block(block, rk):
             out = []
             for c in range(4):
                 a0, a1, a2, a3 = s[4 * c], s[4 * c + 1], s[4 * c + 2], s[4 * c + 3]
-                out += [_gmul(a0, 14) ^ _gmul(a1, 11) ^ _gmul(a2, 13) ^ _gmul(a3, 9),
-                        _gmul(a0, 9) ^ _gmul(a1, 14) ^ _gmul(a2, 11) ^ _gmul(a3, 13),
-                        _gmul(a0, 13) ^ _gmul(a1, 9) ^ _gmul(a2, 14) ^ _gmul(a3, 11),
-                        _gmul(a0, 11) ^ _gmul(a1, 13) ^ _gmul(a2, 9) ^ _gmul(a3, 14)]
+                out += [m14[a0] ^ m11[a1] ^ m13[a2] ^ m9[a3],
+                        m9[a0] ^ m14[a1] ^ m11[a2] ^ m13[a3],
+                        m13[a0] ^ m9[a1] ^ m14[a2] ^ m11[a3],
+                        m11[a0] ^ m13[a1] ^ m9[a2] ^ m14[a3]]
             s = out
     return s
 
@@ -615,34 +626,55 @@ class Spider(BaseSpider):
         except Exception:
             page = 1
 
-        q = ""
         t = str(tid or "").strip()
-        if t and t != "0":
-            q += "&t=%s" % urllib.parse.quote(t)
-        if isinstance(extend, dict):
-            y = str(extend.get("year") or "").strip()
-            if y.isdigit():
-                q += "&year=%s" % y
-        q += "&pg=%d" % page
+        ex = extend if isinstance(extend, dict) else {}
+        y = str(ex.get("year") or "").strip()
 
         # 分类页缓存 12 分钟：来回翻同一页不再重复打服务器，降低被封概率
-        ck = "%s|%d|%s" % (t, page, str((extend or {}).get("year") or "") if isinstance(extend, dict) else "")
+        ck = "%s|%d|%s" % (t, page, y)
         ch = self._cat_cache.get(ck)
         if ch and time.time() - ch[0] < 720:
             return ch[1]
 
-        r = self._mac_get(q)
+        # 走 APP 原生分类接口 typeFilterVodList（比 maccms 更快、返回 30 条）
+        body = urllib.parse.urlencode({
+            "area": str(ex.get("area") or "全部"),
+            "sort": "最新",
+            "class": str(ex.get("class") or "全部"),
+            "type_id": t if t else "0",
+            "year": y if y.isdigit() else "全部",
+            "lang": str(ex.get("lang") or "全部"),
+            "page": str(page),
+        })
+        r = {}
+        try:
+            r = self._api("index/typeFilterVodList", body)
+        except Exception:
+            r = {}
+        raw = list(r.get("recommend_list") or [])
+
+        # 原生接口拿不到就退回 maccms
+        if not raw:
+            q = ""
+            if t and t != "0":
+                q += "&t=%s" % urllib.parse.quote(t)
+            if y.isdigit():
+                q += "&year=%s" % y
+            q += "&pg=%d" % page
+            mc = self._mac_get(q)
+            raw = list(mc.get("list") or [])
+
         lst = []
-        for it in (r.get("list") or []):
+        for it in raw:
             o = self._pack_one(it)
             if o:
                 lst.append(o)
-        pc = r.get("pagecount")
+
         res = {
             "list": lst,
             "page": page,
-            "pagecount": int(pc) if str(pc).isdigit() else 9999,
-            "total": int(r.get("total") or len(lst)),
+            "pagecount": 9999,
+            "total": len(lst),
         }
         # 只有真拿到数据才缓存，空结果不缓存（避免一次失败被记住 12 分钟）
         if lst:
@@ -676,9 +708,21 @@ class Spider(BaseSpider):
         p = str(pg).strip()
         if not p.isdigit():
             p = "1"
-        r = self._api("index/searchList",
-                      "keywords=%s&type_id=0&page=%s" % (urllib.parse.quote(str(key)), p))
+        body = "keywords=%s&type_id=0&page=%s" % (urllib.parse.quote(str(key)), p)
+        r = self._api("index/searchList", body)
         lst = self._pack(r.get("search_list") or r.get("list") or [])
+        # 站点限流时 msg 里会写「请 N 秒后再试」，等够时间最多重试 2 次
+        tries = 0
+        while not lst and tries < 2:
+            msg = str(r.get("msg") or "")
+            m = re.search(r"(\d+)\s*秒", msg)
+            if not m:
+                break
+            wait = min(30, int(m.group(1)) + 1)
+            time.sleep(wait)
+            r = self._api("index/searchList", body)
+            lst = self._pack(r.get("search_list") or r.get("list") or [])
+            tries += 1
         return {"list": lst, "page": int(p), "pagecount": 9999, "total": len(lst)}
 
     def searchContentPage(self, key, quick, pg):
@@ -704,22 +748,34 @@ class Spider(BaseSpider):
 
         prefer = [str(w) for w in (self.cfg.get("prefer_words") or [])]
         lines = list(r.get("vod_play_list") or [])
-        # 含 4K 的线路排前面（不删除任何线路）
+        # 排序：含 4K 的优先，其次免登录可直解的（不用 token、出片快）
+        # 不删除任何线路，只是调整顺序
         def rank(ln):
-            nm = str((ln.get("player_info") or {}).get("show") or "")
-            for i, w in enumerate(prefer):
-                if w in nm:
-                    return i
-            return len(prefer)
+            pi = ln.get("player_info") or {}
+            nm = str(pi.get("show") or "")
+            pa = str(pi.get("parse") or "")
+            pt = str(pi.get("player_parse_type") or "")
+            is4k = 0 if any(w in nm for w in prefer) else 1
+            first_ep = (ln.get("urls") or [{}])[0] if (ln.get("urls") or []) else {}
+            has_tok = str(first_ep.get("token") or "")
+            free = pa.startswith("http") or pt == "2"
+            # 免登录 + 带 utok 的线路最稳，实测能出真 4K
+            easy = 0 if (free and has_tok) else (1 if free else 2)
+            return (is4k, easy)
         lines.sort(key=rank)
 
         for li, ln in enumerate(lines):
             pi = ln.get("player_info") or {}
             name = str(pi.get("show") or "线路%d" % (li + 1))
             parse_api = str(pi.get("parse") or "")
+            ptype = str(pi.get("player_parse_type") or "")
+            ua = str(pi.get("user_agent") or "")
+            hdr0 = pi.get("headers") if isinstance(pi.get("headers"), dict) else {}
             urls = ln.get("urls") or []
             if not urls:
                 continue
+            # 免登录线路：parse 是 http 地址（第三方解析接口），或 player_parse_type=2
+            free = parse_api.startswith("http") or ptype == "2"
             eps = []
             for ep in urls:
                 if not isinstance(ep, dict):
@@ -730,12 +786,29 @@ class Spider(BaseSpider):
                 if not ep_name or not furl:
                     continue
                 mk = _mk_pid(vid, len(eps), name)
-                self._marks[mk] = {"parse": parse_api, "url": furl, "name": name}
+                self._marks[mk] = {
+                    "i": len(eps),
+                    "parse": parse_api,          # 解析标识 / 第三方解析接口
+                    "url": furl,                 # 站点伪链
+                    "name": name,
+                    "free": free,                # 免登录可直解
+                    "cpu": str(ep.get("client_parse_url") or ""),
+                    "utok": str(ep.get("token") or ""),   # 源自带的线路 token
+                    "pau": str(ep.get("parse_api_url") or ""),
+                    "ua": ua,
+                    "hdrs": hdr0,
+                    "ptype": ptype,
+                }
                 eps.append("%s$%s" % (ep_name, mk))
             if not eps:
                 continue
             self._lines.append({"name": name, "parse": parse_api,
-                                "urls": [e.get("url") for e in urls if isinstance(e, dict)]})
+                                "urls": [e.get("url") for e in urls if isinstance(e, dict)],
+                                "free": free, "cpu": [str(e.get("client_parse_url") or "")
+                                                      for e in urls if isinstance(e, dict)],
+                                "utok": [str(e.get("token") or "")
+                                         for e in urls if isinstance(e, dict)],
+                                "ua": ua, "hdrs": hdr0})
             play_from.append(name)
             play_url.append("#".join(eps))
 
@@ -764,6 +837,69 @@ class Spider(BaseSpider):
         return res
 
     # ---------------------------------------------------------------- 播放
+    def _raw_get(self, url, extra=None, timeout=15):
+        """GET 一个外部解析接口，返回 (状态码, 文本)"""
+        if not self._gate_wait():
+            return 0, ""
+        hd = {"User-Agent": str(self.cfg.get("user_agent") or "okhttp/3.14.9")}
+        if isinstance(extra, dict):
+            for k, v in extra.items():
+                if k and v:
+                    hd[str(k)] = str(v)
+        try:
+            req = urllib.request.Request(url, headers=hd)
+            resp = urllib.request.urlopen(req, timeout=timeout)
+            txt = resp.read().decode("utf-8", "replace")
+            self._gate_ok()
+            return resp.getcode(), txt
+        except Exception as e:
+            hard = any(k in str(e) for k in ("444", "ConnectionReset", "RemoteDisconnected", "timed out"))
+            self._gate_fail(hard=hard)
+            return 0, ""
+
+    def _parse_free(self, cur):
+        """免登录路径：线路自带的第三方解析接口，直接 GET 就能拿真地址。
+        返回 (url, headers, err)。"""
+        parse = str(cur.get("parse") or "")
+        cpu = str(cur.get("cpu") or "")
+        fake = str(cur.get("url") or "")
+        target = cpu or (parse + fake if parse.startswith("http") else "")
+        if not target.startswith("http"):
+            return None, {}, "该线路没有免登录解析接口"
+
+        hd = dict(cur.get("hdrs") or {})
+        ua = str(cur.get("ua") or "")
+        if ua:
+            hd["User-Agent"] = ua
+        utok = str(cur.get("utok") or "")
+        if utok:
+            target += ("&" if "?" in target else "?") + "token=" + utok
+
+        code, text = self._raw_get(target, hd)
+        if not code:
+            return None, {}, "免登录解析请求失败"
+        t = (text or "").strip()
+        # 形如 {"url":"..."} / {"data":{"url":"..."}}
+        if t.startswith("{"):
+            try:
+                jo = json.loads(t)
+                real = str(jo.get("url") or "")
+                if not real and isinstance(jo.get("data"), dict):
+                    real = str((jo.get("data") or {}).get("url") or "")
+                if real and self._is_valid(real) and not self._is_ad(real, ""):
+                    return real, hd, ""
+                if real:
+                    return None, {}, "免登录直解返回了广告/无效地址"
+                return None, {}, str(jo.get("msg") or "免登录直解无 url")
+            except Exception:
+                pass
+        # 直接返回一行地址
+        if code == 200 and t.startswith("http") and self._is_valid(t.split("\n")[0].strip()):
+            u0 = t.split("\n")[0].strip()
+            if not self._is_ad(u0, ""):
+                return u0, hd, ""
+        return None, {}, "免登录直解响应无法识别"
+
     def _parse_once(self, parse_api, fake_url):
         """发一次 vodParse，返回解密后的字典"""
         body = urllib.parse.urlencode({
@@ -773,8 +909,18 @@ class Spider(BaseSpider):
         })
         return self._api("index/vodParse", body)
 
-    def _parse_ep(self, parse_api, fake_url):
-        """伪链 -> 播放地址，返回 (url, headers, err)。命中广告一律判失败。"""
+    def _parse_ep(self, parse_api, fake_url, cur=None):
+        """伪链 -> 播放地址，返回 (url, headers, err)。命中广告一律判失败。
+
+        两条路：先试线路自带的免登录解析（快、不用 token），
+        失败再走 vodParse（需 app-user-token）。这样 token 挂了也还能播一部分。"""
+        # ① 免登录直解（线路自带第三方解析接口）
+        if cur and cur.get("free"):
+            u, h, e = self._parse_free(cur)
+            if u:
+                return u, h, ""
+
+        # ② vodParse（需登录态）
         tok = self._ensure_token()
         if not tok:
             return None, {}, ("没账号也没 token，播不了 4K。"
@@ -819,7 +965,7 @@ class Spider(BaseSpider):
                 return {"parse": 0, "url": "", "header": {}, "msg": "标识失效，请重新进入详情"}
         idx = int(cur.get("i") or 0)
 
-        url, hdr, err = self._parse_ep(cur.get("parse"), cur.get("url"))
+        url, hdr, err = self._parse_ep(cur.get("parse"), cur.get("url"), cur)
 
         # 当前线路失败/是广告 -> 按序试其它线路的同一集（4K 线路排在前面）
         # 限制最多试 4 条，避免解析接口逐个超时把播放等待拉到几十秒
@@ -834,7 +980,13 @@ class Spider(BaseSpider):
                 if idx >= len(urls) or not urls[idx]:
                     continue
                 tried += 1
-                u2, h2, _e2 = self._parse_ep(ln.get("parse"), urls[idx])
+                # 为降级线路拼一个临时 cur，让免登录线路能走自己的解析接口
+                tmp = {"parse": ln.get("parse") or "", "url": urls[idx],
+                       "free": ln.get("free"), "name": ln.get("name"),
+                       "cpu": (ln.get("cpu") or [""])[idx] if idx < len(ln.get("cpu") or [""]) else "",
+                       "utok": (ln.get("utok") or [""])[idx] if idx < len(ln.get("utok") or [""]) else "",
+                       "ua": ln.get("ua"), "hdrs": ln.get("hdrs")}
+                u2, h2, _e2 = self._parse_ep(tmp["parse"], tmp["url"], tmp)
                 if u2:
                     url, hdr, err = u2, h2, ""
                     break

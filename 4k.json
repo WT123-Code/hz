@@ -370,6 +370,16 @@
       "filterable": 1
     },
     {
+      "key": "免扫聚合",
+      "name": "免扫聚合 | 13源",
+      "type": 3,
+      "api": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/agg4k.py",
+      "searchable": 1,
+      "quickSearch": 1,
+      "changeable": 1,
+      "filterable": 1
+    },
+    {
       "key": "山楂4K",
       "name": "山楂 | 免扫4K",
       "type": 3,
