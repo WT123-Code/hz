@@ -5,22 +5,6 @@
  "danmaku": "http://127.0.0.1:9978/proxy?do=danmaku&name={name}&episode={episode}",
  "sites": [
   {
-   "key": "奇迹云4K",
-   "name": "奇迹云 | 4K",
-   "type": 1,
-   "api": "http://cmsyun2.qijiyun.vip/api.php/provide/vod/",
-   "searchable": 1,
-   "quickSearch": 1,
-   "filterable": 0
-  },
-  {
-   "key": "片库4K",
-   "name": "片库 | 4K",
-   "type": 3,
-   "api": "https://clun.top/py/pianku4k.py",
-   "genre": "film"
-  },
-  {
    "key": "douban",
    "name": "豆瓣",
    "type": 3,
@@ -72,6 +56,22 @@
    },
    "timeout": 60,
    "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
+  },
+  {
+   "key": "片库4K",
+   "name": "片库 | 4K",
+   "type": 3,
+   "api": "https://clun.top/py/pianku4k.py",
+   "genre": "film"
+  },
+  {
+   "key": "搜剧AI",
+   "name": "搜剧AI",
+   "type": 3,
+   "api": "https://gh-proxy.com/https://raw.githubusercontent.com/WT123-Code/hz/main/搜剧AI.py",
+   "searchable": 1,
+   "quickSearch": 1,
+   "filterable": 1
   },
   {
    "key": "玩偶",
@@ -455,15 +455,6 @@
    "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
   },
   {
-   "key": "搜剧AI",
-   "name": "搜剧AI",
-   "type": 3,
-   "api": "https://gh-proxy.com/https://raw.githubusercontent.com/WT123-Code/hz/main/搜剧AI.py",
-   "searchable": 1,
-   "quickSearch": 1,
-   "filterable": 1
-  },
-  {
    "key": "TVB云播app",
    "name": "TVB | 免扫4K",
    "type": 3,
@@ -472,116 +463,6 @@
    "quickSearch": 1,
    "changeable": 1,
    "filterable": 1
-  },
-  {
-   "name": "嗷呜①线 | 秒播",
-   "key": "AppV7Fz",
-   "type": 3,
-   "api": "csp_AppV7Amns",
-   "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/AppV7.jar",
-   "searchable": 1,
-   "quickSearch": 1,
-   "changeable": 1,
-   "ext": "AppV7Fz"
-  },
-  {
-   "name": "嗷呜②线 | 秒播",
-   "key": "AppV7Xy",
-   "type": 3,
-   "api": "csp_AppV7Amns",
-   "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/AppV7.jar",
-   "searchable": 1,
-   "quickSearch": 1,
-   "changeable": 1,
-   "ext": "AppV7Xy"
-  },
-  {
-   "name": "嗷呜③线 | 秒播",
-   "key": "AppV7Zjdr",
-   "type": 3,
-   "api": "csp_AppV7Amns",
-   "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/AppV7.jar",
-   "searchable": 1,
-   "quickSearch": 1,
-   "changeable": 1,
-   "ext": "AppV7Zjdr"
-  },
-  {
-   "name": "嗷呜④线 | 秒播",
-   "key": "AppV7Xyz",
-   "type": 3,
-   "api": "csp_AppV7Amns",
-   "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/AppV7.jar",
-   "searchable": 1,
-   "quickSearch": 1,
-   "changeable": 1,
-   "ext": "AppV7Xyz"
-  },
-  {
-   "name": "嗷呜⑤线 | 秒播",
-   "key": "AppV7Xnm",
-   "type": 3,
-   "api": "csp_AppV7Amns",
-   "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/AppV7.jar",
-   "searchable": 1,
-   "quickSearch": 1,
-   "changeable": 1,
-   "ext": "AppV7Xnm"
-  },
-  {
-   "name": "嗷呜⑥线 | 秒播",
-   "key": "AppV7Mtq",
-   "type": 3,
-   "api": "csp_AppV7Amns",
-   "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/AppV7.jar",
-   "searchable": 1,
-   "quickSearch": 1,
-   "changeable": 1,
-   "ext": "AppV7Mtq"
-  },
-  {
-   "name": "嗷呜⑦线 | 秒播",
-   "key": "AppV7Llq",
-   "type": 3,
-   "api": "csp_AppV7Amns",
-   "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/AppV7.jar",
-   "searchable": 1,
-   "quickSearch": 1,
-   "changeable": 1,
-   "ext": "AppV7Llq"
-  },
-  {
-   "name": "嗷呜⑧线 | 秒播",
-   "key": "AppV7Xsz",
-   "type": 3,
-   "api": "csp_AppV7Amns",
-   "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/AppV7.jar",
-   "searchable": 1,
-   "quickSearch": 1,
-   "changeable": 1,
-   "ext": "AppV7Xsz"
-  },
-  {
-   "name": "嗷呜⑨线 | 秒播",
-   "key": "AppV7Xhr",
-   "type": 3,
-   "api": "csp_AppV7Amns",
-   "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/AppV7.jar",
-   "searchable": 1,
-   "quickSearch": 1,
-   "changeable": 1,
-   "ext": "AppV7Xhr"
-  },
-  {
-   "name": "嗷呜⑩线 | 秒播",
-   "key": "AppV7Dsx",
-   "type": 3,
-   "api": "csp_AppV7Amns",
-   "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/AppV7.jar",
-   "searchable": 1,
-   "quickSearch": 1,
-   "changeable": 1,
-   "ext": "AppV7Dsx"
   },
   {
    "key": "bl",
@@ -773,46 +654,6 @@
    "filterable": 1,
    "changeable": 0,
    "ext": "Af9dBxsQCjGtIKQ47cJEAnzHtmsGI04C7DCRpNBZk7hshaMWsb76puB4aGapQk4JgYpBV2BKnAQ6GRcUI+/vzYduXc8ItUUvkHR/+LR3Y+NT"
-  },
-  {
-   "key": "腾讯视频",
-   "name": "📺️腾讯 | 官方",
-   "type": 3,
-   "api": "https://easy888.dpdns.org/js/drpy2.min.js",
-   "ext": "https://easy888.dpdns.org/lib/腾讯.js",
-   "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
-  },
-  {
-   "key": "爱奇艺视频",
-   "name": "📺️爱奇艺 | 官方",
-   "type": 3,
-   "api": "https://easy888.dpdns.org/js/drpy2.min.js",
-   "ext": "https://easy888.dpdns.org/lib/爱奇艺.js",
-   "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
-  },
-  {
-   "key": "优酷视频",
-   "name": "📺️优酷 | 官方",
-   "type": 3,
-   "api": "https://easy888.dpdns.org/js/drpy2.min.js",
-   "ext": "https://easy888.dpdns.org/lib/优酷.js",
-   "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
-  },
-  {
-   "key": "芒果视频",
-   "name": "📺️芒果 | 官方",
-   "type": 3,
-   "api": "https://easy888.dpdns.org/js/drpy2.min.js",
-   "ext": "https://easy888.dpdns.org/lib/芒果.js",
-   "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
-  },
-  {
-   "key": "哔哩哔哩",
-   "name": "📺️B站 | 官方",
-   "type": 3,
-   "api": "https://easy888.dpdns.org/js/drpy2.min.js",
-   "ext": "https://easy888.dpdns.org/lib/B站.js",
-   "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
   },
   {
    "key": "八戒影视",
@@ -1075,16 +916,6 @@
    "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
   },
   {
-   "key": "懂片",
-   "name": "懂片 | 影视",
-   "type": 3,
-   "api": "csp_DongPian",
-   "jar": "https://15318.kstore.space/easy1111.jar",
-   "searchable": 1,
-   "quickSearch": 1,
-   "filterable": 1
-  },
-  {
    "key": "米诺",
    "name": "米诺 | 免扫4K",
    "type": 3,
@@ -1182,6 +1013,175 @@
    "api": "csp_DianYingYunJi",
    "searchable": 1,
    "changeable": 1
+  },
+  {
+   "key": "奇迹云4K",
+   "name": "奇迹云 | 4K",
+   "type": 1,
+   "api": "http://cmsyun2.qijiyun.vip/api.php/provide/vod/",
+   "searchable": 1,
+   "quickSearch": 1,
+   "filterable": 0
+  },
+  {
+   "name": "嗷呜①线 | 秒播",
+   "key": "AppV7Fz",
+   "type": 3,
+   "api": "csp_AppV7Amns",
+   "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/AppV7.jar",
+   "searchable": 1,
+   "quickSearch": 1,
+   "changeable": 1,
+   "ext": "AppV7Fz"
+  },
+  {
+   "name": "嗷呜②线 | 秒播",
+   "key": "AppV7Xy",
+   "type": 3,
+   "api": "csp_AppV7Amns",
+   "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/AppV7.jar",
+   "searchable": 1,
+   "quickSearch": 1,
+   "changeable": 1,
+   "ext": "AppV7Xy"
+  },
+  {
+   "name": "嗷呜③线 | 秒播",
+   "key": "AppV7Zjdr",
+   "type": 3,
+   "api": "csp_AppV7Amns",
+   "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/AppV7.jar",
+   "searchable": 1,
+   "quickSearch": 1,
+   "changeable": 1,
+   "ext": "AppV7Zjdr"
+  },
+  {
+   "name": "嗷呜④线 | 秒播",
+   "key": "AppV7Xyz",
+   "type": 3,
+   "api": "csp_AppV7Amns",
+   "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/AppV7.jar",
+   "searchable": 1,
+   "quickSearch": 1,
+   "changeable": 1,
+   "ext": "AppV7Xyz"
+  },
+  {
+   "name": "嗷呜⑤线 | 秒播",
+   "key": "AppV7Xnm",
+   "type": 3,
+   "api": "csp_AppV7Amns",
+   "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/AppV7.jar",
+   "searchable": 1,
+   "quickSearch": 1,
+   "changeable": 1,
+   "ext": "AppV7Xnm"
+  },
+  {
+   "name": "嗷呜⑥线 | 秒播",
+   "key": "AppV7Mtq",
+   "type": 3,
+   "api": "csp_AppV7Amns",
+   "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/AppV7.jar",
+   "searchable": 1,
+   "quickSearch": 1,
+   "changeable": 1,
+   "ext": "AppV7Mtq"
+  },
+  {
+   "name": "嗷呜⑦线 | 秒播",
+   "key": "AppV7Llq",
+   "type": 3,
+   "api": "csp_AppV7Amns",
+   "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/AppV7.jar",
+   "searchable": 1,
+   "quickSearch": 1,
+   "changeable": 1,
+   "ext": "AppV7Llq"
+  },
+  {
+   "name": "嗷呜⑧线 | 秒播",
+   "key": "AppV7Xsz",
+   "type": 3,
+   "api": "csp_AppV7Amns",
+   "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/AppV7.jar",
+   "searchable": 1,
+   "quickSearch": 1,
+   "changeable": 1,
+   "ext": "AppV7Xsz"
+  },
+  {
+   "name": "嗷呜⑨线 | 秒播",
+   "key": "AppV7Xhr",
+   "type": 3,
+   "api": "csp_AppV7Amns",
+   "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/AppV7.jar",
+   "searchable": 1,
+   "quickSearch": 1,
+   "changeable": 1,
+   "ext": "AppV7Xhr"
+  },
+  {
+   "name": "嗷呜⑩线 | 秒播",
+   "key": "AppV7Dsx",
+   "type": 3,
+   "api": "csp_AppV7Amns",
+   "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/AppV7.jar",
+   "searchable": 1,
+   "quickSearch": 1,
+   "changeable": 1,
+   "ext": "AppV7Dsx"
+  },
+  {
+   "key": "腾讯视频",
+   "name": "📺️腾讯 | 官方",
+   "type": 3,
+   "api": "https://easy888.dpdns.org/js/drpy2.min.js",
+   "ext": "https://easy888.dpdns.org/lib/腾讯.js",
+   "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
+  },
+  {
+   "key": "爱奇艺视频",
+   "name": "📺️爱奇艺 | 官方",
+   "type": 3,
+   "api": "https://easy888.dpdns.org/js/drpy2.min.js",
+   "ext": "https://easy888.dpdns.org/lib/爱奇艺.js",
+   "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
+  },
+  {
+   "key": "优酷视频",
+   "name": "📺️优酷 | 官方",
+   "type": 3,
+   "api": "https://easy888.dpdns.org/js/drpy2.min.js",
+   "ext": "https://easy888.dpdns.org/lib/优酷.js",
+   "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
+  },
+  {
+   "key": "芒果视频",
+   "name": "📺️芒果 | 官方",
+   "type": 3,
+   "api": "https://easy888.dpdns.org/js/drpy2.min.js",
+   "ext": "https://easy888.dpdns.org/lib/芒果.js",
+   "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
+  },
+  {
+   "key": "哔哩哔哩",
+   "name": "📺️B站 | 官方",
+   "type": 3,
+   "api": "https://easy888.dpdns.org/js/drpy2.min.js",
+   "ext": "https://easy888.dpdns.org/lib/B站.js",
+   "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
+  },
+  {
+   "key": "懂片",
+   "name": "懂片 | 影视",
+   "type": 3,
+   "api": "csp_DongPian",
+   "jar": "https://15318.kstore.space/easy1111.jar",
+   "searchable": 1,
+   "quickSearch": 1,
+   "filterable": 1
   },
   {
    "key": "哔哩合集",
