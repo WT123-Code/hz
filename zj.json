@@ -5,6 +5,15 @@
  "danmaku": "http://127.0.0.1:9978/proxy?do=danmaku&name={name}&episode={episode}",
  "sites": [
   {
+   "key": "奇迹云4K",
+   "name": "奇迹云 | 4K",
+   "type": 1,
+   "api": "http://cmsyun2.qijiyun.vip/api.php/provide/vod/",
+   "searchable": 1,
+   "quickSearch": 1,
+   "filterable": 0
+  },
+  {
    "key": "片库4K",
    "name": "片库 | 4K",
    "type": 3,
