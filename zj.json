@@ -1,4 +1,4 @@
-{
+﻿{
   "spider": "https://qiniu.gongxueyun.com/upload/2371282/2026-11-12/noknow/759250805_1_1794505074145.jar;md5;53b51f8c239b727ce4cd18dc2c3b7a99",
   "wallpaper": "http://127.0.0.1:9978/proxy?do=wallpaper",
   "logo": "",
@@ -2015,16 +2015,12 @@
   ],
   "lives": [
     {
-      "name": "四网通用",
-      "type": 0,
-      "url": "https://gh-proxy.com/https://raw.githubusercontent.com/WT123-Code/hz/main/zj.txt",
-      "playerType": 1
+      "name": "综合直播",
+      "url": "https://gh-proxy.com/https://raw.githubusercontent.com/WT123-Code/hz/main/zj.txt"
     },
     {
       "name": "云直播",
-      "type": 0,
-      "url": "https://gh-proxy.com/https://raw.githubusercontent.com/WT123-Code/hz/main/yunlive.txt",
-      "playerType": 1
+      "url": "https://gh-proxy.com/https://raw.githubusercontent.com/WT123-Code/hz/main/live114.txt"
     }
   ],
   "parses": [
