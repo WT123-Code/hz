@@ -1,0 +1,325 @@
+﻿4K频道, #genre#
+东方卫视4K,http://127.0.0.1:8899/a/aHR0cDovL2JwLXJlc291cmNlLWRmbC5iZXN0di5jbi8xNDgvMy92aWRlby5tM3U4.flv
+湖南卫视4K,http://127.0.0.1:8899/a/aHR0cDovLzguMTM4LjcuMjIzL3R2L2FwaS5waHA.flv
+江苏卫视4K,http://127.0.0.1:8899/a/aHR0cDovLzguMTM4LjcuMjIzL3R2L2pzd3M0ay5waHA.flv
+苏州4K,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLWF1dGguNTFrYW5kaWFuc2hpLmNvbS9zemdkL2NzenR2NGtfaGQubTN1OA.flv
+河北4K,http://127.0.0.1:8899/a/aHR0cHM6Ly9ldmVudC5wdWxsLmhlYnR2LmNvbTo0NDMvbGl2ZS9saXZlMTAxLm0zdTg.flv
+南国都市4K,http://127.0.0.1:8899/a/aHR0cHM6Ly90ZW5jZW50cGxheS5nenR2LmNvbS9saXZlL25hbmd1b2R1c2hpLm0zdTg_dHhTZWNyZXQ9NTUwYWY1NWMwZWEzNGNlNDkyNzQ4NDgxNDE1YjZkZmEmdHhUaW1lPTE5MDNlN2IxN2Rl.flv
+河北卫视,http://127.0.0.1:8899/a/aHR0cDovL2V2ZW50LnB1bGwuaGVidHYuY29tL2ppc2hpL3dlaXNoaV90aW5neXVuLm0zdTg.flv
+黑龙江卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly9pZGNsaXZlLmhsanR2LmNvbTo0NDMwL2xpdmUvaGxqd3Nfb3duLm0zdTg.flv
+央视频道, #genre#
+CCTV-1,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1jY3R2MS5tM3U4.flv
+CCTV-2,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1jY3R2Mi5tM3U4.flv
+CCTV-3,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1jY3R2My5tM3U4.flv
+CCTV-4,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1jY3R2NC5tM3U4.flv
+CCTV-5,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1jY3R2NS5tM3U4.flv
+CCTV-5+,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1jY3R2NXAubTN1OA.flv
+CCTV-6,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1jY3R2Ni5tM3U4.flv
+CCTV-7,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1jY3R2Ny5tM3U4.flv
+CCTV-8,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1jY3R2OC5tM3U4.flv
+CCTV-9,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1jY3R2OS5tM3U4.flv
+CCTV-10,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1jY3R2MTAubTN1OA.flv
+CCTV-13,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1jY3R2MTMubTN1OA.flv
+CCTV-8K,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1jY3R2OGsubTN1OA.flv
+CGTN,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1jZ3RuLm0zdTg.flv
+CGTN法语,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1jZ3RuZnIubTN1OA.flv
+CGTN俄语,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1jZ3RucnUubTN1OA.flv
+CGTN阿拉伯语,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1jZ3RuYXIubTN1OA.flv
+CGTN西班牙语,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1jZ3RuZXMubTN1OA.flv
+CGTN 纪录,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1jZ3RuZG9jLm0zdTg.flv
+北京卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1iandzLm0zdTg.flv
+江苏卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1qc3dzLm0zdTg.flv
+东方卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1kZndzLm0zdTg.flv
+浙江卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD16andzLm0zdTg.flv
+湖南卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1obndzLm0zdTg.flv
+湖北卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1oYndzLm0zdTg.flv
+广东卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1nZHdzLm0zdTg.flv
+广西卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1neHdzLm0zdTg.flv
+黑龙江卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1obGp3cy5tM3U4.flv
+海南卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1oYWluYW53cy5tM3U4.flv
+重庆卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1jcXdzLm0zdTg.flv
+深圳卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1zendzLm0zdTg.flv
+四川卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1zY3dzLm0zdTg.flv
+河南卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1oZW5hbndzLm0zdTg.flv
+东南卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1kbndzLm0zdTg.flv
+贵州卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1nendzLm0zdTg.flv
+江西卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1qeHdzLm0zdTg.flv
+辽宁卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1sbndzLm0zdTg.flv
+安徽卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1haHdzLm0zdTg.flv
+河北卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1oZWJ3cy5tM3U4.flv
+山东卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1zZHdzLm0zdTg.flv
+天津卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD10andzLm0zdTg.flv
+吉林卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1qbHdzLm0zdTg.flv
+陕西卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1zYXh3cy5tM3U4.flv
+宁夏卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1ueHdzLm0zdTg.flv
+内蒙古卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1ubWd3cy5tM3U4.flv
+云南卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD15bndzLm0zdTg.flv
+山西卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1zaGFueGl3cy5tM3U4.flv
+青海卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1xaHdzLm0zdTg.flv
+西藏卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD14aXphbmd3cy5tM3U4.flv
+新疆卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD14andzLm0zdTg.flv
+CETV-1,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1jZXR2MS5tM3U4.flv
+国学频道,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1ndW94dWUubTN1OA.flv
+卫视频道, #genre#
+浙江卫视,http://127.0.0.1:8899/a/aHR0cDovL2FsaS1tLWwuY3p0di5jb20vY2hhbm5lbHMvbGFudGlhbi9jaGFubmVsMDAxLzEwODBwLm0zdTg.flv
+东方卫视,http://127.0.0.1:8899/a/aHR0cDovL2JwLXJlc291cmNlLWRmbC5iZXN0di5jbi8xNTUvMy92aWRlby5tM3U4.flv
+海南卫视,http://127.0.0.1:8899/a/aHR0cDovLzEyMC43Ni4yNDguMTM5L2xpdmUvYmZnZC80MjAwMDAwNDczLm0zdTg.flv
+海南卫视,http://127.0.0.1:8899/a/aHR0cDovL25uLjd4OWQuY24v5Zyw5pa55Y-wODU2My_mtbfljZcucGhwP2lkPWhud3M.flv
+苏州4K,http://127.0.0.1:8899/a/aHR0cHM6Ly90eWxpdmUua2FuMDUxMi5jb20vbm9yZWNvcmQvY3N6dHY0a180ay5tM3U4.flv
+延边卫视,http://127.0.0.1:8899/a/aHR0cDovLzEyMC43Ni4yNDguMTM5L2xpdmUvYmZnZC80MjAwMDAwMTE3Lm0zdTg.flv
+数字频道, #genre#
+重温经典,http://127.0.0.1:8899/a/aHR0cDovLzguMTM4LjcuMjIzL3R2L2N3amQucGhw.flv
+CCTV-6电影,http://127.0.0.1:8899/a/aHR0cDovLzguMTM4LjcuMjIzL3R2LzE5MDUucGhw.flv
+四川科教,http://127.0.0.1:8899/a/aHR0cDovLzE4Mi4xNTAuMTE1LjIxOjgwMzAvcGNnYWNnL3BjZ2FjZ18wLm0zdTg.flv
+APTV专享, #genre#
+CGTN英语,http://127.0.0.1:8899/a/aHR0cHM6Ly8wNDcyLm9yZy9obHMvY2d0bi5tM3U4.flv
+CGTN纪录,http://127.0.0.1:8899/a/aHR0cHM6Ly8wNDcyLm9yZy9obHMvY2d0bmQubTN1OA.flv
+港澳代理, #genre#
+翡翠台,http://127.0.0.1:8899/a/aHR0cDovL2lwdHYuNDY2Njg4OC54eXovaXB0djJBLnBocA.flv
+广州综合,http://127.0.0.1:8899/a/aHR0cDovL3IuamRzaGlwaW4uY29tL2lSNkdx.flv
+广州综合,http://127.0.0.1:8899/a/aHR0cDovL3IuamRzaGlwaW4uY29tL3NuaHlh.flv
+南国都市,http://127.0.0.1:8899/a/aHR0cDovL3IuamRzaGlwaW4uY29tL25XYVpP.flv
+港澳台频道, #genre#
+凤凰中文,http://127.0.0.1:8899/a/aHR0cDovLzQzLjE1Mi4yMjQuMjA5L3FjdHYuZmVuZ3Nob3dzLmNuL2xpdmUvMDcwMXBjYzcyLmZsdg.flv
+凤凰资讯,http://127.0.0.1:8899/a/aHR0cDovLzQzLjE1Mi4yMjQuMjA5L3FjdHYuZmVuZ3Nob3dzLmNuL2xpdmUvMDcwMXBpbjcyLmZsdg.flv
+凤凰香港,http://127.0.0.1:8899/a/aHR0cDovLzQzLjE1Mi4yMjQuMjA5L3FjdHYuZmVuZ3Nob3dzLmNuL2xpdmUvMDcwMXBoazcyLmZsdg.flv
+环球电视,http://127.0.0.1:8899/a/aHR0cDovL3V0djEuaHF0dnpiLmNvbTo5OTk5L2hscy93b3JsZC5tM3U4.flv
+耀才财经,http://127.0.0.1:8899/a/aHR0cHM6Ly92My5tZWRpYWNhc3QuaGsvd2ViY2FzdC9ic2hkbGl2ZS1wYy9jaHVua2xpc3Rfdzk5NzcxMTY1Lm0zdTg.flv
+台视新闻,http://127.0.0.1:8899/a/aHR0cDovLzM4LjY0LjcyLjE0OC9obHMvbW9kbi9saXN0LzQwMTMvY2h1bmtsaXN0MS5tM3U4.flv
+三立戏剧,http://127.0.0.1:8899/a/aHR0cDovLzYxLjIyMS4yMTUuMjU6ODgwMC9obHMvNDEvaW5kZXgubTN1OA.flv
+美亚C+,http://127.0.0.1:8899/a/aHR0cDovL290dHByb3h5Mi5pc3Qub29vL2xpdmVobHMvTU9CLVUxLU5PLzAzLm0zdTg.flv
+纬来精采,http://127.0.0.1:8899/a/aHR0cDovLzYxLjIyMS4yMTUuMjU6ODgwMC9obHMvNDgvaW5kZXgubTN1OA.flv
+TVBS新闻台,http://127.0.0.1:8899/a/aHR0cDovLzYxLjIyMS4yMTUuMjU6ODgwMC9obHMvOS9pbmRleC5tM3U4.flv
+人间卫视,http://127.0.0.1:8899/a/aHR0cDovLzYxLjIxNi42Ny4xMTk6MTkzNS9ibHR2aGQvYmx0djEvY2h1bmtsaXN0X3cxMjY2NTY5NTI2Lm0zdQ.flv
+动画频道, #genre#
+浙江少儿,http://127.0.0.1:8899/a/aHR0cHM6Ly9hbGktbS1sLmN6dHYuY29tL2NoYW5uZWxzL2xhbnRpYW4vY2hhbm5lbDAwOC8xMDgwcC5tM3U4.flv
+韩国EBS少儿,http://127.0.0.1:8899/a/aHR0cDovL2Vic29uYWlyaW9zLmVicy5jby5rci9lYnN1dGFibGV0NTAway90YWJsZXQ1MDBrL3BsYXlsaXN0Lm0zdTg.flv
+七龙珠,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8xMTYwMTk2Ng.flv
+灌篮高手,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MveXkvMTM4MjczNTYyNg.flv
+哆啦A梦,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8xMTYwMTk2Mw.flv
+猫和老鼠,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8xMTM1Mjg3OQ.flv
+喜羊羊与灰太狼,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8yMzg2NTA4MA.flv
+名侦探柯南,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8zMDA4MDIzNg.flv
+中华小当家,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8xMTM0MjQxMw.flv
+虎牙影视, #genre#
+周星驰电影,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMTEzNDI0MTI.flv
+林正英电影,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMTEzNDI0MjE.flv
+刘德华电影,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMTEzNDI0MjQ.flv
+古天乐电影,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMjk5ODI2NzU.flv
+成龙电影,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMTEzNDIzODY.flv
+李连杰电影,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMTEzNDIzOTA.flv
+甄子丹电影,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMTEzNTI5MzU.flv
+沈腾电影,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMTE2MDE5Njg.flv
+黄渤电影,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMTEzNTI4NzY.flv
+强森电影,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMjEwNTk1ODE.flv
+王晶电影,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMTE2MDIwNTg.flv
+金庸武侠,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMTEzNDI0MzU.flv
+功夫电影,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMTEzNTI5NDE.flv
+贺岁电影,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMTE2MDE5ODY.flv
+怪兽电影,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMjEwNTk1Nzc.flv
+武侠电影,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMTEzNDI0Mjc.flv
+玄幻电影,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMTEzNDI0MTQ.flv
+罪犯电影,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMTEzNTI5NjI.flv
+战争电影,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMjEwNTk1NzQ.flv
+谍战电影,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMjEwNTk1ODU.flv
+枪战电影,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMjEwNTk1Nzk.flv
+狄仁杰电影,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMzAwODAyMjk.flv
+末日电影合集,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MveXkvMTM1NDg4OTAxOQ.flv
+宇宙科幻合集,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMTEzNDI0Mjg.flv
+电视剧频道, #genre#
+延禧攻略,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8yNjM1NTg2NA.flv
+新三国,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8xMTM1Mjk0NA.flv
+新水浒传,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8xMTM0MjM4NA.flv
+新三国（斗鱼）,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvZG91eXUvNTkwODI1Ng.flv
+少年包青天第一部,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MveXkvMTM1NjA0MzY3Nw.flv
+少年包青天第一部,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8xMTM1Mjk1OA.flv
+少年包青天第二部,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8xMTM0MjQyNQ.flv
+少年包青天第三部,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MveXkvMTM4MjczNjgxNA.flv
+神探狄仁杰第一部,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MveXkvMTM1NDkzMDkzNA.flv
+神探狄仁杰第二部,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvZG91eXUvMTI2NTUzNTk.flv
+神探狄仁杰第三部,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvZG91eXUvNjAyNzk5MQ.flv
+爱情公寓,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8xMTMzNjcyNg.flv
+爱情公寓（斗鱼）,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvZG91eXUvNDEwNTk4OQ.flv
+雪豹,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8yOTU4MDk3MA.flv
+士兵突击,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8xMTM0MjQzMA.flv
+笑傲江湖,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8yNjM1NTc5MA.flv
+神雕侠侣,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8xMTM1Mjk2NA.flv
+天龙八部,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8yMDk4NTgxNg.flv
+倚天屠龙记,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8xMTM0MjQwMw.flv
+铁齿铜牙纪晓岚,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8xMTM0MjM5Ng.flv
+康熙王朝,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8xMTM1Mjk0MA.flv
+陈情令,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8yOTQ2NTg2Mg.flv
+庆余年,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8xMTM1Mjk2MA.flv
+鬼吹灯之精绝古城,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8xMTM1Mjg3MQ.flv
+鬼吹灯之怒晴湘西,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8xMTYwMjA3NQ.flv
+鬼吹灯之龙岭迷窟,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8yOTQ2NTg2Mw.flv
+鬼吹灯之云南虫谷,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8xMTM1Mjg5OA.flv
+伪装者,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MveXkvMTM1NDkzNjI0NA.flv
+西游记后传,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MveXkvMTM1MzM5MjQwMA.flv
+隋唐英雄传,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MveXkvMTM1MjQ3NTYxOQ.flv
+仙剑奇侠传,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MveXkvMTM4Mjc0OTkwMw.flv
+西游记续集,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvZG91eXUvMzExMzMwOQ.flv
+三国演义,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8xMTYwMjA4MQ.flv
+西游记,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8yNjM1NTg2MQ.flv
+新白娘子传奇,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MveXkvMTM1NDQ5MDY2Nw.flv
+乌龙闯情关,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8yNjM1NTc2Nw.flv
+柳舟计,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8yMzg2MDAzOQ.flv
+与凤行,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8yNjM1NTg2Ng.flv
+大秦赋,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8yMzkwMzEzMA.flv
+永夜星河,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8yMzczNDE2OQ.flv
+流水迢迢,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8yMzg2NTAzNg.flv
+唐诡之西行,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8yNjM1NTc2Mw.flv
+玫瑰的故事,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8yMzg2NTE0Mg.flv
+梦中的那片海,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8yNjM1NTc2NQ.flv
+父母爱情,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MveXkvMTM1NDkyNjY1MA.flv
+欢乐颂,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MveXkvMTM4MjczNTYyNA.flv
+康熙微服私访记,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8xMTM0MjQxOA.flv
+如懿传,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8yOTQ2NTg2OA.flv
+芈月传,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MvaHV5YS8xMTM1Mjk3NQ.flv
+埋堆堆频道, #genre#
+楚汉骄雄,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMjk0NjU4NTQ.flv
+寻秦记,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMjk0NjU4NDg.flv
+封神榜,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMjk0NjU4NDk.flv
+西游记2,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMjk0NjU4NTk.flv
+大唐双龙传,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMjk0NjU4NTA.flv
+神雕侠侣,http://127.0.0.1:8899/a/aHR0cDovL2xpdmUub3R0aXB0di5jYy95eS8xMzUxNzYyNDI2.flv
+天龙八部,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MveXkvMTM1MTgxNDY0NA.flv
+射雕英雄传,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMjM4MjQxNjQ.flv
+倚天屠龙记,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMjM3MzQyNDY.flv
+笑傲江湖,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMjM4NjUxNDI.flv
+活佛济公3,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMjM5MDMxMjM.flv
+无心法师,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMzAwODAyMzM.flv
+谈判专家,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm90dGlwdHYuY2MveXkvMTM4MjczNTU2MA.flv
+刑事侦缉档案,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMjk0NjU4NTY.flv
+法政先锋,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMjM4NjM4MDQ.flv
+洗冤录,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMjk0NjU4NTE.flv
+陀枪师姐,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMjk0NjU4NTc.flv
+鉴证实录,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMjM5MDMxODM.flv
+金枝欲孽,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMjk0NjU4NDc.flv
+扫黄先锋,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMjk0NjU4NTU.flv
+创世纪,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMjk0NjU4NTI.flv
+妙手仁心,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMjk0NjU4NTM.flv
+大时代,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMjM4NjUxNjE.flv
+野蛮亲家,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMjM4NjM3OTY.flv
+笑看风云,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLm1ldHNob3AudG9wL2h1eWEvMjk0NjU4NTg.flv
+点播电影, #genre#
+倩女幽魂妖魔道,http://127.0.0.1:8899/a/aHR0cDovL2pzbW92Mi5hLnl4aW1ncy5jb20vYnMzL3ZpZGVvLWhscy81MjMyOTAxMzkxMzAyMTk5MDczX2hsc2IubTN1OA.flv
+倩女幽魂人间道,http://127.0.0.1:8899/a/aHR0cDovL2pzbW92Mi5hLnl4aW1ncy5jb20vYnMzL3ZpZGVvLWhscy81MjUwNjM0MzE3MDQ0ODU1NzQ3X2hsc2IubTN1OA.flv
+倩女幽魂道道道,http://127.0.0.1:8899/a/aHR0cDovL2pzbW92Mi5hLnl4aW1ncy5jb20vYnMzL3ZpZGVvLWhscy81MjE2Mjk0MzY3OTkxMzg1MjU1X2hsc2IubTN1OA.flv
+人在囧途,http://127.0.0.1:8899/a/aHR0cHM6Ly92aXAuZmZ6eS1wbGF5LmNvbS8yMDIyMTAxOC8xOTUzXzJkNmJhNTAwL2luZGV4Lm0zdTg.flv
+人在囧途之泰囧,http://127.0.0.1:8899/a/aHR0cHM6Ly92aXAuZmZ6eS1wbGF5LmNvbS8yMDIyMTAxOC8xOTUxXzQ3ZTFhZGM4L2luZGV4Lm0zdTg.flv
+拆弹专家2,http://127.0.0.1:8899/a/aHR0cHM6Ly92aXAuZmZ6eS1vbmxpbmUuY29tLzIwMjIxMDE1LzcyMl9lMzJjNDJiYy9pbmRleC5tM3U4.flv
+寒战,http://127.0.0.1:8899/a/aHR0cHM6Ly92aXAuZmZ6eS1wbGF5Ni5jb20vMjAyMjEwMTkvMTU3X2JmMDc0MGVlL2luZGV4Lm0zdTg.flv
+我不是药神,http://127.0.0.1:8899/a/aHR0cHM6Ly92aXAuZmZ6eS1wbGF5MS5jb20vMjAyMjEwMTgvNDc4X2MzYWZlZDY2L2luZGV4Lm0zdTg.flv
+让子弹飞,http://127.0.0.1:8899/a/aHR0cHM6Ly92aXAuZmZ6eS1wbGF5Ny5jb20vMjAyMzAxMTYvMTE1NjNfYjlmNDQ4MTQvaW5kZXgubTN1OA.flv
+龙门飞甲,http://127.0.0.1:8899/a/aHR0cDovL2pzbW92Mi5hLnl4aW1ncy5jb20vYnMzL3ZpZGVvLWhscy81MjAzMzQ2NDQ5MDQ2NTU1MTkzX2hsc2IubTN1OA.flv
+☘️浙江频道, #genre#
+浙江新闻,http://127.0.0.1:8899/a/aHR0cHM6Ly9hbGktbS1sLmN6dHYuY29tL2NoYW5uZWxzL2xhbnRpYW4vY2hhbm5lbDAwNy8xMDgwcC5tM3U4.flv
+浙江国际,http://127.0.0.1:8899/a/aHR0cHM6Ly9hbGktbS1sLmN6dHYuY29tL2NoYW5uZWxzL2xhbnRpYW4vY2hhbm5lbDAxMC8xMDgwcC5tM3U4.flv
+浙江教科,http://127.0.0.1:8899/a/aHR0cHM6Ly9hbGktbS1sLmN6dHYuY29tL2NoYW5uZWxzL2xhbnRpYW4vY2hhbm5lbDAwNC8xMDgwcC5tM3U4.flv
+浙江民生,http://127.0.0.1:8899/a/aHR0cHM6Ly9hbGktbS1sLmN6dHYuY29tL2NoYW5uZWxzL2xhbnRpYW4vY2hhbm5lbDAwNi8xMDgwcC5tM3U4.flv
+浙江经济,http://127.0.0.1:8899/a/aHR0cHM6Ly9hbGktbS1sLmN6dHYuY29tL2NoYW5uZWxzL2xhbnRpYW4vY2hhbm5lbDAwMy8xMDgwcC5tM3U4.flv
+浙江钱江,http://127.0.0.1:8899/a/aHR0cHM6Ly9hbGktbS1sLmN6dHYuY29tL2NoYW5uZWxzL2xhbnRpYW4vY2hhbm5lbDAwMi8xMDgwcC5tM3U4.flv
+之江纪录,http://127.0.0.1:8899/a/aHR0cHM6Ly9hbGktbS1sLmN6dHYuY29tL2NoYW5uZWxzL2xhbnRpYW4vY2hhbm5lbDAxMi8xMDgwcC5tM3U4.flv
+萧山综合,http://127.0.0.1:8899/a/aHR0cDovL2wuY3p0dmNsb3VkLmNvbS9jaGFubmVscy9sYW50aWFuL1NYeGlhb3NoYW4xLzcyMHAubTN1OA.flv
+象山新闻综合,http://127.0.0.1:8899/a/aHR0cDovL2wuY3p0dmNsb3VkLmNvbS9jaGFubmVscy9sYW50aWFuL1NYeGlhbmdzaGFuMS83MjBwLm0zdTg.flv
+文成新闻综合,http://127.0.0.1:8899/a/aHR0cDovL2wuY3p0dmNsb3VkLmNvbS9jaGFubmVscy9sYW50aWFuL1NYd2VuY2hlbmcxLzcyMHAubTN1OA.flv
+青田电视台,http://127.0.0.1:8899/a/aHR0cDovL2wuY3p0dmNsb3VkLmNvbS9jaGFubmVscy9sYW50aWFuL1NYcWluZ3RpYW4xLzcyMHAubTN1OA.flv
+云和新闻综合,http://127.0.0.1:8899/a/aHR0cDovL2wuY3p0dmNsb3VkLmNvbS9jaGFubmVscy9sYW50aWFuL1NYeXVuaGUxLzcyMHAubTN1OA.flv
+☘️四川频道, #genre#
+龙泉新闻综合,http://127.0.0.1:8899/a/aHR0cDovL2wuY3p0dmNsb3VkLmNvbS9jaGFubmVscy9sYW50aWFuL1NYbG9uZ3F1YW4xLzcyMHAubTN1OA.flv
+乐至综合,http://127.0.0.1:8899/a/aHR0cDovLzE3NS4xNTUuMTA2LjcyOjg5L2xpdmUxL2xpdmUxLm0zdTg_enNpY2Q.flv
+剑阁综合,http://127.0.0.1:8899/a/aHR0cHM6Ly9tM3U4LmNoYW5uZWwuZHpzbS5jb20vbm1pcC1tZWRpYS9jaGFubmVsbGl2ZS9jaGFubmVsMTA1NTQ5L3BsYXlsaXN0Lm0zdTg.flv
+广元综合,http://127.0.0.1:8899/a/aHR0cHM6Ly9tM3U4LmNoYW5uZWwuZHpzbS5jb20vbm1pcC1tZWRpYS9jaGFubmVsbGl2ZS9jaGFubmVsMTAwOTk5L3BsYXlsaXN0Lm0zdTg.flv
+广元公共,http://127.0.0.1:8899/a/aHR0cHM6Ly9tM3U4LmNoYW5uZWwuZHpzbS5jb20vbm1pcC1tZWRpYS9jaGFubmVsbGl2ZS9jaGFubmVsMTAxMjU3L3BsYXlsaXN0Lm0zdTg.flv
+广安公共,http://127.0.0.1:8899/a/aHR0cDovL2xpdmUxLmdhdHYuY29tLmNuOjg1L2xpdmUvR0dQRF9nZ3Bkem0ubTN1OD96c2ljZA.flv
+旺苍新闻综合,http://127.0.0.1:8899/a/aHR0cDovL2NoYW5uZWwud2NybXQuY246ODAvbm1pcC1tZWRpYS9jaGFubmVsbGl2ZS9jaGFubmVsMTA1MjY4L3BsYXlsaXN0Lm0zdTg.flv
+金川新闻综合,http://127.0.0.1:8899/a/aHR0cDovL2xpdmUuamluY2h1YW5ybXQuY29tOjkwL2xpdmUvemh4dy5tM3U4P3pzaWNk.flv
+金川乡村,http://127.0.0.1:8899/a/aHR0cDovL2xpdmUuamluY2h1YW5ybXQuY29tOjkwL2xpdmUvamN4Yy5tM3U4P3pzaWNk.flv
+青川综合,http://127.0.0.1:8899/a/aHR0cDovL3FjZmlsZS5xY3JtdC5jb20vbm1pcC1tZWRpYS9jaGFubmVsbGl2ZS9jaGFubmVsMTAwOTMzL3BsYXlsaXN0Lm0zdTg.flv
+荥经综合,http://127.0.0.1:8899/a/aHR0cHM6Ly9tM3U4Y2hhbm5lbC15ai55dW54eWEuY29tL25taXAtbWVkaWEvY2hhbm5lbGxpdmUvY2hhbm5lbDEwMTE0MC9wbGF5bGlzdC5tM3U4.flv
+甘孜综合,http://127.0.0.1:8899/a/aHR0cDovL3R2LmRycy5nYW56aXR2LmNvbTo4MTAwL2NoYW5uZWxsaXZlL2d6dHYuZmx2.flv
+朝天综合,http://127.0.0.1:8899/a/aHR0cHM6Ly9tM3U4LmNoYW5uZWwuZHpzbS5jb20vbm1pcC1tZWRpYS9jaGFubmVsbGl2ZS9jaGFubmVsMTA0NjAxL3BsYXlsaXN0Lm0zdTg.flv
+☘️辽宁频道, #genre#
+辽宁北方,http://127.0.0.1:8899/a/aHR0cDovL2Rhc3NieS5xcWZmLnRvcDo5OS9saXZlL-i-veWugeWMl-aWuS9pbmRleC5tM3U4.flv
+辽宁影视,http://127.0.0.1:8899/a/aHR0cDovL2Rhc3NieS5xcWZmLnRvcDo5OS9saXZlL-i-veWugeW9seinhuWJpy9pbmRleC5tM3U4.flv
+辽宁青少,http://127.0.0.1:8899/a/aHR0cDovL2Rhc3NieS5xcWZmLnRvcDo5OS9saXZlL-i-veWugeaVmeiCsumdkuWwkS9pbmRleC5tM3U4.flv
+辽宁生活,http://127.0.0.1:8899/a/aHR0cDovL2Rhc3NieS5xcWZmLnRvcDo5OS9saXZlL-i-veWugeeUn-a0uy9pbmRleC5tM3U4.flv
+辽宁都市,http://127.0.0.1:8899/a/aHR0cDovL2Rhc3NieS5xcWZmLnRvcDo5OS9saXZlL-i-veWugemDveW4gi9pbmRleC5tM3U4.flv
+辽宁体育,http://127.0.0.1:8899/a/aHR0cDovL2Rhc3NieS5xcWZmLnRvcDo5OS9saXZlL-i-veWugeS9k-iCsi9pbmRleC5tM3U4.flv
+☘️广东频道, #genre#
+广州综合,http://127.0.0.1:8899/a/aHR0cDovL3RlbmNlbnRwbGF5Lmd6dHYuY29tL2xpdmUvem9uZ2hlcy5tM3U4P3R4U2VjcmV0PWM4ZGJlODZkNmY4NmViMWEyMTk5OWFiNDc5ZmQ1NjY3JnR4VGltZT0xOGQzYzQ2OTBlOA.flv
+广州新闻,http://127.0.0.1:8899/a/aHR0cDovL3RlbmNlbnRwbGF5Lmd6dHYuY29tL2xpdmUveGlud2VuLm0zdTg_dHhTZWNyZXQ9ZDJjMmRiMGI1OThjMDJlYzFiNTYyMzcyODQzNGQzNjcmdHhUaW1lPTE4ZDU3OTI5YmQz.flv
+南国都市,http://127.0.0.1:8899/a/aHR0cDovL3RlbmNlbnRwbGF5Lmd6dHYuY29tL2xpdmUvbmFuZ3VvZHVzaGkubTN1OD90eFNlY3JldD0xNDAxMTBhZTNkNmM5MzZhNzdmOTRjNGY0ZDg1YjBkMyZ0eFRpbWU9MThkNTc5MjliZDQ.flv
+东莞新闻综合,http://127.0.0.1:8899/a/aHR0cHM6Ly9zdHJlYW0uc3VuMDc2OS5jb20vZGdydHYxL21wNHR2MV84MDAvaW5kZXgubTN1OA.flv
+番禺综合,http://127.0.0.1:8899/a/aHR0cDovL3ZpZGVvLmVwYXBlci5weWJ0di5jbjo4MDgwL2xpdmUvcnRtcF9saXZlX2RlbW8uZmx2.flv
+☘️江苏频道, #genre#
+苏州新闻综合,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLWF1dGguNTFrYW5kaWFuc2hpLmNvbS9zemdkL2NzenR2MS5tM3U4.flv
+苏州社会经济,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLWF1dGguNTFrYW5kaWFuc2hpLmNvbS9zemdkL2NzenR2Mi5tM3U4.flv
+苏州文化生活,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLWF1dGguNTFrYW5kaWFuc2hpLmNvbS9zemdkL2NzenR2My5tM3U4.flv
+苏州生活资讯,http://127.0.0.1:8899/a/aHR0cHM6Ly9saXZlLWF1dGguNTFrYW5kaWFuc2hpLmNvbS9zemdkL2NzenR2NS5tM3U4.flv
+☘️河北频道, #genre#
+河北经济,http://127.0.0.1:8899/a/aHR0cDovLzEuOTQuMzEuMjE0L3BocC9oZWJlaS5waHA_aWQ9ampzaA.flv
+河北都市,http://127.0.0.1:8899/a/aHR0cDovLzEuOTQuMzEuMjE0L3BocC9oZWJlaS5waHA_aWQ9aGJkcw.flv
+河北影视,http://127.0.0.1:8899/a/aHR0cDovLzEuOTQuMzEuMjE0L3BocC9oZWJlaS5waHA_aWQ9aGJ5cw.flv
+河北少儿,http://127.0.0.1:8899/a/aHR0cDovLzEuOTQuMzEuMjE0L3BocC9oZWJlaS5waHA_aWQ9c2Vrag.flv
+河北公共,http://127.0.0.1:8899/a/aHR0cDovLzEuOTQuMzEuMjE0L3BocC9oZWJlaS5waHA_aWQ9aGJnZw.flv
+河北农民,http://127.0.0.1:8899/a/aHR0cDovLzEuOTQuMzEuMjE0L3BocC9oZWJlaS5waHA_aWQ9bm1wZA.flv
+邢台综合,http://127.0.0.1:8899/a/aHR0cDovL2p3cGxheS5oZWJ5dW4uY29tLmNuL2xpdmUveHRzcm10enMvMTUwMGsvdHp3al92aWRlby5tM3U4.flv
+邢台生活,http://127.0.0.1:8899/a/aHR0cHM6Ly9qd2NkbnF4LmhlYnl1bi5jb20uY24vbGl2ZS94dGNzc2hwZC8xNTAway90endqX3ZpZGVvLm0zdTg.flv
+邯郸公共频道,http://127.0.0.1:8899/a/aHR0cHM6Ly9qd2NkbnF4LmhlYnl1bi5jb20uY24vbGl2ZS9oZGdnLzE1MDBrL3R6d2pfdmlkZW8ubTN1OA.flv
+邯郸科技教育,http://127.0.0.1:8899/a/aHR0cHM6Ly9qd2NkbnF4LmhlYnl1bi5jb20uY24vbGl2ZS9oZGtqLzE1MDBrL3R6d2pfdmlkZW8ubTN1OA.flv
+昌黎综合,http://127.0.0.1:8899/a/aHR0cHM6Ly9qd2NkbnF4LmhlYnl1bi5jb20uY24vbGl2ZS9jbHpocGQvMTUwMGsvdHp3al92aWRlby5tM3U4.flv
+☘️湖北频道, #genre#
+江夏新闻综合,http://127.0.0.1:8899/a/aHR0cDovLzU5LjE3NS4yMjYuMTQyOjI4MC9nYjI4MTgxL3h3emgubTN1OD96aHViZA.flv
+☘️海南频道, #genre#
+三沙卫视,http://127.0.0.1:8899/a/aHR0cDovL25uLjd4OWQuY24v5Zyw5pa55Y-wODU2My_mtbfljZcucGhwP2lkPXNzd3M.flv
+海南自贸,http://127.0.0.1:8899/a/aHR0cDovL25uLjd4OWQuY24v5Zyw5pa55Y-wODU2My_mtbfljZcucGhwP2lkPWpqcGQ.flv
+海南新闻,http://127.0.0.1:8899/a/aHR0cDovL25uLjd4OWQuY24v5Zyw5pa55Y-wODU2My_mtbfljZcucGhwP2lkPXh3cGQ.flv
+海南公共,http://127.0.0.1:8899/a/aHR0cDovL25uLjd4OWQuY24v5Zyw5pa55Y-wODU2My_mtbfljZcucGhwP2lkPWdncGQ.flv
+海南文旅,http://127.0.0.1:8899/a/aHR0cDovL25uLjd4OWQuY24v5Zyw5pa55Y-wODU2My_mtbfljZcucGhwP2lkPXdscGQ.flv
+海南少儿,http://127.0.0.1:8899/a/aHR0cDovL25uLjd4OWQuY24v5Zyw5pa55Y-wODU2My_mtbfljZcucGhwP2lkPXNlcGQ.flv
+☘️黑龙江频道, #genre#
+哈尔滨新闻综合,http://127.0.0.1:8899/a/aHR0cDovL3N0cmVhbS5ocmJ0di5uZXQveHd6aC9zZC9saXZlLm0zdTg_emhlaWxk.flv
+哈尔滨影视,http://127.0.0.1:8899/a/aHR0cDovL3N0cmVhbS5ocmJ0di5uZXQveXNwZC9zZC9saXZlLm0zdTg_emhlaWxk.flv
+哈尔滨生活,http://127.0.0.1:8899/a/aHR0cDovL3N0cmVhbS5ocmJ0di5uZXQvc2hwZC9zZC9saXZlLm0zdTg_emhlaWxk.flv
+七台河新闻综合,http://127.0.0.1:8899/a/aHR0cDovL2xpdmUucXRobmV3cy5vcmcuY246MTkzNS9saXZlL2xpdmUxLzgwMGsvdHp3al92aWRlby5tM3U4.flv
+春晚频道, #genre#
+1987年春晚,http://127.0.0.1:8899/a/aHR0cHM6Ly90eG1vdjIuYS5rd2ltZ3MuY29tL2JzMy92aWRlby1obHMvNTE5NTc0NjY2MzQwNTkyODAzMV9obHNiLm0zdTg.flv
+1988年春晚,http://127.0.0.1:8899/a/aHR0cHM6Ly90eG1vdjIuYS5rd2ltZ3MuY29tL2JzMy92aWRlby1obHMvNTIxNjU3NTgxMDkzNTM5NDY1NV9obHNiLm0zdTg.flv
+1989年春晚,http://127.0.0.1:8899/a/aHR0cHM6Ly90eG1vdjIuYS5rd2ltZ3MuY29tL2JzMy92aWRlby1obHMvNTE5NDYyMDc2Mzc2MjcyNjI2MF9obHNiLm0zdTg.flv
+1993年春晚,http://127.0.0.1:8899/a/aHR0cHM6Ly9hbGltb3YyLmEua3dpbWdzLmNvbS91cGljLzIwMjMvMDEvMTMvMjIvQk1qQXlNekF4TVRNeU1qRXdNRE5mTkRBek1EQXhPVGxmT1RNMU1USXpNell3T0RKZk1GOHpfYl9CNjQ3ZDEwZTQzMWI0Y2M1ZTQ4ZTZjNzczNDdkNjkwMjEubXA0.flv
+1994年春晚,http://127.0.0.1:8899/a/aHR0cHM6Ly9hbGltb3YyLmEua3dpbWdzLmNvbS91cGljLzIwMjMvMDEvMTMvMjIvQk1qQXlNekF4TVRNeU1qRXdNRE5mTkRBek1EQXhPVGxmT1RNMU1USXpNell4TWpOZk1GOHpfYl9CM2RkZTk3ZjM2MjczZjA0NDAzZDRkYzVlZWM2MTFhMzUubXA0.flv
+1995年春晚,http://127.0.0.1:8899/a/aHR0cHM6Ly9hbGltb3YyLmEua3dpbWdzLmNvbS91cGljLzIwMjMvMDEvMTMvMjAvQk1qQXlNekF4TVRNeU1EQTVNakpmTkRBek1EQXhPVGxmT1RNME9Ua3dORFF3TnpWZk1GOHpfYl9CODExYzBkZWM2YjlhM2QzMDc0YTE4NTIyYzE4NTAxMGEubXA0.flv
+1996年春晚,http://127.0.0.1:8899/a/aHR0cHM6Ly9hbGltb3YyLmEua3dpbWdzLmNvbS91cGljLzIwMjMvMDEvMTMvMjIvQk1qQXlNekF4TVRNeU1qRXdNRE5mTkRBek1EQXhPVGxmT1RNMU1USXpNell4TlRKZk1GOHpfYl9CZDg0MWVhZTEwYWIxYzk5NTVlZjU1ZmJlZGZhZTZjNDUubXA0.flv
+2000年春晚,http://127.0.0.1:8899/a/aHR0cHM6Ly9hbGltb3YyLmEua3dpbWdzLmNvbS91cGljLzIwMjMvMDEvMTMvMjEvQk1qQXlNekF4TVRNeU1URTRNelJmTkRBek1EQXhPVGxmT1RNMU1EWTRPREl4TVROZk1GOHpfYl9CZGRkZjRlN2VmMGZmNmNmZDQ3Nzg1N2JiNDBlNzg0MTkubXA0.flv
+2001年春晚,http://127.0.0.1:8899/a/aHR0cHM6Ly9hbGltb3YyLmEua3dpbWdzLmNvbS91cGljLzIwMjMvMDEvMTMvMjAvQk1qQXlNekF4TVRNeU1EQTVNakpmTkRBek1EQXhPVGxmT1RNME9Ua3dORFF5TURGZk1GOHpfYl9CNzA1OTJjYjdjNDA1NGU5Y2FiYjY3NWU4NDliYmY0YmQubXA0.flv
+2002年春晚,http://127.0.0.1:8899/a/aHR0cHM6Ly9hbGltb3YyLmEua3dpbWdzLmNvbS91cGljLzIwMjMvMDEvMTMvMjEvQk1qQXlNekF4TVRNeU1URTRNelJmTkRBek1EQXhPVGxmT1RNMU1EWTRPREl4TkRkZk1GOHpfYl9CYTYyNzFkMTBiN2U2Y2ZhZTgzNzU5MDMzYTA5MWYyNTcubXA0.flv
+2003年春晚,http://127.0.0.1:8899/a/aHR0cHM6Ly9hbGltb3YyLmEua3dpbWdzLmNvbS91cGljLzIwMjMvMDEvMTQvMjMvQk1qQXlNekF4TVRReU16UXhORGRmTkRBek1EQXhPVGxmT1RNMk1UVTBNVGsxTkRGZk1GOHpfYl9CMTgyNzQ5ZDJjZDJlYTkzMjM2MzkyNTRhZjM4NWYyNGIubXA0.flv
+2004年春晚,http://127.0.0.1:8899/a/aHR0cHM6Ly9hbGltb3YyLmEua3dpbWdzLmNvbS91cGljLzIwMjMvMDEvMTMvMjEvQk1qQXlNekF4TVRNeU1URTRNelJmTkRBek1EQXhPVGxmT1RNMU1EWTRPREl4T1RWZk1GOHpfYl9CODZjNDQzMGI4MmZmNWE3ZjRlODEzMmY2ZWU1NTg1MzYubXA0.flv
+2005年春晚,http://127.0.0.1:8899/a/aHR0cHM6Ly9hbGltb3YyLmEua3dpbWdzLmNvbS91cGljLzIwMjMvMDEvMTMvMjAvQk1qQXlNekF4TVRNeU1EQTVNakpmTkRBek1EQXhPVGxmT1RNME9Ua3dORFF5TXpoZk1GOHpfYl9CMzVhZDdjYzg2YWVjOGZjOWU1ZGRmYjMxZmM3YmVkNjMubXA0.flv
+2006年春晚,http://127.0.0.1:8899/a/aHR0cHM6Ly9hbGltb3YyLmEua3dpbWdzLmNvbS91cGljLzIwMjMvMDEvMTMvMjAvQk1qQXlNekF4TVRNeU1EQTVNakpmTkRBek1EQXhPVGxmT1RNME9Ua3dORFF5TnpsZk1GOHpfYl9CYmMzNzAzZmMzMzFkYzk5NGM1MDg1OWMxOWFhZDI4ZmYubXA0.flv
+2007年春晚,http://127.0.0.1:8899/a/aHR0cHM6Ly9hbGltb3YyLmEua3dpbWdzLmNvbS91cGljLzIwMjMvMDEvMTMvMjAvQk1qQXlNekF4TVRNeU1EQTVNakpmTkRBek1EQXhPVGxmT1RNME9Ua3dORFF6TWpOZk1GOHpfYl9CMDBiMDY5Yzc4OTk5NzY0NTljZWVhYTk5MzUzZGZlZmUubXA0.flv
+2009年春晚,http://127.0.0.1:8899/a/aHR0cHM6Ly9hbGltb3YyLmEua3dpbWdzLmNvbS91cGljLzIwMjMvMDEvMTMvMjAvQk1qQXlNekF4TVRNeU1EQTVNakpmTkRBek1EQXhPVGxmT1RNME9Ua3dORFF6T1RCZk1GOHpfYl9CMjlhMzZhODVlMDI3N2Y2YzJhMWYwMzNlZjdjMTA3MDgubXA0.flv
+2010年春晚,http://127.0.0.1:8899/a/aHR0cHM6Ly9hbGltb3YyLmEua3dpbWdzLmNvbS91cGljLzIwMjMvMDEvMTMvMjAvQk1qQXlNekF4TVRNeU1EQTVNakpmTkRBek1EQXhPVGxmT1RNME9Ua3dORFEwTWpsZk1GOHpfYl9CODgxODgwN2EwMGVlZDMyOWE2OWZiNDk0ZjQwNWJkNDMubXA0.flv
+2013年春晚,http://127.0.0.1:8899/a/aHR0cHM6Ly9hbGltb3YyLmEua3dpbWdzLmNvbS91cGljLzIwMjMvMDEvMTMvMjAvQk1qQXlNekF4TVRNeU1EQTVNakpmTkRBek1EQXhPVGxmT1RNME9Ua3dORFExTmpOZk1GOHpfYl9CNGZlYTU1NDA4ZGNhNDQ3MWE2OGE5NjNhZTA5NmJlNTkubXA0.flv
+2014年春晚,http://127.0.0.1:8899/a/aHR0cHM6Ly9hbGltb3YyLmEua3dpbWdzLmNvbS91cGljLzIwMjMvMDEvMDYvMTYvQk1qQXlNekF4TURZeE5qTXhNVE5mTkRBek1EQXhPVGxmT1RJNE9UWTJPREF6TmpsZk1GOHpfYl9CZGVlNjVjNzdmOWU3YjIxMjBhMTg1YzkxOWRhZDgxZDIubXA0.flv
+2018年春晚,http://127.0.0.1:8899/a/aHR0cHM6Ly9hbGltb3YyLmEua3dpbWdzLmNvbS91cGljLzIwMjMvMDEvMDYvMTYvQk1qQXlNekF4TURZeE5qTXhNVFJmTkRBek1EQXhPVGxmT1RJNE9UWTJPREUyTVRCZk1GOHpfYl9CMTFhNzc4ZTM0MzkwYTIxZGU0MmQ0MDdlOTRmNDViOTEubXA0.flv
+2024年春晚,http://127.0.0.1:8899/a/aHR0cHM6Ly9wMi5iZHN0YXRpYy5jb20vcnRtcC5saXZlc2hvdy5sc3MtdXNlci5iYWlkdWJjZS5jb20vbGl2ZS9zdHJlYW1fYmR1aWRfNjQ4ODU2Mzk5Ml84OTgyNzIzNDEzL21lcmdlZF8xNzA3NDk3MDQ2Mjk3Xzg4NTM2XzI1MTQ0XzQxOTM2Lm0zdTg.flv
+2025年春晚 4K,http://127.0.0.1:8899/a/aHR0cHM6Ly9zdmlwLmhpZ2gyNC1wbGF5YmFjay5jb20vMjAyNTAxMjkvMTcxNTlfN2JjYTkzYzQvMjAwMGsvaGxzL21peGVkLm0zdTg.flv
+国际频道, #genre#
+CNA,http://127.0.0.1:8899/a/aHR0cHM6Ly9kMmUxYXNuc2w3YnI3Yi5jbG91ZGZyb250Lm5ldC83NzgyZTIwNWU3MmY0M2FlYjRhNDhlYzk3ZjY2ZWJiZS9pbmRleF81Lm0zdTg.flv
+ABC News Live,http://127.0.0.1:8899/a/aHR0cHM6Ly9kNHlieXFyaGNlNDFyLmNsb3VkZnJvbnQubmV0L3YxL21hc3Rlci8zZmVjM2U1Y2FjMzlhNTJiMjEzMmY5YzY2YzgzZGFlMDQzZGMxN2Q0L3Byb2QteHVtby1saW5lYXItbmJjdS1obHN2My9tYXN0ZXIubTN1OD9hZHMuY2hhbm5lbElkPTk5OTkxNjI2.flv
+WionNews,http://127.0.0.1:8899/a/aHR0cHM6Ly9kN3g4ejR5dXE0MnFuLmNsb3VkZnJvbnQubmV0L2luZGV4XzcubTN1OA.flv
+Arirang,http://127.0.0.1:8899/a/aHR0cHM6Ly9hbWRsaXZlLWNoMDEtY3RuZC1jb20uYWthbWFpemVkLm5ldC9hcmlyYW5nXzFjaC9zbWlsOmFyaXJhbmdfMWNoLnNtaWwvY2h1bmtsaXN0X2IzMjU2MDAwX3NsZW5nLm0zdTg.flv
+Bloomberg Asia,http://127.0.0.1:8899/a/aHR0cHM6Ly9lcGcucHcvc3RyZWFtL2QyZWRmNDY5YjkwNzkwNjRhMjgzZjRiMDgxMWNiZjZmMjU5N2ViYmIzZDA4ZGNmNzcwMzZhNGI1YTc5MWI3Y2YubTN1OA.flv
+Trace Sports,http://127.0.0.1:8899/a/aHR0cHM6Ly9saWdodG5pbmctdHJhY2VzcG9ydC1zYW1zdW5nYXUuYW1hZ2kudHYvcGxheWxpc3QxMDgwcC5tM3U4.flv
+RT News（英语国际）,http://127.0.0.1:8899/a/aHR0cHM6Ly9ydC1nbGIucnR0di5jb20vZHZyL3J0bmV3cy9wbGF5bGlzdF80NTAwS2IubTN1OA.flv
+RT Español（西语）,http://127.0.0.1:8899/a/aHR0cHM6Ly9ydC1lc3AucnR0di5jb20vZHZyL3J0ZXNwL3BsYXlsaXN0XzQ1MDBLYi5tM3U4.flv
+RT Français（法语）,http://127.0.0.1:8899/a/aHR0cHM6Ly9ydC1mcmEucnR0di5jb20vZHZyL3J0ZnJhbmNlL3BsYXlsaXN0XzQ1MDBLYi5tM3U4.flv
+RT Arabic（阿语）,http://127.0.0.1:8899/a/aHR0cHM6Ly9ydC1hcmIucnR0di5jb20vZHZyL3J0YXJhYi9wbGF5bGlzdF80NTAwS2IubTN1OA.flv
+RT DE（德语）,http://127.0.0.1:8899/a/aHR0cHM6Ly9ydC1nZXIucnR0di5jb20vZHZyL3J0ZGV1dHNjaC9wbGF5bGlzdF80NTAwS2IubTN1OA.flv
+RT Balkan （塞尔维亚语）,http://127.0.0.1:8899/a/aHR0cHM6Ly9ydC1zcmIucnR0di5jb20vZHZyL3J0YmFsa2FuL3BsYXlsaXN0XzQ1MDBLYi5tM3U4.flv
+RT Documentary（英语纪录）,http://127.0.0.1:8899/a/aHR0cHM6Ly9ydC1ydGQucnR0di5jb20vZHZyL3J0ZG9jL3BsYXlsaXN0XzQ1MDBLYi5tM3U4.flv
+RT Doc-Русский（俄语纪录）,http://127.0.0.1:8899/a/aHR0cHM6Ly9ydC1kb2MucnR0di5jb20vZHZyL3J0ZHJ1L3J0ZHJ1MTA4MC5tM3U4.flv
+Wild Earth,http://127.0.0.1:8899/a/aHR0cHM6Ly93aWxkZWFydGgtcGxleC5hbWFnaS50di9tYXN0ZXJSMTA4MHAubTN1OA.flv
