@@ -36,7 +36,7 @@ CGTN 纪录,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBo
 贵州卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1nendzLm0zdTg.flv
 江西卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1qeHdzLm0zdTg.flv
 辽宁卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1sbndzLm0zdTg.flv
-安徽卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1haHdzLm0zdTg.flv
+安徽卫视,http://127.0.0.1:8899/a/aHR0cDovLzExMi4yNy41LjIxODo5OTAxL3RzZmlsZS9saXZlL2ZhYWN0cy8wMTMwXzEubTN1OD9rZXk9dHhpcHR2JnBsYXlsaXZlPTEmYXV0aGlkPTA.flv
 河北卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1oZWJ3cy5tM3U4.flv
 山东卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1zZHdzLm0zdTg.flv
 天津卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD10andzLm0zdTg.flv

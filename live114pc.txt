@@ -45,7 +45,7 @@ CGTN 纪录,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBo
 贵州卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1nendzLm0zdTg.flv
 江西卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1qeHdzLm0zdTg.flv
 辽宁卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1sbndzLm0zdTg.flv
-安徽卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1haHdzLm0zdTg.flv
+安徽卫视,http://127.0.0.1:8899/a/aHR0cDovLzExMi4yNy41LjIxODo5OTAxL3RzZmlsZS9saXZlL2ZhYWN0cy8wMTMwXzEubTN1OD9rZXk9dHhpcHR2JnBsYXlsaXZlPTEmYXV0aGlkPTA.flv
 河北卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1oZWJ3cy5tM3U4.flv
 山东卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD1zZHdzLm0zdTg.flv
 天津卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZD10andzLm0zdTg.flv
@@ -66,7 +66,7 @@ CETV-1,http://127.0.0.1:8899/a/aHR0cHM6Ly95Yy53eWE2LmNuL3pod2ovemIveXNwLnBocD9pZ
 海南卫视,http://127.0.0.1:8899/a/aHR0cDovLzEyMC43Ni4yNDguMTM5L2xpdmUvYmZnZC80MjAwMDAwNDczLm0zdTg.flv
 海南卫视,http://127.0.0.1:8899/a/aHR0cDovL25uLjd4OWQuY24v5Zyw5pa55Y-wODU2My_mtbfljZcucGhwP2lkPWhud3M.flv
 苏州4K,http://127.0.0.1:8899/a/aHR0cHM6Ly90eWxpdmUua2FuMDUxMi5jb20vbm9yZWNvcmQvY3N6dHY0a180ay5tM3U4.flv
-延边卫视,http://127.0.0.1:8899/a/aHR0cDovLzEyMC43Ni4yNDguMTM5L2xpdmUvYmZnZC80MjAwMDAwMTE3Lm0zdTg.flv
+延边卫视,http://127.0.0.1:8899/a/aHR0cHM6Ly9zcnMuaXliOTgzLmNuL3ZpZGVvL0NZUy9pbmRleC5tM3U4.flv
 数字频道, #genre#
 重温经典,http://127.0.0.1:8899/a/aHR0cDovLzguMTM4LjcuMjIzL3R2L2N3amQucGhw.flv
 CCTV-6电影,http://127.0.0.1:8899/a/aHR0cDovLzguMTM4LjcuMjIzL3R2LzE5MDUucGhw.flv
