@@ -2017,7 +2017,13 @@
     {
       "name": "四网通用",
       "type": 0,
-      "url": "切换成你自己的地址",
+      "url": "https://gh-proxy.com/https://raw.githubusercontent.com/WT123-Code/hz/main/zj.txt",
+      "playerType": 1
+    },
+    {
+      "name": "云直播",
+      "type": 0,
+      "url": "https://gh-proxy.com/https://raw.githubusercontent.com/WT123-Code/hz/main/yunlive.txt",
       "playerType": 1
     }
   ],
