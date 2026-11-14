@@ -1,4 +1,4 @@
-央卫, #genre#
+﻿央卫, #genre#
 CCTV-1,http://127.0.0.1:8899/flv/cctv1.flv
 CCTV-2,http://127.0.0.1:8899/flv/cctv2.flv
 CCTV-3,http://127.0.0.1:8899/flv/cctv3.flv
