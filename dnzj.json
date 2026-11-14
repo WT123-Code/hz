@@ -2015,13 +2015,13 @@
   ],
   "lives": [
     {
-      "name": "云直播PC",
+      "name": "云综合",
       "url": "https://gh-proxy.com/https://raw.githubusercontent.com/WT123-Code/hz/main/livepc.txt",
       "type": 0
     },
     {
-      "name": "云直播PC2",
-      "url": "https://gh-proxy.com/https://raw.githubusercontent.com/WT123-Code/hz/main/livepc2.txt",
+      "name": "云直播",
+      "url": "https://gh-proxy.com/https://raw.githubusercontent.com/WT123-Code/hz/main/live114pc.txt",
       "type": 0
     }
   ],
