@@ -13,7 +13,6 @@ CCTV-1,http://45.192.97.170:8880/play/6936.m3u8
 CCTV-1,http://45.192.97.170:8880/play/9661.m3u8
 CCTV-1,http://45.192.97.170:8880/play/389.m3u8
 CCTV-2,http://36.110.54.118:866/hls/2/index.m3u8
-CCTV-2,http://itv.fj.cn:33/cctv2.m3u8
 CCTV-2,https://yc.wya6.cn/zhwj/zb/ysp.php?id=cctv2.m3u8
 CCTV-2,http://112.92.129.95:9898/hls/19/index.m3u8
 CCTV-2,http://183.129.255.66:8480/hls/2/index.m3u8
@@ -23,10 +22,11 @@ CCTV-2,http://45.192.97.170:8880/play/8062.m3u8
 CCTV-2,http://45.192.97.170:8880/play/8122.m3u8
 CCTV-2,http://45.192.97.170:8880/play/10118.m3u8
 CCTV-2,http://45.192.97.170:8880/play/8302.m3u8
-CCTV-2,http://45.192.97.170:8880/play/193.m3u8
 CCTV-2,http://45.192.97.170:8880/play/6937.m3u8
 CCTV-2,http://45.192.97.170:8880/play/9662.m3u8
 CCTV-2,http://45.192.97.170:8880/play/390.m3u8
+CCTV-2,http://itv.fj.cn:33/cctv2.m3u8
+CCTV-2,http://45.192.97.170:8880/play/193.m3u8
 CCTV-3,http://36.110.54.118:866/hls/3/index.m3u8
 CCTV-3,http://itv.fj.cn:33/cctv3.m3u8
 CCTV-3,http://112.92.129.95:9898/hls/20/index.m3u8
@@ -65,10 +65,10 @@ CCTV-5,http://45.192.97.170:8880/play/8065.m3u8
 CCTV-5,http://45.192.97.170:8880/play/8125.m3u8
 CCTV-5,http://45.192.97.170:8880/play/10121.m3u8
 CCTV-5,http://45.192.97.170:8880/play/8305.m3u8
-CCTV-5,http://45.192.97.170:8880/play/196.m3u8
 CCTV-5,http://45.192.97.170:8880/play/6940.m3u8
 CCTV-5,http://45.192.97.170:8880/play/9665.m3u8
 CCTV-5,http://45.192.97.170:8880/play/393.m3u8
+CCTV-5,http://45.192.97.170:8880/play/196.m3u8
 CCTV-5+,http://36.110.54.118:866/hls/13/index.m3u8
 CCTV-5+,http://itv.fj.cn:33/cctv5p.m3u8
 CCTV-5+,http://112.92.129.95:9898/hls/23/index.m3u8
