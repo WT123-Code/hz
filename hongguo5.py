@@ -4985,7 +4985,9 @@ def _hg_fallback_seasons():
     for tid, tname, kw in _HG_FALLBACK_KWS:
         try:
             rows = (_search_api(kw, 1) or {}).get("searchList") or []
-        except Exception:
+            print("[HG] fallback kw=%s rows=%d" % (kw, len(rows)), flush=True)
+        except Exception as _err:
+            print("[HG] fallback kw=%s FAIL: %r" % (kw, _err), flush=True)
             rows = []
         for x in rows:
             try:
@@ -5013,7 +5015,9 @@ def _hg_home_sections():
     try:
         j = _data(SITE + u"/")
         secs = (((j.get(u"loaderData") or {}).get(u"page") or {}).get(u"homeSections")) or []
-    except Exception:
+        print("[HG] home html ok secs=%d" % (len(secs) if isinstance(secs, list) else -1), flush=True)
+    except Exception as _err:
+        print("[HG] home html FAIL: %r" % (_err,), flush=True)
         secs = []
     if isinstance(secs, list):
         for sec in secs:
@@ -6019,8 +6023,10 @@ class Spider(_BaseSpider):
         vlist = []
         try:
             vlist = _hg_home_sections()
-        except Exception:
+        except Exception as _err:
+            print("[HG] homeContent FAIL: %r" % (_err,), flush=True)
             vlist = []
+        print("[HG] homeContent list=%d" % len(vlist), flush=True)
         try:
             _hg_prefetch([x.get("vod_id") for x in vlist], 6)
         except Exception:
