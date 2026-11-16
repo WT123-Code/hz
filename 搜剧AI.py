@@ -29,6 +29,7 @@ class Spider(Spider):
         self.session.verify = False
         self._anon_id = None
         self._authed = False
+        self._cards = {}
 
         self.classes = [
             {"type_id": "latest", "type_name": "最新上架"},
@@ -157,6 +158,10 @@ class Spider(Spider):
         remark = card.get("remarks") or ""
         if not remark and card.get("year"):
             remark = str(card.get("year"))
+        try:
+            self._cards[vod_id] = card
+        except Exception:
+            pass
         return {
             "vod_id": vod_id,
             "vod_name": name,
@@ -239,31 +244,23 @@ class Spider(Spider):
         return direct_lines
 
     def detailContent(self, ids):
+        # 注意：/v1/catalog/{id} 服务端固定返回 500 internal_error，
+        # 详情完全改由 /v1/catalog/{id}/episodes 提供（它自带 title / episode_count）。
         result = []
         for vid in ids:
             export_id = str(vid)
-            data = self._api_get("/v1/catalog/" + export_id)
-            if not data:
-                continue
-            name = data.get("title") or ""
-            pic = data.get("poster_url") or data.get("backdrop_url") or ""
-            content = data.get("description") or ""
-            remark = data.get("remarks") or ""
-            year = data.get("year") or ""
-            area = data.get("area") or ""
-            actor = ", ".join(data.get("actors", [])) if data.get("actors") else ""
-            director = ", ".join(data.get("directors", [])) if data.get("directors") else ""
-            genre = ", ".join(data.get("genres", [])) if data.get("genres") else ""
-
-            # collect all episodes via pagination
+            meta = {}
             episodes = []
             offset = 0
-            ep_limit = 100
             while True:
                 ep_data = self._api_get(
                     "/v1/catalog/" + export_id + "/episodes",
-                    {"offset": offset, "limit": ep_limit},
+                    {"offset": offset, "limit": 100},
                 )
+                if not ep_data:
+                    break
+                if not meta:
+                    meta = ep_data
                 eps = ep_data.get("episodes", [])
                 if not eps:
                     break
@@ -275,26 +272,44 @@ class Spider(Spider):
                 if offset >= (ep_pag.get("total_count") or 9999):
                     break
 
-            # resolve first episode to discover multi-line providers
+            if not episodes:
+                continue
+
+            card = self._cards.get(export_id, {})
+            name = meta.get("title") or card.get("title") or card.get("normalized_title") or ""
+            pic = card.get("poster_url") or card.get("backdrop_url") or ""
+            content = card.get("description") or ""
+            remark = card.get("remarks") or ""
+            if not remark:
+                cnt = meta.get("episode_count") or len(episodes)
+                if (meta.get("content_kind") or "") == "series":
+                    remark = str(cnt) + "集"
+                elif card.get("year"):
+                    remark = str(card.get("year"))
+
+            # 用第 1 集解析出所有可用线路（provider 去重）
             line_names = []
             line_pids = []
             for ep in episodes:
                 tok = ep.get("token") or ""
-                if tok:
-                    lines = self._resolve_lines(tok)
-                    if lines:
-                        for ln in lines:
-                            line_names.append(ln["provider_name"])
-                            line_pids.append(ln["provider_id"])
-                    break
+                if not tok:
+                    continue
+                lines = self._resolve_lines(tok)
+                seen = set()
+                for ln in lines:
+                    nm = ln.get("provider_name") or "线路"
+                    pid = ln.get("provider_id") or ""
+                    if pid in seen:
+                        continue
+                    seen.add(pid)
+                    line_names.append(nm)
+                    line_pids.append(pid)
+                break
 
             if not line_names:
-                line_names = ["蜗牛专线"]
+                line_names = ["默认线路"]
                 line_pids = [""]
 
-            # build multi-line play list
-            # format: line1_eps$$$line2_eps$$$...
-            # each line: 第1集$token|pid#第2集$token|pid#...
             line_urls = []
             for idx in range(len(line_names)):
                 plays = []
@@ -307,24 +322,19 @@ class Spider(Spider):
                     plays.append(label + "$" + token + "|" + pid)
                 line_urls.append("#".join(plays) if plays else "")
 
-            play_from = "$$$".join(line_names)
-            play_url = "$$$".join(line_urls)
-
-            txt = " ".join(x for x in [year and str(year), area, genre, director, actor] if x)
-
             result.append({
                 "vod_id": export_id,
                 "vod_name": name,
                 "vod_pic": pic,
                 "vod_content": content,
-                "vod_year": str(year) if year else "",
-                "vod_area": area,
-                "vod_director": director,
-                "vod_actor": actor,
+                "vod_year": str(card.get("year") or ""),
+                "vod_area": card.get("area") or "",
+                "vod_director": "",
+                "vod_actor": "",
                 "vod_remarks": remark,
-                "type_name": genre,
-                "vod_play_from": play_from,
-                "vod_play_url": play_url,
+                "type_name": "",
+                "vod_play_from": "$$$".join(line_names),
+                "vod_play_url": "$$$".join(line_urls),
             })
         return {"list": result}
 
