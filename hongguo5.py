@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import annotations
+print("[HG] boot1: future", flush=True)
 import base64
 import binascii
 import bisect
@@ -10,14 +11,18 @@ import lzma
 import random
 import re
 import struct
+print("[HG] boot2: stdlib", flush=True)
 import concurrent.futures
 import threading
 import time
 from collections.abc import Mapping
+print("[HG] boot3: futures/thread/time", flush=True)
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from typing import Any
 from urllib.parse import parse_qs, quote, urlencode, urlparse
+print("[HG] boot4: http.server+urllib", flush=True)
 import requests
+print("[HG] boot5: requests ok", flush=True)
 try:
     from cryptography.hazmat.primitives import hashes
     from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
@@ -28,6 +33,7 @@ try:
     from Crypto.Cipher import AES as CryptoAES
 except ImportError:
     CryptoAES = None
+print("[HG] boot6: all imports done", flush=True)
 try:
     from base.spider import Spider as _BaseSpider
 except Exception:
