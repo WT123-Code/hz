@@ -6009,6 +6009,17 @@ class Spider(_BaseSpider):
         except Exception:
             pass
 
+    def homeVideoContent(self):
+        """首页横排推荐位：部分壳（NewBox 等）只用这个方法渲染首页。"""
+        vlist = []
+        try:
+            vlist = _hg_home_sections()
+        except Exception as _err:
+            print("[HG] homeVideo FAIL: %r" % (_err,), flush=True)
+            vlist = []
+        print("[HG] homeVideo list=%d" % len(vlist), flush=True)
+        return {"list": vlist}
+
     def homeContent(self, filter):
         """分类=官方内容类型（真人剧/漫剧/漫画），二级分类取官方分类路由。"""
         class_list = [{"type_id": k, "type_name": n} for k, n, _ in _HG_CONTENT_TYPES]
