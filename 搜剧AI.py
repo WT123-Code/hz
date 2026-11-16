@@ -13,7 +13,7 @@ class Spider(Spider):
         return "搜剧AI"
 
     def init(self, extend=""):
-        self.hosts = ["https://www.baipiaozhe.com", "https://baipiaozhe.com", "https://ai.baipiaozhe.com"]
+        self.hosts = ["https://bpz6.com", "https://souju.ai", "https://www.baipiaozhe.com", "https://baipiaozhe.com", "https://ai.baipiaozhe.com"]
         self.host = self.hosts[0]
         self.secret = "f39d73aa7a6426203cdee1ef17b31d3b7ea8c23f4c59c62a3a8aa0f39ee5e79d"
         self.ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
@@ -30,6 +30,13 @@ class Spider(Spider):
         self._anon_id = None
         self._authed = False
         self._cards = {}
+        self._ep_cache = {}
+        # 懂片帝后端：同一批片源，但它签发的官方/4K 线路链接是可播的
+        # （主站签发的「专享4K-Y」常返回 403 链接无效）
+        self.dp_hosts = ["https://dongpian1.com", "https://dongpian17.com"]
+        self.dp_key = "8b9a908a05eac640e1ee06f52acaa741bfe4ba9e004eeffdbeb635e532e06666"
+        self.dp_ua = ("Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 "
+                      "(KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36")
 
         self.classes = [
             {"type_id": "latest", "type_name": "最新上架"},
@@ -149,6 +156,127 @@ class Spider(Spider):
             break
         return {}
 
+    def _api_post(self, path, body=None, params=None):
+        """带签名的 POST（用于 resolve-line 等）"""
+        self._ensure_auth()
+        from urllib.parse import urlencode
+        search = ""
+        if params:
+            search = "?" + urlencode(params)
+        full = path + search
+        ts, nonce, sig = self._sign("POST", full)
+        h = dict(self.headers)
+        h["Content-Type"] = "application/json"
+        h["x-ai-movie-timestamp"] = ts
+        h["x-ai-movie-nonce"] = nonce
+        h["x-ai-movie-signature"] = sig
+        for attempt in (0, 1):
+            try:
+                r = self.session.post(self.host + full, headers=h,
+                                      json=body or {}, timeout=15, verify=False)
+                if r.status_code in (200, 201):
+                    try:
+                        return r.json()
+                    except Exception:
+                        return {}
+            except Exception:
+                pass
+            if attempt == 0 and self._rotate_host():
+                self._ensure_auth()
+                continue
+            break
+        return {}
+
+    def _resolve_line_ticket(self, ticket):
+        """把 resolve:// 票据换成真实 m3u8（官方/4K 线路都走这里）"""
+        data = self._api_post("/v1/playback/resolve-line", {"ticket": ticket}, {"view": "compact"})
+        line = data.get("line") or {}
+        url = str(line.get("url") or "")
+        if url.startswith("http"):
+            return url
+        return ""
+
+    def _api2(self, host, key, hdr, method, path, params=None, body=None):
+        """通用签名请求（可指定域名/密钥），用于主站与懂片后端"""
+        from urllib.parse import urlencode
+        qs = ("?" + urlencode(params)) if params else ""
+        full = path + qs
+        ts = str(int(time.time() * 1000))
+        n = self._gen_nonce()
+        msg = method + "\n" + full + "\n" + ts + "\n" + n
+        sig = hmac.new(key.encode("utf-8"), msg.encode("utf-8"), hashlib.sha256).hexdigest()
+        h = dict(hdr)
+        h["x-ai-movie-timestamp"] = ts
+        h["x-ai-movie-nonce"] = n
+        h["x-ai-movie-signature"] = sig
+        try:
+            if method == "GET":
+                r = self.session.get(host + full, headers=h, timeout=15, verify=False)
+            else:
+                h["Content-Type"] = "application/json"
+                r = self.session.post(host + full, headers=h, json=body or {},
+                                      timeout=15, verify=False)
+            if r.status_code in (200, 201):
+                return r.json()
+        except Exception:
+            pass
+        return {}
+
+    def _dp_headers(self, host):
+        return {"User-Agent": self.dp_ua, "Origin": host, "Referer": host + "/",
+                "Accept": "application/json"}
+
+    def _ep_token(self, host, key, hdr, vod_id, ep_num):
+        """按集号取 token（带缓存）"""
+        ck = (host, str(vod_id), str(ep_num))
+        if ck in self._ep_cache:
+            return self._ep_cache[ck]
+        offset = 0
+        while offset < 3000:
+            d = self._api2(host, key, hdr, "GET",
+                           "/v1/catalog/%s/episodes" % vod_id,
+                           {"offset": offset, "limit": 100})
+            eps = (d or {}).get("episodes") or []
+            if not eps:
+                break
+            for e in eps:
+                if str(e.get("number")) == str(ep_num):
+                    tok = e.get("token") or ""
+                    self._ep_cache[ck] = tok
+                    return tok
+            pag = (d or {}).get("episode_pagination") or {}
+            if not pag.get("has_more"):
+                break
+            offset += len(eps)
+        return ""
+
+    def _line_url(self, host, key, hdr, vod_id, ep_num, pid):
+        """在指定后端取某线路的真实播放地址（官方/4K 自动二次解析）"""
+        tok = self._ep_token(host, key, hdr, vod_id, ep_num)
+        if not tok:
+            return ""
+        d = self._api2(host, key, hdr, "GET", "/v1/playback/resolve/" + tok)
+        lo = (d or {}).get("line_options") or []
+        target = None
+        for x in lo:
+            if (x.get("provider_id") or "") == pid:
+                target = x
+                break
+        if not target:
+            return ""
+        url = str(target.get("url") or "")
+        kind = target.get("url_kind") or ""
+        if target.get("resolve_mode") == "direct" and url.startswith("http"):
+            return url
+        if kind == "resolve_ticket" or url.startswith("resolve://"):
+            d2 = self._api2(host, key, hdr, "POST", "/v1/playback/resolve-line",
+                            {"view": "compact"},
+                            {"ticket": url.replace("resolve://", "")})
+            u = ((d2 or {}).get("line") or {}).get("url") or ""
+            if u.startswith("http"):
+                return u
+        return ""
+
     # ---- card -> vod helper ----
 
     def _card_to_vod(self, card):
@@ -228,20 +356,42 @@ class Spider(Spider):
         }
 
     def _resolve_lines(self, ep_token):
-        """resolve first episode token to discover multi-line providers"""
+        """解析第一集，列出全部线路：官方(parse/ticket) 在前，第三方直链在后"""
         data = self._api_get("/v1/playback/resolve/" + ep_token)
         line_options = data.get("line_options", [])
-        direct_lines = []
+        out = []
         for lo in line_options:
-            if lo.get("resolve_mode") == "direct" and lo.get("url_kind") == "m3u8":
-                url = lo.get("url", "")
-                if url and url.startswith("http"):
-                    direct_lines.append({
-                        "provider_id": lo.get("provider_id") or "",
-                        "provider_name": lo.get("provider_name") or lo.get("display_label") or lo.get("label") or "",
-                    })
-        direct_lines.sort(key=lambda x: x.get("provider_name", ""))
-        return direct_lines
+            mode = lo.get("resolve_mode") or ""
+            kind = lo.get("url_kind") or ""
+            url = str(lo.get("url") or "")
+            if kind == "resolve_ticket" or url.startswith("resolve://"):
+                out.append({
+                    "provider_id": lo.get("provider_id") or "",
+                    "provider_name": (lo.get("display_label") or lo.get("provider_name")
+                                      or lo.get("label") or ""),
+                    "resolve_mode": "parse",
+                    "url": url,
+                    "url_kind": kind,
+                })
+            elif mode == "direct" and kind == "m3u8" and url.startswith("http"):
+                out.append({
+                    "provider_id": lo.get("provider_id") or "",
+                    "provider_name": (lo.get("provider_name") or lo.get("display_label")
+                                      or lo.get("label") or ""),
+                    "resolve_mode": "direct",
+                    "url": url,
+                    "url_kind": kind,
+                })
+        def _rank(x):
+            nm = (x.get("provider_name") or "").upper()
+            if "4K" in nm or "2160" in nm:
+                return 0
+            if x.get("resolve_mode") == "parse":
+                return 1
+            return 2
+
+        out.sort(key=lambda x: (_rank(x), x.get("provider_name", "")))
+        return out
 
     def detailContent(self, ids):
         # 注意：/v1/catalog/{id} 服务端固定返回 500 internal_error，
@@ -313,13 +463,17 @@ class Spider(Spider):
             line_urls = []
             for idx in range(len(line_names)):
                 plays = []
-                for ep in episodes:
+                for ei, ep in enumerate(episodes):
                     token = ep.get("token") or ""
                     if not token:
                         continue
-                    label = ep.get("title") or ep.get("key") or str(ep.get("number") or len(plays) + 1)
+                    ep_num = ep.get("number")
+                    if ep_num is None:
+                        ep_num = ei + 1
+                    label = ep.get("title") or ep.get("key") or ("第%s集" % ep_num)
                     pid = line_pids[idx] if idx < len(line_pids) else ""
-                    plays.append(label + "$" + token + "|" + pid)
+                    # 带上 vod_id 与集号：播放时主站不行就换懂片后端取同一集
+                    plays.append("%s$%s|%s|%s" % (label, export_id, ep_num, pid))
                 line_urls.append("#".join(plays) if plays else "")
 
             result.append({
@@ -353,54 +507,64 @@ class Spider(Spider):
             "list": movies,
         }
 
+    def _url_ok(self, url):
+        """轻量校验 m3u8 是否真的能拉（避免把 403/失效链接交给播放器）"""
+        try:
+            r = self.session.get(url, headers={"User-Agent": self.ua,
+                                               "Referer": self.host + "/"},
+                                 timeout=8, stream=True, verify=False)
+            code = r.status_code
+            r.close()
+            return code in (200, 206)
+        except Exception:
+            return False
+
     def playerContent(self, flag, id, vipFlags):
-        # id format: token|provider_id  (multi-line) or token (fallback)
         raw = str(id)
-        parts = raw.split("|", 1)
+        parts = raw.split("|")
+        hdr = {"User-Agent": self.ua, "Referer": self.host + "/"}
+
+        # 新格式: vod_id|集号|provider_id
+        if len(parts) >= 3:
+            vod_id, ep_num, pid = parts[0], parts[1], parts[2]
+            url = self._line_url(self.host, self.secret, self.headers,
+                                 vod_id, ep_num, pid)
+            if url and self._url_ok(url):
+                return {"parse": 0, "url": url, "header": hdr}
+            # 主站链接不可播（多见于「专享4K-Y」）→ 换懂片后端重解析
+            for dh in self.dp_hosts:
+                u2 = self._line_url(dh, self.dp_key, self._dp_headers(dh),
+                                    vod_id, ep_num, pid)
+                if u2 and self._url_ok(u2):
+                    return {"parse": 0, "url": u2, "header": hdr}
+            return {"parse": 1, "url": self.host + "/player/" + vod_id,
+                    "header": dict(self.headers)}
+
+        # 兼容旧格式: token|provider_id
         token = parts[0]
         target_pid = parts[1] if len(parts) > 1 else ""
-
         data = self._api_get("/v1/playback/resolve/" + token)
         line_options = data.get("line_options", [])
-
-        # try to match the specific provider line
-        m3u8_url = ""
+        candidates = []
         if target_pid:
             for lo in line_options:
-                if lo.get("resolve_mode") == "direct" and lo.get("url_kind") == "m3u8":
-                    if lo.get("provider_id") == target_pid:
-                        url = lo.get("url", "")
-                        if url and url.startswith("http"):
-                            m3u8_url = url
-                            break
-
-        # fallback: first available direct m3u8
-        if not m3u8_url:
-            for lo in line_options:
-                if lo.get("resolve_mode") == "direct" and lo.get("url_kind") == "m3u8":
-                    url = lo.get("url", "")
-                    if url and url.startswith("http"):
-                        m3u8_url = url
-                        break
-
-        # last fallback: any direct url
-        if not m3u8_url:
-            for lo in line_options:
-                if lo.get("resolve_mode") == "direct":
-                    url = lo.get("url", "")
-                    if url and url.startswith("http"):
-                        m3u8_url = url
-                        break
-
-        if m3u8_url:
-            return {
-                "parse": 0,
-                "url": m3u8_url,
-                "header": {"User-Agent": self.ua},
-            }
-
-        return {
-            "parse": 1,
-            "url": self.host + "/player/" + token,
-            "header": dict(self.headers),
-        }
+                if (lo.get("provider_id") or "") == target_pid:
+                    candidates.append(lo)
+                    break
+        for lo in line_options:
+            if lo in candidates:
+                continue
+            candidates.append(lo)
+        for lo in candidates:
+            url = str(lo.get("url") or "")
+            mode = lo.get("resolve_mode") or ""
+            kind = lo.get("url_kind") or ""
+            direct = ""
+            if mode == "direct" and url.startswith("http"):
+                direct = url
+            elif kind == "resolve_ticket" or url.startswith("resolve://"):
+                direct = self._resolve_line_ticket(url.replace("resolve://", ""))
+            if direct and self._url_ok(direct):
+                return {"parse": 0, "url": direct, "header": hdr}
+        return {"parse": 1, "url": self.host + "/player/" + token,
+                "header": dict(self.headers)}
