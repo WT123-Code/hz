@@ -1,7 +1,14 @@
 # coding: utf-8
 # 影探4K（cms.lyyytv.cn）· TVBox / FongMi Python 站源
-# 站型：苹果CMS 的 app 接口（/api.php/app/*）；播放走 fys 解析（parsesId=6 专线 / 5 通用），
-#       返回 https://baidu.con/<key16><base64> 形态，用「前 16 字符当 key/iv」AES-CBC 解。
+# 站型：苹果CMS 的 app 接口（/api.php/app/*）。
+#
+# ===== 2026-11-17 播放修复 =====
+# 关键进展：影探内置的新解析口 http://4kzj.lyyytv.cn/api/index?parsesId=2&appid=10001
+#   实测能解出 4K(YD)/4K(123)/4K(BD) 三条 4K 线路的真实播放地址（baidu.con 加密串 → AES 解密），
+#   解出的直链真实可访问（200，video/mp4、video/x-matroska）。
+#   - CHAIN_API / PARSE_API 已全部指向该新接口；
+#   - 详情页恢复展示 lyyytv.cn 的 4K 线路（不再隐藏）；
+#   - 官方平台链接(qq/iqiyi/youku/bilibili)仍走小白解析兜底。
 import base64
 import json
 import re
@@ -17,15 +24,51 @@ except Exception:
 
 HOST = "http://cms.lyyytv.cn"
 UA = "okhttp/4.12.0"
-CHAIN_API = "http://fys.lyyytv.cn/api/index?parsesId=6&appid=10001&videoUrl="
-PARSE_API = "http://fys.lyyytv.cn/api/index?parsesId=5&appid=10001&videoUrl="
+CHAIN_API = "http://4kzj.lyyytv.cn/api/index?parsesId=2&appid=10001&videoUrl="
+PARSE_API = "http://4kzj.lyyytv.cn/api/index?parsesId=2&appid=10001&videoUrl="
 CMS_KEY = "wP5bvxoc3yv7FoBQENFZuAF0EUYr4LTy"
 DEC_PREFIX = "https://baidu.con/"
-YT4K_HOST = re.compile(r"(?:^|\.)(?:ym4kjx|hd4kjx|sd4kjx|mm4kjx|mv4kjx|vk4kjx)\.lyyytv\.cn$", re.I)
+YT4K_HOST = re.compile(r"(?:^|\.)(?:ym4kjx|hd4kjx|sd4kjx|mm4kjx|mv4kjx|vk4kjx|lz4kjx)\.lyyytv\.cn$", re.I)
 MEDIA_RE = re.compile(r"\.(?:mp4|m3u8|m3u|flv|mkv|ts|mov|webm|m4v|mpd)(?:[?#]|$)", re.I)
 FILTER_KEYS = [("class", "类型"), ("area", "地区"), ("lang", "语言"), ("year", "年份"),
                ("letter", "字母"), ("by", "排序"), ("sort", "顺序"), ("star", "主演"),
                ("director", "导演"), ("state", "状态"), ("version", "版本")]
+
+# ---- 小白解析器（配置里现成的 token，2026-11-17 实测四大平台均可解析）----
+XB_API = "https://api.52xiaobai.cn/api/parse.php"
+XB_TOKEN = "7159cfce627af3a2189a1e1b3cb81995"
+XB_UA = "Mozilla/5.0 (Linux; Android 13; SM-S901B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Mobile Safari/537.36"
+# 官方平台域名，命中才送小白解析
+OFFICIAL_HOST = re.compile(
+    r"(?:^|\.)(?:qq\.com|bilibili\.com|iqiyi\.com|youku\.com|v\.youku\.com|mgtv\.com|sohu\.com|letv\.com|kugou\.com)(?:$|\.)",
+    re.I)
+
+
+def _xb_parse(page_url):
+    """调用小白解析器，返回 (playUrl, header_json) 或 ("", "")。"""
+    if not page_url or not page_url.startswith("http"):
+        return "", ""
+    try:
+        q = urllib.parse.urlencode({"token": XB_TOKEN, "url": page_url})
+        req = urllib.request.Request(XB_API + "?" + q, headers={"User-Agent": XB_UA})
+        r = urllib.request.urlopen(req, timeout=25)
+        txt = r.read().decode("utf-8", "ignore")
+        j = json.loads(txt)
+    except Exception:
+        return "", ""
+    if not isinstance(j, dict) or int(j.get("code") or 0) != 200:
+        return "", ""
+    real = str(j.get("url") or "").strip()
+    if not real.startswith("http"):
+        return "", ""
+    # 组装播放器需要的请求头：UA 优先用解析结果给的，其次用内置 UA
+    hdr = {}
+    ua = str(j.get("User-Agent") or "").strip()
+    hdr["User-Agent"] = ua if ua else XB_UA
+    referer = str(j.get("Referer") or "").strip()
+    if referer:
+        hdr["Referer"] = referer
+    return real, json.dumps(hdr, ensure_ascii=False)
 
 # ---------------------------------------------------------------- AES（解密用）
 def _gmul(a, b):
@@ -346,7 +389,13 @@ class Spider(BaseSpider):
             urls.append("#".join(eps))
         while len(froms) < len(urls):
             froms.append("线路%d" % (len(froms) + 1))
-        pairs = [(f, u) for f, u in zip(froms, urls) if u]
+        # 2026-11-17：4kzj.lyyytv.cn 新解析口(parsesId=2)已能解出 4K 直链的真实播放地址，
+        # 详情页恢复展示全部线路（含 YD/123/BD 这几条 4K 线路）
+        pairs = []
+        for f, u in zip(froms, urls):
+            if not u:
+                continue
+            pairs.append((f, u))
         vod = {
             "vod_id": vid,
             "vod_name": _clean(d.get("vod_name")),
@@ -363,8 +412,11 @@ class Spider(BaseSpider):
             "vod_play_url": "$$$".join([p[1] for p in pairs]),
         }
         if not pairs:
-            vod["vod_play_from"] = "网页"
-            vod["vod_play_url"] = "正片$%s/api.php/app/video_detail?id=%s" % (self.host, vid)
+            vod["vod_play_from"] = ""
+            vod["vod_play_url"] = ""
+            vod["vod_remarks"] = (
+                (_clean(d.get("vod_remarks")) + " ") if _clean(d.get("vod_remarks")) else ""
+            ) + "（本站直链已失效，暂无可用线路）"
         return {"list": [vod]}
 
     # ---------------------------------------------------------------- 搜索
@@ -381,22 +433,45 @@ class Spider(BaseSpider):
     def playerContent(self, flag, id, vipFlags):
         url = str(id or "").strip()
         try:
+            # 1) 老加密串先本地解
             if url.startswith("lvdou+"):
                 url = self._decrypt_lvdou(url) or url
+
+            # 2) 已是媒体直链：失效源站给提示，其余直出
             if MEDIA_RE.search(url):
                 host = urllib.parse.urlparse(url).hostname or ""
-                if YT4K_HOST.search(host) or "lyyytv.cn" in host:
+                if YT4K_HOST.search(host) or host.endswith("lyyytv.cn"):
+                    # 源站已搬空，先试一次老 fys 专线；不行再试小白
                     real = self._chain(url)
                     if real:
                         return {"parse": 0, "playUrl": "", "url": real,
                                 "header": '{"User-Agent":"%s"}' % UA}
+                    real, hdr = _xb_parse(url)
+                    if real:
+                        return {"parse": 0, "playUrl": "", "url": real, "header": hdr}
+                    return {"parse": 0, "playUrl": "", "url": url,
+                            "header": '{"User-Agent":"%s"}' % UA,
+                            "msg": "该 4K 直链源站已失效，请切换其它线路"}
                 return {"parse": 0, "playUrl": "", "url": url,
                         "header": '{"User-Agent":"%s"}' % UA}
+
+            # 3) 官方平台页面链接 → 优先小白解析（本次修复核心）
+            host = urllib.parse.urlparse(url).hostname or ""
+            if OFFICIAL_HOST.search(host):
+                real, hdr = _xb_parse(url)
+                if real:
+                    return {"parse": 0, "playUrl": "", "url": real, "header": hdr}
+
+            # 4) 兜底：老 fys 解析（baidu.con 链）
             real = self._parse(url)
             if real:
                 return {"parse": 0, "playUrl": "", "url": real,
                         "header": '{"User-Agent":"%s"}' % UA}
+            # 5) 再兜底：任意 http 链接也送小白试一次
             if url.startswith("http"):
+                real, hdr = _xb_parse(url)
+                if real:
+                    return {"parse": 0, "playUrl": "", "url": real, "header": hdr}
                 return {"parse": 1, "playUrl": "", "url": url, "header": ""}
         except Exception:
             pass
