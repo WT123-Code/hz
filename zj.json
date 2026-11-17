@@ -449,6 +449,13 @@
       "genre": "film"
     },
     {
+      "key": "追影",
+      "name": "追影",
+      "type": 3,
+      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/WT123-Code/hz/main/zhuiying.py",
+      "genre": "film"
+    },
+    {
       "key": "4KAV",
       "name": "4KAV | 4K",
       "type": 3,
@@ -2050,8 +2057,9 @@
 {"name": "沧澜", "type": 0, "url": "https://aibox.eu.org/?url="},
 {"name": "松涛", "type": 0, "url": "https://jx.lxyy.club/index.php?url="},
 {"name":  "孤舟",  "type":  0,  "url":  "https://jx.m3u8.tv/jiexi/?url="},
-{"name":  "寒江",  "type":  0,  "url":  "https://www.wpsseo.cn/jiexi/?jx="},
-{"name":  "暮雨",  "type":  0,  "url":  "https://jx.nnxv.cn/tv.php?url="}
+{"name":  "寒江",  "type":  0,  "url":  "https://www.wpsseo.cn/jiexi/?jx="}
+,
+{"name": "暮雨", "type": 0, "url": "https://jx.nnxv.cn/tv.php?url="}
 ],
   "rules": [
     {
