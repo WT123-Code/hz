@@ -445,15 +445,6 @@
       "genre": "film"
     },
     {
-      "key": "新云帧享",
-      "name": "新云帧享",
-      "type": 3,
-      "api": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/新云帧享_fix.py",
-      "genre": "film",
-      "searchable": 1,
-      "quickSearch": 1
-    },
-    {
       "key": "下饭",
       "name": "下饭| 4K",
       "type": 3,
@@ -1396,6 +1387,15 @@
       "quickSearch": 0,
       "filterable": 0,
       "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
+    },
+    {
+      "key": "新云帧享",
+      "name": "新云帧享",
+      "type": 3,
+      "api": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/新云帧享_fix.py",
+      "genre": "film",
+      "searchable": 1,
+      "quickSearch": 1
     },
     {
       "key": "番社动漫",

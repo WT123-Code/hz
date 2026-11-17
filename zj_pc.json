@@ -1389,6 +1389,15 @@
       "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
+      "key": "新云帧享",
+      "name": "新云帧享",
+      "type": 3,
+      "api": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/新云帧享_fix.py",
+      "genre": "film",
+      "searchable": 1,
+      "quickSearch": 1
+    },
+    {
       "key": "番社动漫",
       "name": "番社 | 动漫",
       "type": 3,
@@ -2011,17 +2020,6 @@
       "type": 3,
       "api": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/hongguo9.py",
       "genre": "shortdrama"
-    },
-    {
-      "key": "tutu_qiao2",
-      "name": "图图┃搜索4K",
-      "type": 3,
-      "api": "csp_qiao2",
-      "playerType": 2,
-      "jar": "https://gh-proxy.com/https://raw.githubusercontent.com/WT123-Code/hz/main/qm4k.jar;md5;410ad21caad9e6f6d40c1ae5ca2be662",
-      "ext": "7lj763gg402i79425739i7jghj118797l4hj840gi18633331l4708g2h7145403549g44l8ii56i187681hkjj3hhgh1ih3l32j250lk1k786lj20j468hk3hli4l46gig4i3g7g2722328j0136h01i7g5183k22k7gg3i72hk81gl8k9839kl7i0707",
-      "searchable": 1,
-      "quickSearch": 1
     }
   ],
   "lives": [
