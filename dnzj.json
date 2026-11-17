@@ -59,9 +59,9 @@
     },
     {
       "key": "片库4K",
-      "name": "片库 | 4K",
+      "name": "片库",
       "type": 3,
-      "api": "https://clun.top/py/pianku4k.py",
+      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/WT123-Code/hz/main/pianku4k.py",
       "genre": "film"
     },
     {
@@ -343,6 +343,17 @@
       "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
+      "key": "移动备用",
+      "name": "移动 | 4K（备）",
+      "type": 3,
+      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/WT123-Code/hz/main/yd4k.py",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "timeout": 60,
+      "genre": "film"
+    },
+    {
       "key": "即刻",
       "name": "即刻 | 4K",
       "type": 3,
@@ -443,15 +454,6 @@
       "type": 3,
       "api": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/4KAV.py",
       "genre": "film"
-    },
-    {
-      "key": "新云帧享",
-      "name": "新云帧享",
-      "type": 3,
-      "api": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/新云帧享_fix.py",
-      "genre": "film",
-      "searchable": 1,
-      "quickSearch": 1
     },
     {
       "key": "下饭",
@@ -1396,6 +1398,15 @@
       "quickSearch": 0,
       "filterable": 0,
       "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
+    },
+    {
+      "key": "新云帧享",
+      "name": "新云帧享",
+      "type": 3,
+      "api": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/新云帧享_fix.py",
+      "genre": "film",
+      "searchable": 1,
+      "quickSearch": 1
     },
     {
       "key": "番社动漫",
