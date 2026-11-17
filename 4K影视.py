@@ -249,7 +249,15 @@ from base.spider import Spider
 class Spider(Spider):
 
     def init(self, extend=""):
-        self.site_url = "https://www.4kvms.org"
+        # 站点有多个镜像域名，init 时按顺序探测，第一个能返回影片卡片的即为可用站
+        self._domains = [
+            "https://www.4kvms.org",
+            "https://4kvm.me",
+            "https://4kvm.tv",
+            "http://4kvm.cc",
+        ]
+        self._site_ok = False
+        self.site_url = self._domains[0]
         self.headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
             'Referer': self.site_url,
@@ -263,9 +271,27 @@ class Spider(Spider):
         ]
         self._filters_cache = None
 
+    # ================= 多域名探测 =================
+    def _ensure_site(self):
+        """依次探测镜像域名，选定第一个能正常返回影片卡片的站点"""
+        if getattr(self, "_site_ok", False):
+            return True
+        for base in self._domains:
+            try:
+                r = self.fetch(base + "/", headers=dict(self.headers, Referer=base))
+                if r and getattr(r, "status_code", 0) == 200 and "data-vod-id" in (r.text or ""):
+                    self.site_url = base
+                    self.headers["Referer"] = base
+                    self._site_ok = True
+                    return True
+            except Exception:
+                continue
+        return False
+
     # ================= 动态筛选解析 =================
     def _fetch_filters_for_classify(self, tid):
         """请求 /filter?classify=tid，解析页面筛选区域，返回该分类的筛选列表"""
+        self._ensure_site()
         url = f"{self.site_url}/filter?classify={tid}"
         resp = self.fetch(url, headers=self.headers)
         if not resp:
@@ -337,6 +363,7 @@ class Spider(Spider):
 
     # ================= 核心业务方法 =================
     def homeContent(self, filter):
+        self._ensure_site()
         url = self.site_url + "/"
         resp = self.fetch(url, headers=self.headers)
         video_list = []
@@ -378,6 +405,7 @@ class Spider(Spider):
         return self.homeContent(False)
 
     def categoryContent(self, tid, pg, filter, extend):
+        self._ensure_site()
         page = int(pg) if pg else 1
         params = {"classify": tid}
         if extend:
@@ -450,6 +478,7 @@ class Spider(Spider):
         }
 
     def detailContent(self, ids):
+        self._ensure_site()
         if not ids:
             return {"list": []}
         vod_id = ids[0]
@@ -547,6 +576,7 @@ class Spider(Spider):
         return {"list": result}
 
     def searchContent(self, key, quick, pg="1"):
+        self._ensure_site()
         page = int(pg) if pg else 1
         params = {"q": key}
         if page > 1:
