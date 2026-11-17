@@ -1,6 +1,6 @@
 # coding=utf-8
 """
-目标站: 4kvm  首页: https://www.4kvm.net
+目标站: 4kvm  首页: https://www.4kvms.org
 动态筛选、精准分集、去重列表
 """
 import re
@@ -249,7 +249,7 @@ from base.spider import Spider
 class Spider(Spider):
 
     def init(self, extend=""):
-        self.site_url = "https://www.4kvm.top"
+        self.site_url = "https://www.4kvms.org"
         self.headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
             'Referer': self.site_url,
