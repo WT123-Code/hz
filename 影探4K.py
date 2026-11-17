@@ -389,8 +389,25 @@ class Spider(BaseSpider):
             urls.append("#".join(eps))
         while len(froms) < len(urls):
             froms.append("线路%d" % (len(froms) + 1))
-        # 2026-11-17：4kzj.lyyytv.cn 新解析口(parsesId=2)已能解出 4K 直链的真实播放地址，
-        # 详情页恢复展示全部线路（含 YD/123/BD 这几条 4K 线路）
+        # 2026-11-18：4K(YD) 线路解析出的是移动云 EOS 的 AWS S3 V4 签名链
+        # （X-Amz-Expires=900，仅 15 分钟有效），TVBox 只在开局解析一次 URL，
+        # 播到 15~24 分钟签名过期就断流，且客户端无法延长（密钥在服务端）。
+        # 实测 4K(BD) 与 4K(YD) 是同一个文件（同为 4013547923 字节），BD 走天翼云
+        # 长期有效链、支持 Range。故此处把 YD 线路的播放地址替换为同片的 BD 地址，
+        # 线路名保持不变——用户点"4K(YD)"实际拿到不过期的 BD 链接，彻底消除中途断流。
+        try:
+            bd_url = None
+            for i, f in enumerate(froms):
+                if "BD" in str(f).upper() and i < len(urls) and urls[i]:
+                    bd_url = urls[i]
+                    break
+            if bd_url:
+                for i, f in enumerate(froms):
+                    if "YD" in str(f).upper() and i < len(urls):
+                        urls[i] = bd_url
+        except Exception:
+            pass
+        # 4kzj.lyyytv.cn 新解析口(parsesId=2)解出 4K 直链真实地址，展示全部线路
         pairs = []
         for f, u in zip(froms, urls):
             if not u:
