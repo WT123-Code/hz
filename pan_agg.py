@@ -926,44 +926,24 @@ class Pan123:
 
 
 # ---------------------------------------------------------------------------
-# 站点配置（18 站，镜像来自 jar 配置）
+# 站点配置（10 站，镜像来自 jar 配置）
 # ---------------------------------------------------------------------------
 SITES = [
     {"id": "木偶",  "name": "木偶", "type": "webshare",
      "site": ["https://123.666291.xyz", "https://666.666291.xyz",
               "https://www.muou.site", "https://www.muou.asia"]},
-     {"id": "玩偶",  "name": "玩偶", "type": "wogg",
+    {"id": "玩偶",  "name": "玩偶", "type": "wogg",
      "site": ["https://www.wogg.net", "https://wogg.xxooo.cf", "https://woggpan.xxooo.cf"]},
     {"id": "多多",  "name": "多多", "type": "webshare",
      "site": ["https://tv.yydsys.top", "https://tv.yydsys.cc", "https://tv.214521.xyz"]},
     {"id": "欧歌",  "name": "欧歌", "type": "webshare",
      "site": ["https://woog.nxog.eu.org", "https://woog.nxog.fun", "https://woog.430520.xyz"]},
-    {"id": "二小",  "name": "二小", "type": "webshare",
-     "site": ["https://www.2xiaopan.top", "https://2xiaopan.top",
-              "https://www.erxiaozhan.top", "https://www.2xiaozhan.top", "https://wexwp.cc"]},
     {"id": "虎斑",  "name": "虎斑", "type": "webshare", "site": ["http://38.76.197.172:16969"]},
     {"id": "快映",  "name": "快映", "type": "webshare", "site": ["http://38.76.197.172:12521"]},
     {"id": "花卷",  "name": "花卷", "type": "webshare", "site": ["https://www.hjzhencai.top"]},
-    {"id": "夸父",  "name": "夸父", "type": "bbs", "site": ["https://www.kfzy.net"],
-     "search_style": "path",
-     "uc_cats": {"1": "9", "2": "1", "3": "4", "4": "3"},  # 电影/剧集/综艺/动漫
-     "cats": [{"n": "剧集", "v": "1"}, {"n": "短剧", "v": "2"}, {"n": "动漫", "v": "3"},
-              {"n": "综艺", "v": "4"}, {"n": "电影", "v": "9"}]},
-    {"id": "123",   "name": "123", "type": "bbs",
-     "site": ["https://123panfx.com", "https://pan1.me"],
-     "search_style": "query",
-     "uc_cats": {"1": "2", "2": "48", "3": "52", "4": "37"},  # 电影/剧集/综艺/动漫
-     "cats": [{"n": "电影", "v": "2"}, {"n": "剧集", "v": "48"}, {"n": "4K原盘", "v": "56"},
-              {"n": "综艺", "v": "52"}, {"n": "动漫", "v": "37"}]},
     {"id": "卡卡",  "name": "卡卡", "type": "kkpan", "site": ["https://www.kkpans.com"]},
     {"id": "即刻",  "name": "即刻", "type": "jike", "site": ["https://api.uuuka.com"]},
-    {"id": "指南",  "name": "指南", "type": "zhinan", "site": ["https://4kzn.cc"]},
     {"id": "双星",  "name": "双星", "type": "shuangxing", "site": ["https://1.star2.cn"]},
-    {"id": "爱盼",  "name": "爱盼", "type": "aipan", "site": ["https://www.aipan.me"]},
-    {"id": "觅盘",  "name": "觅盘", "type": "mipan", "site": ["https://www.mipan.so"]},
-    {"id": "趣盘",  "name": "趣盘", "type": "qupan", "site": ["https://b.funletu.com"]},
-    {"id": "盘搜",  "name": "盘搜", "type": "pansou", "site": ["https://pansou.noisework.cn"]},
-    {"id": "盘搜2", "name": "盘搜2", "type": "pansou", "site": ["https://so.252035.xyz"]},
 ]
 
 FILTERS_WEBSHARE = {
