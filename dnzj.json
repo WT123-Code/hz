@@ -935,14 +935,14 @@
       "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
-      "key": "米诺",
-      "name": "米诺 | 免扫4K",
+      "key": "未来",
+      "name": "未来 | 免扫4K",
       "type": 3,
-      "api": "csp_AppMN",
-      "jar": "https://15318.kstore.space/easy.jar",
+      "api": "csp_AppWL",
       "searchable": 1,
       "quickSearch": 1,
-      "filterable": 0
+      "filterable": 0,
+      "jar": "https://s1.tuoguanyun.cn/autoupload/f/eix3x/20261118/2cXV/0X0/easy11.18.png;md5;be0e18a66fd55617df0cbfdab0617fea"
     },
     {
       "key": "Libvio",
@@ -2054,16 +2054,57 @@
     }
   ],
   "parses": [
-{"name": "星河", "type": 3, "url": "Web"},
-{"name": "长风", "type": 0, "url": "https://www.pangujiexi.com/jiexi/?url=", "ext": {"header": {"user-agent": "Mozilla/5.0 (Linux; Android 13; V2049A Build/TP1A.220624.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/116.0.0.0 Mobile Safari/537.36"}}},
-{"name": "晨曦", "type": 1, "url": "https://api.52xiaobai.cn/api/parse.php?token=7159cfce627af3a2189a1e1b3cb81995&url=", "ext": {"header": {"user-agent": "Mozilla/5.0 (Linux; Android 13; V2049A Build/TP1A.220624.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/116.0.0.0 Mobile Safari/537.36"}}},
-{"name": "沧澜", "type": 0, "url": "https://aibox.eu.org/?url="},
-{"name": "松涛", "type": 0, "url": "https://jx.lxyy.club/index.php?url="},
-{"name":  "孤舟",  "type":  0,  "url":  "https://jx.m3u8.tv/jiexi/?url="},
-{"name":  "寒江",  "type":  0,  "url":  "https://www.wpsseo.cn/jiexi/?jx="}
-,
-{"name": "暮雨", "type": 0, "url": "https://jx.nnxv.cn/tv.php?url="}
-],
+    {
+      "name": "星河",
+      "type": 3,
+      "url": "Web"
+    },
+    {
+      "name": "长风",
+      "type": 0,
+      "url": "https://www.pangujiexi.com/jiexi/?url=",
+      "ext": {
+        "header": {
+          "user-agent": "Mozilla/5.0 (Linux; Android 13; V2049A Build/TP1A.220624.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/116.0.0.0 Mobile Safari/537.36"
+        }
+      }
+    },
+    {
+      "name": "晨曦",
+      "type": 1,
+      "url": "https://api.52xiaobai.cn/api/parse.php?token=7159cfce627af3a2189a1e1b3cb81995&url=",
+      "ext": {
+        "header": {
+          "user-agent": "Mozilla/5.0 (Linux; Android 13; V2049A Build/TP1A.220624.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/116.0.0.0 Mobile Safari/537.36"
+        }
+      }
+    },
+    {
+      "name": "沧澜",
+      "type": 0,
+      "url": "https://aibox.eu.org/?url="
+    },
+    {
+      "name": "松涛",
+      "type": 0,
+      "url": "https://jx.lxyy.club/index.php?url="
+    },
+    {
+      "name": "孤舟",
+      "type": 0,
+      "url": "https://jx.m3u8.tv/jiexi/?url="
+    },
+    {
+      "name": "寒江",
+      "type": 0,
+      "url": "https://www.wpsseo.cn/jiexi/?jx="
+    },
+    {
+      "name": "暮雨",
+      "type": 0,
+      "url": "https://jx.nnxv.cn/tv.php?url="
+    }
+  ],
   "rules": [
     {
       "name": "农民",
