@@ -926,7 +926,7 @@ class Pan123:
 
 
 # ---------------------------------------------------------------------------
-# 站点配置（10 站，镜像来自 jar 配置）
+# 站点配置（8 站，镜像来自 jar 配置）
 # ---------------------------------------------------------------------------
 SITES = [
     {"id": "木偶",  "name": "木偶", "type": "webshare",
@@ -938,8 +938,6 @@ SITES = [
      "site": ["https://tv.yydsys.top", "https://tv.yydsys.cc", "https://tv.214521.xyz"]},
     {"id": "欧歌",  "name": "欧歌", "type": "webshare",
      "site": ["https://woog.nxog.eu.org", "https://woog.nxog.fun", "https://woog.430520.xyz"]},
-    {"id": "虎斑",  "name": "虎斑", "type": "webshare", "site": ["http://38.76.197.172:16969"]},
-    {"id": "快映",  "name": "快映", "type": "webshare", "site": ["http://38.76.197.172:12521"]},
     {"id": "花卷",  "name": "花卷", "type": "webshare", "site": ["https://www.hjzhencai.top"]},
     {"id": "卡卡",  "name": "卡卡", "type": "kkpan", "site": ["https://www.kkpans.com"]},
     {"id": "即刻",  "name": "即刻", "type": "jike", "site": ["https://api.uuuka.com"]},
