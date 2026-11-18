@@ -1534,6 +1534,27 @@
       "jar": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/4k.jar"
     },
     {
+      "key": "网盘聚合",
+      "name": "网盘免扫 | 网盘",
+      "type": 3,
+      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/WT123-Code/hz/main/pan_agg.py",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 1,
+      "ext": {
+        "mode": "",
+        "uc_cookie": "",
+        "quark_cookie": "",
+        "夸父cookie": "",
+        "123cookie": "",
+        "fast": "0",
+        "accel": "1",
+        "accel_thread": "8"
+      },
+      "timeout": 90
+    },
+    {
       "key": "夸克网盘",
       "name": "夸克 | 网盘",
       "type": 3,
@@ -2039,27 +2060,6 @@
       "type": 3,
       "api": "https://gh-proxy.com/raw.githubusercontent.com/WT123-Code/hz/main/hongguo9.py",
       "genre": "shortdrama"
-    },
-    {
-      "key": "网盘聚合",
-      "name": "网盘聚合 | 网盘",
-      "type": 3,
-      "api": "https://gh-proxy.com/https://raw.githubusercontent.com/WT123-Code/hz/main/pan_agg.py",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "changeable": 1,
-      "ext": {
-        "mode": "",
-        "uc_cookie": "",
-        "quark_cookie": "",
-        "夸父cookie": "",
-        "123cookie": "",
-        "fast": "1",
-        "accel": "1",
-        "accel_thread": "96"
-      },
-      "timeout": 60
     }
   ],
   "lives": [
