@@ -525,12 +525,13 @@ class Spider(_Base):
         except Exception:
             pass
         if not cats:
-            cats = [{'type_id': '21', 'type_name': '电影'},
-                    {'type_id': '22', 'type_name': '剧集'},
-                    {'type_id': '25', 'type_name': '动漫'},
-                    {'type_id': '26', 'type_name': '综艺'},
-                    {'type_id': '27', 'type_name': '短剧'},
-                    {'type_id': '28', 'type_name': '漫剧'}]
+            cats = [{'type_id': '20', 'type_name': '电影'},
+                    {'type_id': '21', 'type_name': '剧集'},
+                    {'type_id': '22', 'type_name': '综艺'},
+                    {'type_id': '23', 'type_name': '动漫'},
+                    {'type_id': '24', 'type_name': '短剧'},
+                    {'type_id': '25', 'type_name': '直播'},
+                    {'type_id': '26', 'type_name': '漫剧'}]
         cats.append({'type_id': 'history', 'type_name': '最近在看'})
         return {'class': cats}
 
