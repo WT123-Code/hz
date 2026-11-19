@@ -251,8 +251,18 @@ def _split_pid(pid):
 # ============================================================== Spider
 
 class Spider(BaseSpider):
+    # 多 base 轮询：主域名 mk1080.top 常被 DNS 污染（解析到 31.13.112.4 直接超时），
+    # 备用 IP 154.201.81.41 上是同一套接口，全部功能（首页/分类/搜索/详情/登录/解析）都通。
+    # 顺序：明文 IP 最快 → HTTPS IP（证书不匹配，仅兜底）→ 主域名（万一域名恢复）。
+    BASES = (
+        "http://154.201.81.41:1688/api.php/getappapi.",
+        "http://154.201.81.41:80/api.php/getappapi.",
+        "https://154.201.81.41/api.php/getappapi.",
+        "https://mk1080.top/api.php/getappapi.",
+    )
+
     CONFIG = {
-        "base": "https://mk1080.top/api.php/getappapi.",
+        "base": "http://154.201.81.41:1688/api.php/getappapi.",
         # 账号密码取文件顶部常量；配置里给 ext 也能覆盖。
         # token 恒为空，运行时由自动登录填入。
         "token": MY_TOKEN,
@@ -262,7 +272,7 @@ class Spider(BaseSpider):
         "aes_key": "c60d88b2eep53za8",
         "version_code": "135",
         "user_agent": "okhttp/3.14.9",
-        "timeout": 25,
+        "timeout": 10,
         # 4K 线路优先：含这些词的线路排在最前
         "prefer_words": ["4K", "4k", "蓝光4K", "高码"],
     }
@@ -271,6 +281,7 @@ class Spider(BaseSpider):
         super().__init__()
         self.cfg = dict(self.CONFIG)
         self.base = str(self.CONFIG["base"]).rstrip("/")
+        self._bases = self._make_bases(self.base)
         self._key = bytes(self.CONFIG.get("aes_key") or "c60d88b2eep53za8", "utf-8")
         self._iv = self._key
         self._marks = {}     # 播放标识 -> {"parse","url"}
@@ -286,6 +297,18 @@ class Spider(BaseSpider):
         self._cool_until = 0.0    # 熔断截止时间
         self._fail_cnt = 0        # 连续失败计数
         self._min_gap = 0.8       # 相邻两次请求的最小间隔（秒）
+
+    @classmethod
+    def _make_bases(cls, cur):
+        """当前 base 排最前，其余按 BASES 顺序补齐（去重）"""
+        out = []
+        if cur:
+            out.append(str(cur).rstrip("/"))
+        for b in cls.BASES:
+            b = str(b).rstrip("/")
+            if b not in out:
+                out.append(b)
+        return out
 
     def getName(self):
         return "秒看4K"
@@ -315,6 +338,7 @@ class Spider(BaseSpider):
                     # 没有键名、又足够长，直接当成 token
                     self.cfg["token"] = t
         self.base = str(self.cfg["base"]).rstrip("/")
+        self._bases = self._make_bases(self.base)
         try:
             self._key = bytes(self.cfg["aes_key"], "utf-8")
         except Exception:
@@ -351,20 +375,11 @@ class Spider(BaseSpider):
             "invite_code": "",
             "is_emulator": "1",
         })
-        # 登录接口不用带 token，单独发一次请求
-        url = self.base + "index/appLogin"
-        req = urllib.request.Request(url, data=body.encode("utf-8"),
-                                     headers={
-            "content-type": "application/x-www-form-urlencoded",
-            "user-agent": str(self.cfg.get("user_agent") or "okhttp/3.14.9"),
-            "app-version-code": str(self.cfg.get("version_code") or "135"),
-            "app-ui-mode": "light",
-            "app-user-device-id": dev,
-        }, method="POST")
+        # 登录接口不用带 token；走 _post 以复用多 base 轮询
+        self.cfg["device_id"] = dev
+        outer = self._post("index/appLogin", body)
         try:
-            resp = urllib.request.urlopen(req, timeout=int(self.cfg.get("timeout") or 25))
-            outer = json.loads(resp.read().decode("utf-8", "replace"))
-            if outer.get("code") != 1 or not outer.get("data"):
+            if not isinstance(outer, dict) or outer.get("code") != 1 or not outer.get("data"):
                 return None
             d = self._decode(outer["data"])
             tok = str(((d.get("user") or {}).get("auth_token")) or "")
@@ -398,23 +413,39 @@ class Spider(BaseSpider):
         }
 
     def _post(self, path, data):
-        url = self.base + path
+        """多 base 轮询：一个 base 连不上就顺延到下一个，成功者提到最前记住。
+        主域名被 DNS 污染时，能自动落到备用 IP，不用手改配置。"""
         body = data.encode("utf-8") if isinstance(data, str) else data
         # 所有出站请求都过闸门：熔断期内直接返回，不碰服务器
         if not self._gate_wait():
             return {"code": 0, "msg": "站点限流中，请稍后再试"}
-        req = urllib.request.Request(url, data=body, headers=self._headers(), method="POST")
-        try:
-            resp = urllib.request.urlopen(req, timeout=int(self.cfg.get("timeout") or 25))
-            txt = resp.read().decode("utf-8", "replace")
-            r = json.loads(txt)
-            # 业务层正常（code 1）才清零失败计数；返回"无权请求"不算 IP 封禁
-            self._gate_ok()
-            return r
-        except Exception as e:
-            hard = any(k in str(e) for k in ("444", "ConnectionReset", "RemoteDisconnected", "timed out"))
-            self._gate_fail(hard=hard)
-            return {"code": 0, "msg": "请求失败: %s" % e}
+        to = int(self.cfg.get("timeout") or 10)
+        errs = []
+        for i, base in enumerate(list(self._bases)):
+            url = base + path
+            try:
+                req = urllib.request.Request(url, data=body, headers=self._headers(), method="POST")
+                resp = urllib.request.urlopen(req, timeout=to)
+                txt = resp.read().decode("utf-8", "replace")
+                r = json.loads(txt)
+                if i:
+                    # 命中的 base 提到最前，下次直接用它
+                    try:
+                        self._bases.remove(base)
+                        self._bases.insert(0, base)
+                    except Exception:
+                        pass
+                # 业务层正常（code 1）才清零失败计数；返回"无权请求"不算 IP 封禁
+                self._gate_ok()
+                return r
+            except Exception as e:
+                errs.append("%s -> %s" % (base.split("//", 1)[-1].split("/")[0], e))
+                continue
+        # 全部 base 都失败才算一次失败；网络类错误可熔断，业务错误不熔断
+        hard = all(any(k in x for k in ("444", "ConnectionReset", "RemoteDisconnected", "timed out"))
+                   for x in errs) if errs else False
+        self._gate_fail(hard=hard)
+        return {"code": 0, "msg": "请求失败: %s" % (errs[-1] if errs else "无可用线路")}
 
     def _decode(self, b64):
         """响应 data -> 内层 dict"""
@@ -491,7 +522,7 @@ class Spider(BaseSpider):
     # 分类列表走 maccms 的 ac=detail（不带斜杠；带斜杠会被 WAF 444 断连）。
     # ac=list 虽然也通，但不返回 vod_pic，会导致整页没有海报，所以用 detail。
     MAC_LIST = "api.php/provide/vod?ac=detail"
-    MAC_BASES = ("https://mk1080.top/", "http://154.201.81.41:1688/")
+    MAC_BASES = ("http://154.201.81.41:1688/", "https://mk1080.top/")
 
     # 实测只有 year 参数生效（class/area/lang 后端直接忽略）
     YEARS = ["2026", "2025", "2024", "2023", "2022", "2021", "2020", "2019", "2018"]
