@@ -6748,481 +6748,457 @@ _INIT_FILLER = {
 }
 
 
+# ===== 山楂(小山) 同后端 43.248.128.122:578 —— 已切换为 MiNO ECDH 新协议 =====
+import json, time, base64, hashlib, hmac, random
+import urllib.parse
+import urllib.request
+
+# ============================================================ 纯 Python AES-256-GCM
+_mno_SBOX = [
+    0x63,0x7C,0x77,0x7B,0xF2,0x6B,0x6F,0xC5,0x30,0x01,0x67,0x2B,0xFE,0xD7,0xAB,0x76,
+    0xCA,0x82,0xC9,0x7D,0xFA,0x59,0x47,0xF0,0xAD,0xD4,0xA2,0xAF,0x9C,0xA4,0x72,0xC0,
+    0xB7,0xFD,0x93,0x26,0x36,0x3F,0xF7,0xCC,0x34,0xA5,0xE5,0xF1,0x71,0xD8,0x31,0x15,
+    0x04,0xC7,0x23,0xC3,0x18,0x96,0x05,0x9A,0x07,0x12,0x80,0xE2,0xEB,0x27,0xB2,0x75,
+    0x09,0x83,0x2C,0x1A,0x1B,0x6E,0x5A,0xA0,0x52,0x3B,0xD6,0xB3,0x29,0xE3,0x2F,0x84,
+    0x53,0xD1,0x00,0xED,0x20,0xFC,0xB1,0x5B,0x6A,0xCB,0xBE,0x39,0x4A,0x4C,0x58,0xCF,
+    0xD0,0xEF,0xAA,0xFB,0x43,0x4D,0x33,0x85,0x45,0xF9,0x02,0x7F,0x50,0x3C,0x9F,0xA8,
+    0x51,0xA3,0x40,0x8F,0x92,0x9D,0x38,0xF5,0xBC,0xB6,0xDA,0x21,0x10,0xFF,0xF3,0xD2,
+    0xCD,0x0C,0x13,0xEC,0x5F,0x97,0x44,0x17,0xC4,0xA7,0x7E,0x3D,0x64,0x5D,0x19,0x73,
+    0x60,0x81,0x4F,0xDC,0x22,0x2A,0x90,0x88,0x46,0xEE,0xB8,0x14,0xDE,0x5E,0x0B,0xDB,
+    0xE0,0x32,0x3A,0x0A,0x49,0x06,0x24,0x5C,0xC2,0xD3,0xAC,0x62,0x91,0x95,0xE4,0x79,
+    0xE7,0xC8,0x37,0x6D,0x8D,0xD5,0x4E,0xA9,0x6C,0x56,0xF4,0xEA,0x65,0x7A,0xAE,0x08,
+    0xBA,0x78,0x25,0x2E,0x1C,0xA6,0xB4,0xC6,0xE8,0xDD,0x74,0x1F,0x4B,0xBD,0x8B,0x8A,
+    0x70,0x3E,0xB5,0x66,0x48,0x03,0xF6,0x0E,0x61,0x35,0x57,0xB9,0x86,0xC1,0x1D,0x9E,
+    0xE1,0xF8,0x98,0x11,0x69,0xD9,0x8E,0x94,0x9B,0x1E,0x87,0xE9,0xCE,0x55,0x28,0xDF,
+    0x8C,0xA1,0x89,0x0D,0xBF,0xE6,0x42,0x68,0x41,0x99,0x2D,0x0F,0xB0,0x54,0xBB,0x16]
+_mno_RCON = [0x00,0x01,0x02,0x04,0x08,0x10,0x20,0x40,0x80,0x1B,0x36]
+
+
+def _mno_xt(a):
+    return ((a << 1) ^ 0x1B) & 0xFF if a & 0x80 else (a << 1) & 0xFF
+
+
+def _mno_mul(a, b):
+    r = 0
+    while b:
+        if b & 1:
+            r ^= a
+        a = _mno_xt(a)
+        b >>= 1
+    return r
+
+
+class _mno_AES(object):
+    def __init__(self, key):
+        self.nk = len(key) // 4
+        self.nr = self.nk + 6
+        w = [list(key[4 * i:4 * i + 4]) for i in range(self.nk)]
+        for i in range(self.nk, 4 * (self.nr + 1)):
+            t = list(w[i - 1])
+            if i % self.nk == 0:
+                t = t[1:] + t[:1]
+                t = [_mno_SBOX[b] for b in t]
+                t[0] ^= _mno_RCON[i // self.nk]
+            elif self.nk > 6 and i % self.nk == 4:
+                t = [_mno_SBOX[b] for b in t]
+            w.append([w[i - self.nk][j] ^ t[j] for j in range(4)])
+        self.rk = w
+
+    def enc(self, blk):
+        s = [[blk[r + 4 * c] for c in range(4)] for r in range(4)]
+        self._ark(s, 0)
+        for rnd in range(1, self.nr):
+            self._sub(s); self._shift(s); self._mix(s); self._ark(s, rnd)
+        self._sub(s); self._shift(s); self._ark(s, self.nr)
+        return bytes(s[r][c] for c in range(4) for r in range(4))
+
+    def _ark(self, s, rnd):
+        for c in range(4):
+            for r in range(4):
+                s[r][c] ^= self.rk[4 * rnd + c][r]
+
+    def _sub(self, s):
+        for r in range(4):
+            for c in range(4):
+                s[r][c] = _mno_SBOX[s[r][c]]
+
+    def _shift(self, s):
+        for r in range(1, 4):
+            s[r] = s[r][r:] + s[r][:r]
+
+    def _mix(self, s):
+        for c in range(4):
+            a = [s[r][c] for r in range(4)]
+            s[0][c] = _mno_mul(a[0], 2) ^ _mno_mul(a[1], 3) ^ a[2] ^ a[3]
+            s[1][c] = a[0] ^ _mno_mul(a[1], 2) ^ _mno_mul(a[2], 3) ^ a[3]
+            s[2][c] = a[0] ^ a[1] ^ _mno_mul(a[2], 2) ^ _mno_mul(a[3], 3)
+            s[3][c] = _mno_mul(a[0], 3) ^ a[1] ^ a[2] ^ _mno_mul(a[3], 2)
+
+
+def _mno_gcm_dec(key, blob):
+    iv = blob[:12]
+    body = blob[12:]
+    if len(body) < 16:
+        return b""
+    ct = body[:-16]
+    aes = _mno_AES(key)
+    out = bytearray()
+    ctr = 2
+    for i in range(0, len(ct), 16):
+        ks = aes.enc(iv + (ctr & 0xFFFFFFFF).to_bytes(4, "big"))
+        chunk = ct[i:i + 16]
+        out += bytes(a ^ b for a, b in zip(chunk, ks))
+        ctr += 1
+    return bytes(out)
+
+
+# ============================================================ 纯 Python secp256r1 ECDH
+_mno_EC_P = 0xFFFFFFFF00000001000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF
+_mno_EC_A = _mno_EC_P - 3
+_mno_EC_G = (0x6B17D1F2E12C4247F8BCE6E563A440F277037D812DEB33A0F4A13945D898C296,
+         0x4FE342E2FE1A7F9B8EE7EB4A7C0F9E162BCE33576B315ECECBB6406837BF51F5)
+_mno_EC_N = 0xFFFFFFFF00000000FFFFFFFFFFFFFFFFBCE6FAADA7179E84F3B9CAC2FC632551
+
+
+def _mno_ec_add(p1, p2):
+    if p1 is None:
+        return p2
+    if p2 is None:
+        return p1
+    x1, y1 = p1
+    x2, y2 = p2
+    if x1 == x2 and (y1 + y2) % _mno_EC_P == 0:
+        return None
+    if x1 == x2 and y1 == y2:
+        lam = (3 * x1 * x1 + _mno_EC_A) * pow(2 * y1, _mno_EC_P - 2, _mno_EC_P) % _mno_EC_P
+    else:
+        lam = (y2 - y1) * pow(x2 - x1, _mno_EC_P - 2, _mno_EC_P) % _mno_EC_P
+    x3 = (lam * lam - x1 - x2) % _mno_EC_P
+    return (x3, (lam * (x1 - x3) - y1) % _mno_EC_P)
+
+
+def _mno_ec_mul(k, pt):
+    r = None
+    q = pt
+    while k:
+        if k & 1:
+            r = _mno_ec_add(r, q)
+        q = _mno_ec_add(q, q)
+        k >>= 1
+    return r
+
+
+def _mno_ec_gen():
+    d = random.randrange(1, _mno_EC_N)
+    q = _mno_ec_mul(d, _mno_EC_G)
+    pub = b"\x04" + q[0].to_bytes(32, "big") + q[1].to_bytes(32, "big")
+    return d, pub
+
+
+def _mno_ec_shared(d, pub65):
+    x = int.from_bytes(pub65[1:33], "big")
+    y = int.from_bytes(pub65[33:65], "big")
+    s = _mno_ec_mul(d, (x, y))
+    return s[0].to_bytes(32, "big")
+
+
+# ============================================================ Spider
 class ShanZhaSpider(BaseSpider):
-    CONFIG = {
-        "base": "http://43.248.128.122:578",
-        "username": "sukeke",
-        "password": "sukeke.1",
-        # 账号 sukeke 已绑定的设备号,换账号请改成自己的
-        "device_id": "de94cd65-a825-4972-adf9-7dbece13e9f1",
-        "timeout": 30,
-        "user_agent": "Mozilla/5.0 (Linux; Android 12) okhttp/3.12.1",
-        "page_size": 20,
-        "auto_fallback": 1,   # 当前线路解析失败时自动降级到其它可用线路
-    }
-
     def __init__(self):
-        super().__init__()
-        self.cfg = dict(self.CONFIG)
-        self.base = self.CONFIG["base"].rstrip("/")
-        self.device_id = ""
-        self.jwt = ""
-        self.session_id = ""
-        self.sign_key = ""
-        self._types = []
-        self._http = None
-        self._lines = []          # 上次详情里的线路顺序(用于降级)
-        self._tkmap = {}          # tk -> {"name","code","ep"} 索引
+        self.base = "http://43.248.128.122:578"
+        self.ua = "okhttp/4.12.0"
+        self.ver = "1.0.23"
+        self.dev = ""
+        self.sid = ""
+        self.m = None
+        self.n = None
+        self.t0 = 0
+        self.l0 = 0
+        self.exp = 0
+        self.types_cache = None
 
-    # ================================================================= 基础
     def getName(self):
-        return "小山"
+        return "山楂"
 
     def init(self, extend=""):
-        self.cfg = dict(self.CONFIG)
-        if isinstance(extend, dict):
-            self.cfg.update(extend)
-        elif isinstance(extend, str) and extend.strip():
+        if extend:
             try:
-                self.cfg.update(json.loads(extend))
+                cfg = json.loads(extend) if isinstance(extend, str) else extend
+                if isinstance(cfg, dict) and cfg.get("base"):
+                    self.base = str(cfg["base"]).rstrip("/")
             except Exception:
-                for kv in str(extend).split(","):
-                    if "=" in kv:
-                        k, v = kv.split("=", 1)
-                        self.cfg[k.strip()] = v.strip()
-
-        self.base = str(self.cfg["base"]).rstrip("/")
-        self.device_id = str(self.cfg.get("device_id") or "").strip()
-        if not self.device_id:
-            self.device_id = uuid.uuid4().hex.upper()
-            self._save_device_id(self.device_id)
-
-        self._http = requests.Session() if requests else None
-        if self._http:
-            self._http.headers.update({"User-Agent": self.cfg.get("user_agent", "okhttp/3.12.1")})
-
-        try:
-            self._ensure_session()
-        except Exception:
-            pass
-
-    def _save_device_id(self, did):
-        for p in ("/sdcard/.xiaoshan_did", "/storage/emulated/0/.xiaoshan_did"):
-            try:
-                with open(p, "w") as f:
-                    f.write(did)
-                return
-            except Exception:
-                continue
+                pass
+        return None
 
     def isVideoFormat(self, url):
-        u = str(url or "").lower()
-        return any(x in u for x in (".m3u8", ".mp4", ".flv", ".ts", "cmecloud", "apdcdn"))
-
-    def manualVideoCheck(self):
-        return False
+        u = (url or "").lower()
+        return ".m3u8" in u or ".mp4" in u or "m3u8" in u
 
     def destroy(self):
-        try:
-            if self._http:
-                self._http.close()
-        except Exception:
-            pass
+        pass
 
-    def localProxy(self, param):
-        return [404, "text/plain", "", None]
+    # ---------------------------------------------------------- 会话
+    def _newsession(self):
+        d, pub = _mno_ec_gen()
+        self.dev = "".join(random.choice("0123456789abcdef") for _ in range(16))
+        payload = json.dumps({
+            "platform": "android", "version": self.ver, "device_id": self.dev,
+            "client_pub": base64.b64encode(pub).decode(),
+            "device_brand": "vivo", "device_manufacturer": "vivo", "device_model": "V2364A",
+        }, separators=(",", ":"))
+        req = urllib.request.Request(
+            self.base + "/api/v1/security/init", data=payload.encode(),
+            headers={"User-Agent": self.ua, "Content-Type": "application/json; charset=utf-8",
+                     "X-App-Version": self.ver, "X-Device-Id": self.dev}, method="POST")
+        raw = urllib.request.urlopen(req, timeout=20).read().decode("utf-8", "replace")
+        obj = json.loads(raw)
+        data = obj.get("data") or {}
+        self.sid = data.get("session_id") or ""
+        self.t0 = int(data.get("server_time") or time.time())
+        self.l0 = time.time()
+        self.exp = int(data.get("expires_in") or 600)
+        spub = data.get("server_pub") or ""
+        if spub and len(base64.b64decode(spub)) == 65:
+            sec = _mno_ec_shared(d, base64.b64decode(spub))
+            s1 = hmac.new(self.sid.encode(), sec, hashlib.sha256).digest()
+            self.m = hmac.new(s1, b"bwv/apisec/ecdh-signkey/v1\x01", hashlib.sha256).digest()
+            self.n = hmac.new(s1, b"bwv/apisec/ecdh-bodykey/v1\x01", hashlib.sha256).digest()
+        else:
+            sk = (data.get("sign_key") or "").encode()
+            self.m = sk
+            self.n = sk
+        return bool(self.sid and self.m)
 
-    # ================================================================= HTTP
-    def _headers(self, extra=None):
-        h = {"User-Agent": self.cfg.get("user_agent", "okhttp/3.12.1")}
-        if self.jwt:
-            h["Authorization"] = "Bearer " + self.jwt
-        if self.session_id:
-            h["X-Session-Id"] = self.session_id
-        if extra:
-            h.update(extra)
-        return h
-
-    def _get(self, path, params=None, headers=None, timeout=None):
-        url = path if path.startswith("http") else self.base + path
-        t = timeout or self.cfg.get("timeout", 20)
-        try:
-            if self._http:
-                r = self._http.get(url, headers=self._headers(headers), params=params, timeout=t)
-            else:
-                q = ("?" + urllib.parse.urlencode(params)) if params else ""
-                req = urllib.request.Request(url + q, headers=self._headers(headers))
-                r = _DIRECT.open(req, timeout=t)
-                body = r.read().decode("utf-8", "replace")
-                return json.loads(body)
-            return r.json()
-        except Exception as e:
-            return {"code": 0, "msg": "请求失败: %s" % e}
-
-    def _post(self, path, payload, headers=None, timeout=None):
-        url = path if path.startswith("http") else self.base + path
-        t = timeout or self.cfg.get("timeout", 20)
-        hh = self._headers(headers)
-        hh["Content-Type"] = "application/json"
-        try:
-            if self._http:
-                r = self._http.post(url, json=payload, headers=hh, timeout=t)
-            else:
-                data = json.dumps(payload).encode("utf-8")
-                req = urllib.request.Request(url, data=data, headers=hh)
-                r = _DIRECT.open(req, timeout=t)
-                body = r.read().decode("utf-8", "replace")
-                return json.loads(body)
-            return r.json()
-        except Exception as e:
-            return {"code": 0, "msg": "请求失败: %s" % e}
-
-    def _get_text(self, url, headers=None, timeout=None, retry=2):
-        """带 Referer + 重试的 GET(外部解析接口冷启动较慢)"""
-        t = timeout or self.cfg.get("timeout", 30)
-        hh = self._headers(headers)
-        hh.setdefault("Referer", "https://www.google.com/")
-        last = ""
-        for i in range(max(1, retry)):
-            try:
-                if self._http:
-                    r = self._http.get(url, headers=hh, timeout=t)
-                    return r.status_code, r.text
-                req = urllib.request.Request(url, headers=hh)
-                resp = _DIRECT.open(req, timeout=t)
-                return resp.getcode(), resp.read().decode("utf-8", "replace")
-            except Exception as e:
-                last = str(e)
-                if i < retry - 1:
-                    time.sleep(1.2)
-        return 0, last
-
-    # ================================================================= 会话
-    def _login(self):
-        r = self._post("/api/v1/user/login", {
-            "Username": self.cfg.get("username"),
-            "Password": self.cfg.get("password"),
-            "device_id": self.device_id,
-        })
-        if r.get("code") == 1 and isinstance(r.get("data"), dict):
-            t = r["data"].get("token")
-            if t:
-                self.jwt = t
-                return True
-        return False
-
-    def _handshake(self):
-        ch = self._get("/api/v1/security/challenge")
-        if ch.get("code") != 1 or not isinstance(ch.get("data"), dict):
-            return False
-        challenge = ch["data"].get("challenge")
-        cid = ch["data"].get("challenge_id")
-        if not challenge or not cid:
-            return False
-
-        payload = {
-            "challenge": challenge,
-            "challenge_id": cid,
-            "device_id": self.device_id,
-            "token": self.jwt,
-            "client_token": "",
-            "timestamp": int(time.time()),
-            "nonce": uuid.uuid4().hex,
-            "username": self.cfg.get("username"),
-            "password": self.cfg.get("password"),
-        }
-        payload.update(_INIT_FILLER)
-
-        r = self._post("/api/v1/security/init", payload)
-        if r.get("code") == 1 and isinstance(r.get("data"), dict):
-            self.session_id = r["data"].get("session_id") or ""
-            self.sign_key = r["data"].get("sign_key") or ""
-            return bool(self.session_id)
-        return False
-
-    def _ensure_session(self):
-        if not self.jwt and not self._login():
-            return False
-        if not self.session_id and not self._handshake():
+    def _ensure(self):
+        if not self.sid or not self.m or (time.time() - self.l0) > (self.exp - 60):
+            for _ in range(3):
+                try:
+                    if self._newsession():
+                        return True
+                except Exception:
+                    time.sleep(0.3)
             return False
         return True
 
-    def _sign_headers(self, path, body=""):
-        """基于 sign_key 的设备签名(服务端 sign_policy=observe,属扩展用途)"""
-        if not self.sign_key:
-            return {}
-        try:
-            key = bytes.fromhex(self.sign_key)
-        except Exception:
-            return {}
-        ts = str(int(time.time() * 1000))
-        nonce = uuid.uuid4().hex
-        msg = (ts + nonce + path + (body or "")).encode("utf-8")
-        sg = hmac.new(key, msg, hashlib.sha256).hexdigest()
-        return {"X-Timestamp": ts, "X-Nonce": nonce, "X-Sign": sg,
-                "X-Device-Sign": sg, "X-Device-Id": self.device_id}
-
-    # ================================================================= 分类
-    def _detect_types(self):
-        """遍历 type 自动发现分类表"""
-        found = []
-        for tid in list(range(1, 31)) + [40, 50, 60, 99]:
+    # ---------------------------------------------------------- 请求
+    def _request(self, path, params=None, body=None):
+        if not self._ensure():
+            return {"code": 0, "msg": "会话建立失败"}
+        method = "GET" if body is None else "POST"
+        params = params or {}
+        qs = "&".join("%s=%s" % (k, v) for k, v in params.items())
+        canon = "&".join("%s=%s" % (k, v) for k, v in sorted(params.items()))
+        bs = "" if body is None else json.dumps(body, separators=(",", ":"), ensure_ascii=False)
+        bh = hashlib.sha256(bs.encode()).hexdigest()
+        ts = str(int(self.t0 + (time.time() - self.l0)))
+        no = "".join(random.choice("0123456789abcdef") for _ in range(32))
+        sigstr = "\n".join([method, path, canon, bh, ts, no, self.dev, self.sid, self.ver])
+        sign = hmac.new(self.m, sigstr.encode(), hashlib.sha256).hexdigest()
+        headers = {
+            "User-Agent": self.ua, "X-Session-Id": self.sid, "X-Timestamp": ts,
+            "X-Nonce": no, "X-Sign": sign, "X-Body-Sha256": bh,
+            "X-App-Version": self.ver, "X-Device-Id": self.dev,
+            "Content-Type": "application/json; charset=utf-8", "Accept-Encoding": "identity",
+        }
+        url = self.base + path + ("?" + qs if qs else "")
+        data = bs.encode() if body is not None else None
+        req = urllib.request.Request(url, data=data, headers=headers, method=method)
+        txt = urllib.request.urlopen(req, timeout=25).read().decode("utf-8", "replace")
+        obj = json.loads(txt)
+        dd = obj.get("data")
+        if isinstance(dd, dict) and dd.get("enc") == 1:
             try:
-                r = self._get("/api/v1/search", params={"wd": "*", "type": tid, "page": 1})
+                obj["data"] = json.loads(_mno_gcm_dec(self.n, base64.b64decode(dd["payload"])).decode("utf-8"))
             except Exception:
-                continue
-            if r.get("code") != 1:
-                continue
-            hits = ((r.get("data") or {}).get("hits")) or []
-            if not hits:
-                continue
-            h0 = hits[0]
-            if h0.get("type_id") and h0.get("type_name"):
-                found.append((int(h0["type_id"]), str(h0["type_name"])))
-        if found:
-            self._types = sorted(set(found))
-        return self._types
+                obj["data"] = {}
+        return obj
+
+    # ---------------------------------------------------------- 首页
+    def _types(self):
+        if self.types_cache:
+            return self.types_cache
+        out = []
+        try:
+            r = self._request("/api/v1/category/filters", {"type_id": "1"})
+            cats = ((r.get("data") or {}).get("categories") or [])
+            for c in cats:
+                out.append({"type_id": str(c.get("type_id")), "type_name": c.get("type_name")})
+        except Exception:
+            out = []
+        if not out:
+            out = [{"type_id": "1", "type_name": "电影"}, {"type_id": "2", "type_name": "连续剧"},
+                   {"type_id": "3", "type_name": "综艺"}, {"type_id": "4", "type_name": "动漫"},
+                   {"type_id": "20", "type_name": "短剧"}, {"type_id": "21", "type_name": "少儿"},
+                   {"type_id": "22", "type_name": "漫剧"}, {"type_id": "23", "type_name": "纪录片"}]
+        self.types_cache = out
+        return out
 
     def homeContent(self, filter):
-        self._ensure_session()
-        if not self._types:
-            self._types = list(KNOWN_TYPES)
-        classes = [{"type_id": str(t), "type_name": n} for t, n in self._types]
-        return {"class": classes, "filters": {}}
+        return {"class": self._types(), "filters": {}}
 
     def homeVideoContent(self):
         try:
-            return self.categoryContent(self._types[0][0] if self._types else "1", 1, False, {})
+            return self.categoryContent("2", 1, False, {})
         except Exception:
             return {"list": []}
 
-    # ================================================================= 列表
-    def _search(self, wd, page=1, type_id=None):
-        """search 接口限流较严,遇"请求过于频繁"自动退避重试"""
-        params = {"wd": wd, "page": page}
-        if type_id:
-            params["type"] = type_id
-        delays = [0, 2.5, 5, 9, 15]
-        r = {"code": 0}
-        for i, d in enumerate(delays):
-            if d:
-                time.sleep(d)
-            r = self._get("/api/v1/search", params=params)
-            if r.get("code") == 1:
-                break
-            msg = str(r.get("msg") or "")
-            if "频繁" not in msg and "rate" not in msg.lower():
-                break
-        if r.get("code") != 1:
-            return [], 1, 0
-        data = r.get("data") or {}
-        hits = data.get("hits") or []
-        total = int(data.get("total") or 0)
-        pages = int(data.get("total_pages") or 1)
-        return hits, pages, total
-
+    # ---------------------------------------------------------- 列表
     @staticmethod
-    def _item(it):
+    def _vitem(it):
         return {
-            "vod_id": str(it.get("vod_id") or ""),
-            "vod_name": str(it.get("vod_name") or ""),
-            "vod_pic": str(it.get("vod_pic") or ""),
-            "vod_remarks": str(it.get("vod_remarks") or ""),
+            "vod_id": str(it.get("vod_id")),
+            "vod_name": it.get("vod_name") or "",
+            "vod_pic": it.get("vod_pic") or "",
+            "vod_remarks": it.get("vod_remarks") or "",
             "vod_year": str(it.get("vod_year") or ""),
-            "vod_area": str(it.get("vod_area") or ""),
-            "vod_class": str(it.get("vod_class") or ""),
-            "vod_actor": str(it.get("vod_actor") or ""),
-            "vod_director": str(it.get("vod_director") or ""),
-            "vod_content": str(it.get("vod_blurb") or it.get("vod_content") or ""),
+            "vod_area": it.get("vod_area") or "",
         }
 
     def categoryContent(self, tid, pg, filter, extend):
-        self._ensure_session()
         try:
-            pg = int(pg or 1)
+            page = int(pg or 1)
         except Exception:
-            pg = 1
-        hits, pages, total = self._search("*", pg, str(tid))
-        lst = [self._item(it) for it in hits]
-        return {"list": lst, "page": pg, "pagecount": pages,
-                "limit": self.cfg.get("page_size", 20), "total": total}
-
-    def searchContent(self, key, quick, pg="1"):
-        self._ensure_session()
+            page = 1
         try:
-            pg = int(pg or 1)
+            r = self._request("/api/v1/category/videos",
+                              {"page": str(page), "page_size": "20", "type_id": str(tid)})
+            data = r.get("data") or {}
+            vids = data.get("videos") or []
+            pginfo = data.get("pagination") or {}
+            total = int(pginfo.get("total") or 0)
+            pages = int(pginfo.get("total_pages") or 0)
+            return {"list": [self._vitem(v) for v in vids], "page": page,
+                    "pagecount": pages if pages else (total // 20 + 1),
+                    "limit": 20, "total": total}
         except Exception:
-            pg = 1
-        hits, pages, total = self._search(str(key), pg)
-        lst = [self._item(it) for it in hits]
-        return {"list": lst, "page": pg, "pagecount": pages, "total": total}
+            return {"list": [], "page": page, "pagecount": 1, "limit": 20, "total": 0}
 
-    # ================================================================= 详情
+    # ---------------------------------------------------------- 详情
     def detailContent(self, ids):
-        self._ensure_session()
-        if not ids:
+        vid = ids[0] if isinstance(ids, list) else str(ids)
+        if isinstance(vid, str) and "|" in vid:
+            vid = vid.split("|")[0]
+        try:
+            r = self._request("/api/v1/video/detail", {"id": str(vid)})
+            data = r.get("data") or {}
+            info = data.get("vod_info") or {}
+            players = info.get("vod_url_with_player") or []
+            froms, urls = [], []
+            for p in players:
+                name = p.get("name") or p.get("code") or "线路"
+                eps = (p.get("url") or "").split("#")
+                parts = []
+                for e in eps:
+                    if not e.strip():
+                        continue
+                    if "$" in e:
+                        epname, epurl = e.split("$", 1)
+                    else:
+                        epname, epurl = "正片", e
+                    parts.append("%s$%s" % (epname, epurl))
+                if parts:
+                    froms.append(name)
+                    urls.append("#".join(parts))
+            if not froms:
+                return {"list": []}
+            vod = {
+                "vod_id": str(vid),
+                "vod_name": info.get("vod_name") or "",
+                "vod_pic": info.get("vod_pic") or "",
+                "vod_year": str(info.get("vod_year") or ""),
+                "vod_area": info.get("vod_area") or "",
+                "vod_lang": info.get("vod_lang") or "",
+                "vod_actor": info.get("vod_actor") or "",
+                "vod_director": info.get("vod_director") or "",
+                "vod_remarks": info.get("vod_remarks") or "",
+                "vod_content": (info.get("vod_blurb") or info.get("vod_content") or "").strip(),
+                "vod_play_from": "$$$".join(froms),
+                "vod_play_url": "$$$".join(urls),
+            }
+            return {"list": [vod]}
+        except Exception:
             return {"list": []}
-        vid = str(ids[0]).split(",")[0]
-        path = "/api/v1/video/detail"
-        r = self._get(path, headers=self._sign_headers(path), params={"id": vid})
-        if r.get("code") != 1 or not isinstance(r.get("data"), dict):
+
+    # ---------------------------------------------------------- 搜索
+    def searchContent(self, key, quick, pg="1"):
+        try:
+            page = int(pg or 1)
+        except Exception:
+            page = 1
+        q = urllib.parse.quote(str(key))
+        try:
+            r = self._request("/api/v1/search", {"page": str(page), "wd": q})
+            data = r.get("data") or {}
+            hits = data.get("hits") or data.get("videos") or []
+            return {"list": [self._vitem(v) for v in hits], "page": page}
+        except Exception:
             return {"list": []}
-        vi = r["data"].get("vod_info") or {}
 
-        play_from, play_url, self._lines = [], [], []
-        self._tkmap = {}
-        for idx, line in enumerate(vi.get("vod_url_with_player") or []):
-            name = str(line.get("name") or "")
-            code = str(line.get("code") or "")
-            eps, tks = [], []
-            for ep_i, seg in enumerate(str(line.get("url") or "").split("#")):
-                if not seg:
-                    continue
-                if "$" in seg:
-                    ep_name, tk = seg.split("$", 1)
-                else:
-                    ep_name, tk = seg, ""
-                if not ep_name:
-                    continue
-                # 播放 id: 线路码|tk票根
-                eps.append(ep_name + "$" + code + "|" + tk)
-                tks.append(tk)
-                self._tkmap[tk] = {"name": name, "code": code, "ep": ep_i}
-            if not eps:
-                continue
-            self._lines.append({"index": idx, "name": name, "code": code, "tks": tks})
-            play_from.append(name or code)
-            play_url.append("#".join(eps))
+    # ---------------------------------------------------------- 播放
+    def _ticket(self, tk):
+        try:
+            r = self._request("/api/v1/vod/ticket", None, {"token": tk})
+            if r.get("code") == 1:
+                return ((r.get("data") or {}).get("ticket")) or ""
+        except Exception:
+            pass
+        return ""
 
-        if not play_url and vi.get("vod_play_url"):
-            play_from = [vi.get("vod_play_from") or "线路"]
-            play_url = [vi.get("vod_play_url")]
-
-        return {"list": [{
-            "vod_id": vid,
-            "vod_name": str(vi.get("vod_name") or ""),
-            "vod_pic": str(vi.get("vod_pic") or ""),
-            "vod_actor": str(vi.get("vod_actor") or ""),
-            "vod_director": str(vi.get("vod_director") or ""),
-            "vod_year": str(vi.get("vod_year") or ""),
-            "vod_area": str(vi.get("vod_area") or ""),
-            "vod_lang": str(vi.get("vod_lang") or ""),
-            "vod_class": str(vi.get("vod_class") or ""),
-            "vod_state": str(vi.get("vod_state") or ""),
-            "vod_total": str(vi.get("vod_total") or ""),
-            "vod_serial": str(vi.get("vod_serial") or ""),
-            "vod_remarks": str(vi.get("vod_remarks") or ""),
-            "vod_content": str(vi.get("vod_content") or vi.get("vod_blurb") or ""),
-            "vod_play_from": "$$$".join(play_from),
-            "vod_play_url": "$$$".join(play_url),
-        }]}
-
-    # ================================================================= 播放
-    def _decode_ticket(self, ticket):
-        """play_ticket 第一段是 base64url 明文 JSON"""
+    def _resolve(self, tk):
+        ticket = self._ticket(tk)
+        if not ticket:
+            return ""
         try:
             seg = ticket.split(".")[0]
             seg += "=" * (-len(seg) % 4)
-            return json.loads(base64.urlsafe_b64decode(seg).decode("utf-8", "replace"))
+            payload = json.loads(base64.urlsafe_b64decode(seg).decode("utf-8", "replace"))
         except Exception:
-            return None
-
-    def _ticket(self, tk):
-        """tk -> play_ticket"""
-        r = self._post("/api/v1/vod/ticket", {"token": tk},
-                       headers=self._sign_headers("/api/v1/vod/ticket"))
-        if r.get("code") == 1 and isinstance(r.get("data"), dict):
-            return r["data"].get("ticket")
-        return None
-
-    def _resolve(self, tk):
-        """play_ticket -> 真实播放地址"""
-        ticket = self._ticket(tk)
-        if not ticket:
-            return None, "换票失败"
-        pl = self._decode_ticket(ticket)
-        if not pl:
-            return None, "票据解析失败"
-        d = pl.get("data") or {}
-        api = str(d.get("parse_api") or "").replace("\\u00026", "&")
+            return ""
+        d = payload.get("data") or {}
+        api = str(d.get("parse_api") or "").replace("\\u0026", "&")
         du = str(d.get("url") or "")
         if not api or not du:
-            return None, "无解析配置"
-
-        # ① 服务端本地解析(相对路径)
+            return ""
         if api.startswith("/"):
-            full = self.base + api + urllib.parse.quote(du, safe="")
-            code, text = self._get_text(full)
-            j = self._try_json(text)
-            if isinstance(j, dict):
-                if j.get("url"):
-                    return j["url"], ""
-                msg = str(j.get("system") or j.get("msg") or "解析失败")
-                return None, msg
-            if code == 200 and text.startswith("http"):
-                return text.strip(), ""
-            return None, "解析失败(%s)" % code
-
-        # ② 外部解析接口
+            u = urllib.parse.urlsplit(api)
+            params = dict(urllib.parse.parse_qsl(u.query, keep_blank_values=True))
+            params["url"] = du
+            try:
+                r = self._request(u.path, params)
+                if isinstance(r, dict):
+                    if r.get("url"):
+                        return str(r["url"])
+                    if r.get("data") and isinstance(r["data"], dict) and r["data"].get("url"):
+                        return str(r["data"]["url"])
+            except Exception:
+                pass
+            return ""
         if "{md5}" in api:
             target = api.replace("{md5}", du)
         elif "url=" in api:
             target = api + urllib.parse.quote(du, safe="")
         else:
             target = api + du
-        code, text = self._get_text(target)
-        j = self._try_json(text)
-        if isinstance(j, dict):
-            if j.get("url"):
-                return j["url"], ""
-            return None, str(j.get("msg") or "外部解析失败")
-        if code == 200 and text.startswith("http"):
-            return text.strip(), ""
-        return None, "外部解析失败(%s)" % code
-
-    @staticmethod
-    def _try_json(text):
         try:
-            t = (text or "").strip()
-            if t.startswith("{") or t.startswith("["):
-                return json.loads(t)
+            txt = urllib.request.urlopen(urllib.request.Request(
+                target, headers={"User-Agent": self.ua}), timeout=25).read().decode("utf-8", "replace")
+            j = json.loads(txt)
+            return str(j.get("url") or "")
         except Exception:
-            return None
-        return None
+            return ""
 
     def playerContent(self, flag, id, vipFlags=None):
-        self._ensure_session()
-        if not id:
-            return {"parse": 0, "url": "", "header": {}}
-        code, tk = "", id
-        if "|" in id:
-            code, tk = id.split("|", 1)
-
-        # 1) 优先按当前线路解析
-        url, err = self._resolve(tk)
-
-        # 2) 当前线路失败(付费/失效/超时)→ 自动降级到其它线路的同一集
-        if not url and self.cfg.get("auto_fallback", 1):
-            cur = self._tkmap.get(tk) or {}
-            ep = cur.get("ep", 0)
-            for ln in self._lines:
-                if ln.get("code") == code:
-                    continue
-                tks = ln.get("tks") or []
-                if ep >= len(tks):
-                    continue
-                u2, _e2 = self._resolve(tks[ep])
-                if u2:
-                    url = u2
-                    err = ""
-                    break
-
-        if url:
-            return {"parse": 0, "url": url, "header": {
-                "User-Agent": self.cfg.get("user_agent", "okhttp/3.12.1"),
-                "Referer": "https://www.google.com/",
-            }}
-        return {"parse": 0, "url": "", "header": {}, "msg": err or "播放失败"}
+        tk = str(id or "")
+        if "|" in tk:
+            tk = tk.split("|")[-1]
+        url = ""
+        try:
+            url = self._resolve(tk)
+        except Exception:
+            url = ""
+        if not url:
+            return {"parse": 0, "url": "", "header": {}, "msg": "解析失败"}
+        return {"parse": 0, "url": url, "header": {"User-Agent": self.ua}}
 
 
 if __name__ == "__main__":
